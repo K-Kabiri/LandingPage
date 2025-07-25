@@ -9,7 +9,7 @@ const CustomTab = ({fontSize,paddingX, textColor, children}) => {
             sx={{
                 '.MuiTab-root': {
                     color: textColor || theme.palette.text.primary,
-                    fontSize: fontSize || theme.typography.fontSize,
+                    fontSize: theme.typography[fontSize]?.fontSize || theme.typography.fontSize,
                     fontWeight: 500,
                     textTransform: 'none',
                     paddingX: paddingX || 1,
