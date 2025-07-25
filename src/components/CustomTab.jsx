@@ -3,7 +3,6 @@ import theme from "../js/theme.js";
 import React from "react";
 
 const CustomTab = ({fontSize,paddingX, textColor, children}) => {
-    console.log(children)
     return (
         <Tabs
             sx={{
