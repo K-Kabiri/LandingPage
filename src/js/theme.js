@@ -21,7 +21,7 @@ const theme = createTheme({
     },
     typography: {
         fontFamily: 'IRANYekan',
-        fontSize: 14,
+        fontSize: 16,
         lg: {
             fontSize: '1.25rem',
         },

@@ -41,7 +41,7 @@ const Header = () => {
 
                 {isDesktop ? (
                     <Box sx={{direction: 'rtl', display: 'flex', alignItems: 'center'}}>
-                        <CustomTab fontSize={"lg"}>
+                        <CustomTab >
                             {navLinks.map((link) =>
                                 <Tab
                                     key={link.id}
