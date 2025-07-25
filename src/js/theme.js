@@ -9,13 +9,14 @@ const theme = createTheme({
         },
         text: {
             primary: '#000000',
+            secondary: '#6A49F2',
         },
         primary: {
             main: '#6A49F2',
             contrastText: '#ffffff',
         },
         secondary: {
-            main: '#0beee0',
+            main: '#ffffff',
         },
     },
     typography: {

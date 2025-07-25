@@ -1,4 +1,4 @@
-import {Tab, Tabs} from "@mui/material";
+import {Tabs} from "@mui/material";
 import theme from "../js/theme.js";
 import React from "react";
 

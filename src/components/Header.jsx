@@ -12,7 +12,7 @@ import CustomButton from "./CustomButton.jsx";
 import CustomTab from "./CustomTab.jsx";
 
 const Header = () => {
-    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [isMobileMenuOpen,  setIsMobileMenuOpen] = useState(false);
 
 
     const theme1 = useTheme();
@@ -86,8 +86,8 @@ const Header = () => {
                         edge="start"
                         color="inherit"
                         aria-label="menu"
-                        onClick={toggleMobileMenu} // Use the new toggle function
-                        sx={{color: 'text.secondary'}}
+                        onClick={toggleMobileMenu}
+                        sx={{color: 'text.primary'}}
                     >
                         <MenuIcon/>
                     </IconButton>
@@ -99,7 +99,7 @@ const Header = () => {
                 className={`md:hidden ${isMobileMenuOpen ? 'block' : 'hidden'} bg-white border-t border-gray-200 mt-0 py-2`}
                 dir="rtl">
                 {navLinks.map((link) => (
-                    <a key={link.name} href={link.href} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                    <a key={link.name} href={link.href} className="block px-4 py-2 text-gray-700 hover:bg-purple-800">
                         {link.name}
                     </a>
                 ))
@@ -107,26 +107,18 @@ const Header = () => {
                 <div className="px-4 py-2 mt-2">
                     <Box className="grid gap-2">
                         {ctaButtons.map((btn, index) => (
-                            <Button
+                            <CustomButton
                                 key={index}
                                 variant="contained"
                                 onClick={btn.onClick}
-                                sx={{
-                                    backgroundColor: 'primary.main',
-                                    '&:hover': {
-                                        backgroundColor: 'primary.dark',
-                                    },
-                                    color: 'white',
-                                    fontWeight: 'bold',
-                                    py: 1,
-                                    px: 3,
-                                    borderRadius: '8px',
-                                    boxShadow: 3,
-                                    textTransform: 'none',
-                                }}
+                                bgColor={'primary.main'}
+                                textColor="white"
+                                py={1}
+                                px={3}
+                                borderRadius={4}
                             >
                                 {btn.label}
-                            </Button>
+                            </CustomButton>
                         ))}
                     </Box>
                 </div>
