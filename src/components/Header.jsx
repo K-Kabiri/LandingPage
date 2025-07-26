@@ -33,15 +33,15 @@ const Header = () => {
     };
 
     return (
-        <AppBar position="static" sx={{backgroundColor: 'white', padding: '1rem'}}>
-            <Toolbar sx={{justifyContent: 'space-between', width: '100%', maxWidth: 'lg', mx: 'auto'}} dir="rtl">
+        <AppBar position="static" className="p-4" sx={{backgroundColor: "white"}}>
+            <Toolbar className="flex justify-between w-full max-w-screen-lg mx-auto" dir="rtl">
                 <Box sx={{flexShrink: 0}}>
                     <img src={data?.icon_image} alt="Logo" style={{height: 40}}/>
                 </Box>
 
                 {isDesktop ? (
-                    <Box sx={{direction: 'rtl', display: 'flex', alignItems: 'center'}}>
-                        <CustomTab >
+                    <Box className="flex items-center" dir="rtl">
+                        <CustomTab>
                             {navLinks.map((link) =>
                                 <Tab
                                     key={link.id}
