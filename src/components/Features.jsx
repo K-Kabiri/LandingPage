@@ -38,15 +38,17 @@ const features = [
 const FeaturesSection = () => {
     return (
 
-        <Box className="bg-gradient-to-b from-white to-purple-100 py-10 px-2 text-center" dir={"rtl"}>
+        <Box className={"bg-gradient-to-b from-white to-purple-100 py-10 text-center"} dir={"rtl"} sx={{px:2,}}>
 
-            <Box className="mb-10 flex justify-center">
-                <Box
-                    component="img"
-                    src="/src/assets/react.svg"
-                    alt="پیش‌نمایش سیستم"
-                    className="rounded-xl shadow-xl max-w-full w-[60%] max-h-[500px]"
-                />
+            <Box className="mb-10 flex justify-center h-100">
+                <div className={"xs:w-full md:w-[60%] rounded-xl !shadow-lg"}>
+                    <Box
+                        component="img"
+                        src="/src/assets/react.svg"
+                        alt="پیش‌نمایش سیستم"
+                        sx={{ width: '100%', height: '100%' }}
+                    />
+                </div>
             </Box>
 
             <Typography variant="h4" fontWeight="bold" gutterBottom dir="rtl"
@@ -61,7 +63,7 @@ const FeaturesSection = () => {
                         key={index}
                         elevation={3}
                         sx={{borderRadius: 4}}
-                        className="w-70 flex flex-col items-start p-2 text-right"
+                        className="w-70 flex flex-col items-start p-2 text-right !shadow-lg"
                     >
                         <CardMedia
                             component="img"

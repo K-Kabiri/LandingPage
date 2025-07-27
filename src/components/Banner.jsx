@@ -13,9 +13,22 @@ import CustomButton from "./CustomButton.jsx";
 
 const Banner = () => {
     return (
-        <Box className="min-h-screen px-4 flex justify-center items-center" dir={"rtl"}>
+        <Box className="px-4 flex justify-center items-center" dir={"rtl"}>
             <Box
-                className="max-w-[1280px] w-full flex xs:flex-col md:flex-row-reverse gap-6 py-12 items-center justify-center">
+                sx={{
+                    display: 'flex',
+                    flexDirection: {
+                        xs: 'column-reverse',
+                        md: 'row-reverse',
+                    },
+                    gap: 2,
+                    py: 6,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: {xs:'center', md:'right'},
+                    width: '100%',
+                    maxWidth: '1280px',
+                }}>
 
                 {/* Left Section */}
                 <Box className="grid grid-cols-2 gap-4 xs:w-full md:w-[50%]">
@@ -90,7 +103,7 @@ const Banner = () => {
                     </Stack>
 
                     <Stack
-                        direction="row"
+                        direction={{xs: "column", sm: "row"}}
                         spacing={2}
                         justifyContent={{xs: "center", md: "flex-start"}}
                         alignItems="center"
