@@ -33,7 +33,7 @@ const Header = () => {
     };
 
     return (
-        <AppBar position="static" className="p-4" sx={{backgroundColor: "white"}} >
+        <AppBar position="static" className="p-4" sx={{backgroundColor: "white", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.3)"}} >
             <Toolbar className="flex justify-between w-full max-w-screen-lg mx-auto" dir="rtl">
                 <Box sx={{flexShrink: 0}}>
                     <img src={data?.icon_image} alt="Logo" style={{height: 40}}/>

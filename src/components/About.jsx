@@ -12,9 +12,10 @@ export default function AboutProgram() {
     return (
         <Box
             dir="rtl"
-            className="bg-gradient-to-b from-purple-100 to-white py-8 items-center"
+            className="bg-gradient-to-b from-purple-100 to-white items-center"
             sx={{
-                px: { md: 5, xs: 2 },
+                px: { md: 4, xs: 2 },
+                py: 8,
                 display: 'flex',
                 flexDirection: { xs: 'column-reverse', md: 'row-reverse' },
                 alignItems: 'center',
@@ -41,7 +42,7 @@ export default function AboutProgram() {
                 <Typography
                     color={theme.palette.text.primary}
                     lineHeight={2}
-                    sx={{ px: 2  ,justifyContent:{ xs: 'center', md: 'flex-start' },}}
+                    sx={{ px: 2  ,justifyContent:{ xs: 'center', md: 'flex-start', width: {xs:'100%' ,md:'80%' }},}}
                 >
                     راهکار توسعه مشارکتی سینتا، با بهره‌گیری از ساختار پلتفرم‌های کم‌کد و با استفاده
                     از روش نمونه‌سازی تکاملی، طراحی سیستم مورد انتظار مشتری را آسان نموده و مجموعه‌ای
@@ -101,7 +102,7 @@ export default function AboutProgram() {
                     position: 'relative',
                     display: 'flex',
                     justifyContent: 'center',
-                    px: 2,
+
                 }}
             >
                 <Box
