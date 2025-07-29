@@ -6,6 +6,7 @@ import {
     CardContent,
     CardMedia,
 } from "@mui/material";
+import theme from "../js/theme";
 
 const features = [
     {
@@ -36,73 +37,45 @@ const features = [
 
 const FeaturesSection = () => {
     return (
+
         <Box
+            className="bg-gradient-to-b from-white to-purple-100 flex flex-col text-center justify-center items-center m-0 w-full overflow-hidden"
+            dir="rtl"
             sx={{
-                background: "linear-gradient(to bottom, white, #f3e8ff)",
-                py: 10,
-                px: 2,
-                textAlign: "center",
+                width: '100%',
+                // maxWidth: '1280px',
             }}
         >
 
-            <Box sx={{mb: 6, display: "flex", justifyContent: "center"}}>
-                <Box
-                    component="img"
-                    src="/src/assets/react.svg"
-                    alt="پیش‌نمایش سیستم"
-                    sx={{
-                        borderRadius: 3,
-                        boxShadow: 3,
-                        maxWidth: "100%",
-                        width: "60%",
-                        maxHeight: 500,
-                        objectFit: "cover",
-                    }}
-                />
-            </Box>
 
-            <Typography variant="h4" fontWeight="bold" color="black" gutterBottom dir="rtl">
-                ویژگی‌ها <span style={{color: "#a855f7"}}>ما را متفاوت</span> می‌کند
+            <Typography variant="h4" fontWeight="bold" gutterBottom dir="rtl"
+                        className={`text-${theme.palette.text.primary}`}>
+                <span style={{color: `${theme.palette.text.secondary}`}}>ویژگی‌ها</span> ما را متفاوت می‌کند.
             </Typography>
 
-            <Box
-                sx={{
-                    mt: 6,
-                    display: "flex",
-                    flexWrap: "wrap",
-                    justifyContent: "center",
-                    gap: 4,
-                }}
-                dir="rtl"
-            >
+
+            <Box className=" flex flex-wrap justify-center gap-6">
                 {features.map((feature, index) => (
                     <Card
                         key={index}
                         elevation={3}
-                        sx={{
-                            width: 280,
-                            display: "flex",
-                            flexDirection: "column",
-                            alignItems: "flex-start",
-                            p: 2,
-                            borderRadius: 4,
-                            textAlign: "right",
-                        }}
+                        sx={{borderRadius: 4}}
+                        className="w-50 flex flex-col items-start p-2 text-right !shadow-lg"
                     >
                         <CardMedia
                             component="img"
                             image={feature.icon}
                             alt={feature.title}
-                            sx={{width: 48, height: 48, mb: 2}}
+                            // sx={{width: 48, height: 48, mt:2, mb:2}}
                         />
-                        <CardContent sx={{p: 0}}>
-                            <Typography variant="h6" fontWeight="bold" color="black" gutterBottom>
+                        <CardContent className={"p-2"}>
+                            <Typography variant="h6" fontWeight="bold" color={theme.palette.text.primary} gutterBottom>
                                 {feature.title}
                             </Typography>
                             <Typography
                                 variant="body2"
                                 color="text.secondary"
-                                sx={{textAlign: "justify", lineHeight: 1.8}}
+                                sx={{}}
                             >
                                 {feature.description}
                             </Typography>

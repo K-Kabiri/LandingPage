@@ -3,68 +3,43 @@ import theme from "../js/theme.js";
 import {
     Box,
     Button,
-    Paper,
     Stack,
     Typography,
     Avatar,
 } from "@mui/material";
 import CustomInput from "./CustomInput.jsx";
-
+import CustomButton from "./CustomButton.jsx";
 
 
 const Banner = () => {
     return (
-        <Box
-            sx={{
-                minHeight: "100vh",
-                px: 4,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                background: "white",
-            }}
-
-        >
+        <Box className="px-4 flex justify-center items-center" dir={"rtl"}>
             <Box
                 sx={{
-                    maxWidth: 1280,
-                    width: "100%",
-                    display: "flex",
-                    flexDirection: { xs: "column", md: "row" },
-                    gap: 6,
-                    py: 12,
-                    alignItems: "center",
-                    justifyContent: "center",
-                }}
-            >
+                    display: 'flex',
+                    flexDirection: {
+                        xs: 'column-reverse',
+                        md: 'row-reverse',
+                    },
+                    gap: 10,
+                    py: 6,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    textAlign: {xs: 'center', md: 'right'},
+                    width: '100%',
+                    // maxWidth: '1280px',
+                }}>
+
                 {/* Left Section */}
-                <Box
-                    sx={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(2, 1fr)",
-                        gap: 2,
-                        width: { xs: "100%", md: "50%" },
-                    }}
-                >
+                <Box className="grid grid-cols-2 gap-4 w-full md:w-[50%]">
+
                     {[1, 2, 3, 4].map((item) => (
-                        <Box
-                            key={item}
-                            sx={{
-                                height: 256,
-                                borderRadius: 3,
-                                overflow: "hidden",
-                                boxShadow: 4, // مثل elevation
-                            }}
-                        >
+                        <Box key={item} className="h-64 rounded-lg overflow-hidden shadow-md">
+
                             <img
                                 src={`/public/vite.svg`}
                                 alt={`تصویر ${item}`}
-                                style={{
-                                    width: "100%",
-                                    height: "100%",
-                                    objectFit: "cover",
-                                    display: "block",
-                                }}
+                                className="w-full h-full block"
                             />
                         </Box>
                     ))}
@@ -72,22 +47,20 @@ const Banner = () => {
 
 
                 {/* Right Section */}
-                <Box
-                    sx={{
-                        width: { xs: "100%", md: "50%" },
-                        textAlign: { xs: "center", md: "right" },
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: 4,
-                    }}
-                >
+
+                <Box className={"w-full md:w-[50%] flex flex-col gap-4"}
+                     sx={{
+                         textAlign: {
+                             xs: 'center',
+                             md: 'right',
+                         }
+                     }}>
                     <Typography
                         variant="h3"
                         fontWeight="bold"
                         color="text.primary"
-                        sx={{ lineHeight: 1.3 }}
                     >
-                        بهترین راه مدیریت <br />
+                        بهترین راه مدیریت <br/>
                         <Box component="span" color={theme.palette.primary.main}>
                             فرآیندهای شرکت شما
                         </Box>
@@ -99,59 +72,57 @@ const Banner = () => {
                         آورده است.
                     </Typography>
 
-                    <Stack
-                        direction={{ xs: "column", sm: "row" }}
-                        spacing={2}
-                        justifyContent={{ xs: "center", md: "flex-start" }}
-                        alignItems="center"
-
-                    >
-                        <Button
+                    <Box className={"flex md:flex-col flex-row gap-4"}>
+                        <CustomInput placeholder="ایمیل خود را وارد کنید" borderRadius={3}/>
+                        <CustomButton
+                            className={"!m-0"}
                             variant="contained"
                             color="white"
-                            sx={{ borderRadius: 3, px: 6, py: 2, backgroundColor: theme.palette.primary.main, color: theme.palette.secondary.main }}
+                            bgColor={theme.palette.primary.main}
+                            textColor={theme.palette.secondary.main}
+                            px={6}
+                            py={1.1}
+                            borderRadius={3}
                         >
                             ارسال
-                        </Button>
-                        <CustomInput placeholder="ایمیل خود را وارد کنید" dir={"rtl"}/>
+                        </CustomButton>
+                    </Box>
 
-                    </Stack>
 
-                    <Stack
-                        direction={{ xs: "column", sm: "row" }}
-                        spacing={2}
-                        justifyContent={{ xs: "center", md: "flex-end" }}
+                    <Box
+                        direction={{xs: "column", sm: "row"}}
+                        gap={2}
+                        justifyContent={{xs: "center", md: "flex-start"}}
                         alignItems="center"
                         color="#6B6B6B"
                         fontSize="0.875rem"
-
                     >
-                        <span> رایگان ۱۴ روز✅</span>
-                        <span> کارت اعتباری نیازی ندارد✅</span>
-                    </Stack>
+                        <span> ✅رایگان ۱۴ روز</span>
+                        <span> ✅کارت اعتباری نیازی ندارد</span>
+                    </Box>
 
                     <Stack
-                        direction="row"
+                        direction={{xs: "column", sm: "row"}}
                         spacing={2}
-                        justifyContent={{ xs: "center", md: "flex-end" }}
+                        justifyContent={{xs: "center", md: "flex-start"}}
                         alignItems="center"
                         pt={1}
+                        gap={2}
 
                     >
-                        <Typography variant="body2" color="text.primary" dir={"rtl"} width={"40%"}>
-                            +۱۲۰ میلیون نفر در سراسر دنیا کاربران پلتفرم‌های کم‌کد
-                        </Typography>
-                        <Stack direction="row-reverse" spacing={-1}>
+                        <Stack direction="row" spacing={-1}>
                             {[1, 2, 3, 5].map((img) => (
                                 <Avatar
                                     key={img}
                                     alt={`user-${img}`}
                                     src={`https://i.pravatar.cc/40?img=${img}`}
-                                    sx={{ border: "2px solid white", width: 45, height: 45 }}
+                                    sx={{border: "2px solid white", width: 50, height: 50}}
                                 />
                             ))}
                         </Stack>
-
+                        <Typography variant="body2" className={`text-${theme.palette.text.primary} w-[40%]`}>
+                            +۱۲۰ میلیون نفر در سراسر دنیا کاربران پلتفرم‌های کم‌کد
+                        </Typography>
                     </Stack>
                 </Box>
             </Box>
