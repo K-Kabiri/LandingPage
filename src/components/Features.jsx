@@ -37,7 +37,7 @@ const features = [
 
 const FeaturesSection = () => {
     return (
-        <Box className={"bg-gradient-to-b from-white to-purple-100 py-10 text-center"} dir={"rtl"} sx={{px:2,mt:8,}}>
+        <Box className={"bg-gradient-to-b from-purple-100 to-white py-10 text-center"} dir={"rtl"} sx={{px:2,}}>
 
             <Box className="mb-10 flex justify-center h-100">
                 <div className={"xs:w-full md:w-[60%] rounded-xl !shadow-lg"}>

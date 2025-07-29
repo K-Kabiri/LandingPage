@@ -6,6 +6,7 @@ import About from "./components/About.jsx";
 import ModernDesign from "./components/ModernDesign.jsx";
 import FAQ from "./components/FAQ.jsx";
 import ChatBot from "./components/ChatBot.jsx";
+import HowItWorks from "./components/HowItWorks.jsx";
 function App() {
 
   return (
@@ -15,7 +16,6 @@ function App() {
             <Banner />
             <About/>
             <Features />
-            <About />
             <ModernDesign/>
             <FAQ/>
             <ChatBot/>

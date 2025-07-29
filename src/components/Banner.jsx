@@ -13,7 +13,7 @@ import CustomButton from "./CustomButton.jsx";
 
 const Banner = () => {
     return (
-        <Box className="px-4 flex justify-center items-center" dir={"rtl"}>
+        <Box className="bg-white p-16 flex justify-center items-center" dir={"rtl"}>
             <Box
                 sx={{
                     display: 'flex',

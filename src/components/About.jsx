@@ -12,7 +12,7 @@ export default function AboutProgram() {
     return (
         <Box
             dir="rtl"
-            className="bg-gradient-to-b from-purple-100 to-white items-center"
+            className="bg-gradient-to-b from-white to-purple-100 items-center"
             sx={{
                 px: { md: 4, xs: 2 },
                 py: 8,
