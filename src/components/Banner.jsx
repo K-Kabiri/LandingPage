@@ -47,7 +47,6 @@ const Banner = () => {
 
 
                 {/* Right Section */}
-
                 <Box className={"w-full md:w-[50%] flex flex-col gap-4"}
                      sx={{
                          textAlign: {
@@ -100,7 +99,6 @@ const Banner = () => {
                         <span> ✅رایگان ۱۴ روز</span>
                         <span> ✅کارت اعتباری نیازی ندارد</span>
                     </Box>
-
                     <Stack
                         direction={{xs: "column", sm: "row"}}
                         spacing={2}

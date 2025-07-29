@@ -37,16 +37,18 @@ const features = [
 
 const FeaturesSection = () => {
     return (
+        <Box className={"bg-gradient-to-b from-white to-purple-100 py-10 text-center"} dir={"rtl"} sx={{px:2,mt:8,}}>
 
-        <Box
-            className="bg-gradient-to-b from-white to-purple-100 flex flex-col text-center justify-center items-center m-0 w-full overflow-hidden"
-            dir="rtl"
-            sx={{
-                width: '100%',
-                // maxWidth: '1280px',
-            }}
-        >
-
+            <Box className="mb-10 flex justify-center h-100">
+                <div className={"xs:w-full md:w-[60%] rounded-xl !shadow-lg"}>
+                    <Box
+                        component="img"
+                        src="/src/assets/react.svg"
+                        alt="پیش‌نمایش سیستم"
+                        sx={{ width: '100%', height: '100%' }}
+                    />
+                </div>
+            </Box>
 
             <Typography variant="h4" fontWeight="bold" gutterBottom dir="rtl"
                         className={`text-${theme.palette.text.primary}`}>
@@ -60,13 +62,14 @@ const FeaturesSection = () => {
                         key={index}
                         elevation={3}
                         sx={{borderRadius: 4}}
-                        className="w-50 flex flex-col items-start p-2 text-right !shadow-lg"
+                        className="w-70 flex flex-col items-start p-2 text-right !shadow-lg"
                     >
                         <CardMedia
                             component="img"
                             image={feature.icon}
                             alt={feature.title}
-                            // sx={{width: 48, height: 48, mt:2, mb:2}}
+                            sx={{width: 48, height: 48, mt:2, mb:2}}
+
                         />
                         <CardContent className={"p-2"}>
                             <Typography variant="h6" fontWeight="bold" color={theme.palette.text.primary} gutterBottom>
