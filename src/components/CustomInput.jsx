@@ -1,5 +1,5 @@
 import { InputBase } from "@mui/material";
-import theme from "../js/theme.js";
+import theme from "../theme.js";
 
 const CustomInput = ({ borderRadius, px , py, ...props }) => {
     return (

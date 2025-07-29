@@ -1,5 +1,5 @@
 import { Box, Typography, Paper, Avatar } from '@mui/material';
-import theme from "../js/theme.js";
+import theme from "../theme.js";
 
 export default function AboutProgram() {
     const stats = [

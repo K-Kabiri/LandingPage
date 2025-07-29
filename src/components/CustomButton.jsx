@@ -1,5 +1,5 @@
 import {Button} from "@mui/material";
-import theme from "../js/theme.js";
+import theme from "../theme.js";
 
 const CustomButton = ({bgColor, textColor, fontSize,px,py,borderRadius, children}) => {
     return (

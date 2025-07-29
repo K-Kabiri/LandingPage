@@ -5,6 +5,7 @@ import Features from "./components/Features.jsx";
 import About from "./components/About.jsx";
 import ModernDesign from "./components/ModernDesign.jsx";
 import FAQ from "./components/FAQ.jsx";
+import ChatBot from "./components/ChatBot.jsx";
 function App() {
 
   return (
@@ -17,6 +18,7 @@ function App() {
             <About />
             <ModernDesign/>
             <FAQ/>
+            <ChatBot/>
         </div>
     </>
   )

@@ -1,7 +1,7 @@
 import React from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { Box, Typography} from "@mui/material";
-import theme from "../js/theme.js";
+import theme from "../theme.js";
 
 const ModernDesign = () => {
     const features = [

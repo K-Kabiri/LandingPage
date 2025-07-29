@@ -6,7 +6,7 @@ import {
     CardContent,
     CardMedia,
 } from "@mui/material";
-import theme from "../js/theme";
+import theme from "../theme.js";
 
 const features = [
     {
