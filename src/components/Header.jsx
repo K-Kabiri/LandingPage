@@ -33,8 +33,9 @@ const Header = () => {
     };
 
     return (
-        <AppBar position="static" className="p-4" sx={{backgroundColor: "white", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.3)"}} >
-            <Toolbar className="flex justify-between w-full max-w-screen-lg mx-auto" dir="rtl">
+        <AppBar className=" p-4 sticky top-0"
+                sx={{backgroundColor: "white", boxShadow: "0 1px 3px rgba(0, 0, 0, 0.3)"}}>
+            <Toolbar className="flex justify-between w-full" dir="rtl">v
                 <Box sx={{flexShrink: 0}}>
                     <img src={data?.icon_image} alt="Logo" style={{height: 40}}/>
                 </Box>
@@ -56,7 +57,11 @@ const Header = () => {
                 ) : null}
 
                 {isDesktop && (
-                    <Box className={"flex gap-5 "}>
+                    <Box
+                         sx={{
+                             display: 'flex',
+                             gap: 2,
+                         }}>
                         {ctaButtons.map((btn) => (
                             <CustomButton
                                 key={btn.id}

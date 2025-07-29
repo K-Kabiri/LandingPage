@@ -6,7 +6,7 @@ import {
     CardContent,
     CardMedia,
 } from "@mui/material";
-import theme from "../js/theme.js";
+import theme from "../js/theme";
 
 const features = [
     {
@@ -37,7 +37,6 @@ const features = [
 
 const FeaturesSection = () => {
     return (
-
         <Box className={"bg-gradient-to-b from-white to-purple-100 py-10 text-center"} dir={"rtl"} sx={{px:2,mt:8,}}>
 
             <Box className="mb-10 flex justify-center h-100">
@@ -57,7 +56,7 @@ const FeaturesSection = () => {
             </Typography>
 
 
-            <Box className="mt-10 flex flex-wrap justify-center gap-6">
+            <Box className=" flex flex-wrap justify-center gap-6">
                 {features.map((feature, index) => (
                     <Card
                         key={index}
@@ -69,7 +68,8 @@ const FeaturesSection = () => {
                             component="img"
                             image={feature.icon}
                             alt={feature.title}
-                            sx={{width: 48, height: 48, mt:2, mb:2, mr:2}}
+                            sx={{width: 48, height: 48, mt:2, mb:2}}
+
                         />
                         <CardContent className={"p-2"}>
                             <Typography variant="h6" fontWeight="bold" color={theme.palette.text.primary} gutterBottom>
@@ -78,7 +78,7 @@ const FeaturesSection = () => {
                             <Typography
                                 variant="body2"
                                 color="text.secondary"
-                                sx={{textAlign: "justify", lineHeight: 1.8}}
+                                sx={{}}
                             >
                                 {feature.description}
                             </Typography>

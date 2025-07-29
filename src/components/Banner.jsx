@@ -21,17 +21,17 @@ const Banner = () => {
                         xs: 'column-reverse',
                         md: 'row-reverse',
                     },
-                    gap: 2,
+                    gap: 10,
                     py: 6,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    textAlign: {xs:'center', md:'right'},
+                    textAlign: {xs: 'center', md: 'right'},
                     width: '100%',
-                    maxWidth: '1280px',
+                    // maxWidth: '1280px',
                 }}>
 
                 {/* Left Section */}
-                <Box className="grid grid-cols-2 gap-4 xs:w-full md:w-[50%]">
+                <Box className="grid grid-cols-2 gap-4 w-full md:w-[50%]">
 
                     {[1, 2, 3, 4].map((item) => (
                         <Box key={item} className="h-64 rounded-lg overflow-hidden shadow-md">
@@ -47,13 +47,17 @@ const Banner = () => {
 
 
                 {/* Right Section */}
-
-                <Box className={"xs:x-full md:w-[50%] xs:text-center md:text-right flex flex-col gap-4"}>
+                <Box className={"w-full md:w-[50%] flex flex-col gap-4"}
+                     sx={{
+                         textAlign: {
+                             xs: 'center',
+                             md: 'right',
+                         }
+                     }}>
                     <Typography
                         variant="h3"
                         fontWeight="bold"
                         color="text.primary"
-                        className="leading-[1]"
                     >
                         بهترین راه مدیریت <br/>
                         <Box component="span" color={theme.palette.primary.main}>
@@ -67,15 +71,10 @@ const Banner = () => {
                         آورده است.
                     </Typography>
 
-                    <Stack
-                        direction={{xs: "column", sm: "row"}}
-                        spacing={2}
-                        gap={2}
-                        justifyContent={{xs: "center", md: "flex-start"}}
-                        alignItems="center"
-                    >
-                        <CustomInput placeholder="ایمیل خود را وارد کنید" borderRadius={3} px={5} py={10}/>
+                    <Box className={"flex md:flex-col flex-row gap-4"}>
+                        <CustomInput placeholder="ایمیل خود را وارد کنید" borderRadius={3}/>
                         <CustomButton
+                            className={"!m-0"}
                             variant="contained"
                             color="white"
                             bgColor={theme.palette.primary.main}
@@ -86,12 +85,11 @@ const Banner = () => {
                         >
                             ارسال
                         </CustomButton>
+                    </Box>
 
-                    </Stack>
 
-                    <Stack
+                    <Box
                         direction={{xs: "column", sm: "row"}}
-                        spacing={2}
                         gap={2}
                         justifyContent={{xs: "center", md: "flex-start"}}
                         alignItems="center"
@@ -100,8 +98,7 @@ const Banner = () => {
                     >
                         <span> ✅رایگان ۱۴ روز</span>
                         <span> ✅کارت اعتباری نیازی ندارد</span>
-                    </Stack>
-
+                    </Box>
                     <Stack
                         direction={{xs: "column", sm: "row"}}
                         spacing={2}

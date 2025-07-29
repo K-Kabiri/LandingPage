@@ -5,7 +5,6 @@ import Features from "./components/Features.jsx";
 import About from "./components/About.jsx";
 import ModernDesign from "./components/ModernDesign.jsx";
 import FAQ from "./components/FAQ.jsx";
-
 function App() {
 
   return (
@@ -13,6 +12,7 @@ function App() {
         <div className="App w-screen h-screen m-0 p-0" >
             <Header/>
             <Banner />
+            <About/>
             <Features />
             <About />
             <ModernDesign/>
