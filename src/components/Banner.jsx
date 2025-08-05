@@ -13,7 +13,14 @@ import CustomButton from "./CustomButton.jsx";
 
 const Banner = () => {
     return (
-        <Box className="bg-white p-16 flex justify-center items-center" dir={"rtl"}>
+        <Box
+            className="bg-white overflow-x-hidden w-screen"
+            dir="rtl"
+            sx={{
+                display: 'flex',
+                justifyContent: 'center',
+            }}
+        >
             <Box
                 sx={{
                     display: 'flex',
@@ -22,32 +29,32 @@ const Banner = () => {
                         md: 'row-reverse',
                     },
                     gap: 10,
-                    py: 6,
+                    mt:5,
+                    py: 10,
+                    px: {xs: 2, md: 4},
                     justifyContent: 'center',
                     alignItems: 'center',
                     textAlign: {xs: 'center', md: 'right'},
                     width: '100%',
-                    // maxWidth: '1280px',
-                }}>
+                    maxWidth: '1280px',
+                }}
+            >
 
                 {/* Left Section */}
                 <Box className="grid grid-cols-2 gap-4 w-full md:w-[50%]">
-
                     {[1, 2, 3, 4].map((item) => (
                         <Box key={item} className="h-64 rounded-lg overflow-hidden shadow-md">
-
                             <img
-                                src={`/public/vite.svg`}
+                                src={`/vite.svg`}
                                 alt={`تصویر ${item}`}
-                                className="w-full h-full block"
+                                className="w-full h-full object-contain block"
                             />
                         </Box>
                     ))}
                 </Box>
 
-
                 {/* Right Section */}
-                <Box className={"w-full md:w-[50%] flex flex-col gap-4"}
+                <Box className="w-full md:w-[50%] flex flex-col gap-4"
                      sx={{
                          textAlign: {
                              xs: 'center',
@@ -65,40 +72,47 @@ const Banner = () => {
                         </Box>
                     </Typography>
 
-                    <Typography variant="body1" color="#6B6B6B" width={"100%"}>
+                    <Typography variant="body1" color="#6B6B6B" width="100%">
                         سیتینا با بهره‌گیری از تکنولوژی‌های توسعه کم‌کد، امکان ایجاد سریع
                         سیستم‌های مورد نیاز شرکت شما را بدون نیاز به دانش برنامه‌نویسی فراهم
                         آورده است.
                     </Typography>
 
-                    <Box className={"flex md:flex-col flex-row gap-4"}>
+                    <Box className="flex md:flex-col flex-row gap-4"
+                        sx={{
+                            display: 'flex',
+                            flexDirection: {
+                                xs: 'column',
+                                md: 'row',
+                            },
+                        }}
+                    >
                         <CustomInput placeholder="ایمیل خود را وارد کنید" borderRadius={3}/>
                         <CustomButton
-                            className={"!m-0"}
+                            className="!m-0"
                             variant="contained"
                             color="white"
                             bgColor={theme.palette.primary.main}
                             textColor={theme.palette.secondary.main}
-                            px={6}
-                            py={1.1}
                             borderRadius={3}
                         >
                             ارسال
                         </CustomButton>
                     </Box>
 
-
                     <Box
-                        direction={{xs: "column", sm: "row"}}
+                        display="flex"
+                        flexDirection={{xs: "column", sm: "row"}}
                         gap={2}
                         justifyContent={{xs: "center", md: "flex-start"}}
                         alignItems="center"
                         color="#6B6B6B"
                         fontSize="0.875rem"
                     >
-                        <span> ✅رایگان ۱۴ روز</span>
-                        <span> ✅کارت اعتباری نیازی ندارد</span>
+                        <span>✅ رایگان ۱۴ روز</span>
+                        <span>✅ کارت اعتباری نیازی ندارد</span>
                     </Box>
+
                     <Stack
                         direction={{xs: "column", sm: "row"}}
                         spacing={2}
@@ -106,7 +120,6 @@ const Banner = () => {
                         alignItems="center"
                         pt={1}
                         gap={2}
-
                     >
                         <Stack direction="row" spacing={-1}>
                             {[1, 2, 3, 5].map((img) => (
@@ -118,7 +131,7 @@ const Banner = () => {
                                 />
                             ))}
                         </Stack>
-                        <Typography variant="body2" className={`text-${theme.palette.text.primary} w-[40%]`}>
+                        <Typography variant="body2" sx={{color: theme.palette.text.primary, width: "40%"}}>
                             +۱۲۰ میلیون نفر در سراسر دنیا کاربران پلتفرم‌های کم‌کد
                         </Typography>
                     </Stack>

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import theme from "../theme.js";
 import {Typography} from "@mui/material";
 
@@ -35,26 +35,28 @@ const FAQ = () => {
     };
 
     return (
-        <div className="flex flex-col gap-6 px-6 md:px-10 py-10 text-center bg-gradient-to-b from-orange-100 to-white"
-             dir="rtl">
+        <div
+            className="flex flex-col gap-6 px-6 md:px-10 py-10 text-center bg-gradient-to-b from-orange-100 to-white w-full"
+            dir="rtl">
             <Typography
                 variant="h4"
                 fontWeight="bold"
                 gutterBottom
                 dir="rtl"
                 className="text-center"
-                style={{ color: theme.palette.text.primary }}
+                style={{color: theme.palette.text.primary}}
             >
-                <span style={{ color: theme.palette.text.secondary }}>سوالات متداول - </span>سوالات متداول پرسیده شده
+                <span style={{color: theme.palette.primary.main}}>سوالات متداول - </span>سوالات متداول پرسیده شده
             </Typography>
 
             <Typography
                 color={theme.palette.text.primary}
                 lineHeight={2}
-                sx={{ px: 2, justifyContent: 'center', width: '100%' }}
+                sx={{px: 2, justifyContent: 'center', width: '100%'}}
                 className="text-sm sm:text-base md:text-lg leading-relaxed"
             >
-                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، چیدمان و متون بلکه روزنامه با استفاده از طراحان گرافیک است.
+                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، چیدمان و متون بلکه روزنامه با استفاده از
+                طراحان گرافیک است.
             </Typography>
 
             <div className="space-y-6 sm:space-y-8 mx-0 md:mx-30">
@@ -69,24 +71,25 @@ const FAQ = () => {
               style={{
                   color:
                       openIndex === index
-                          ? theme.palette.text.secondary
+                          ? theme.palette.primary.main
                           : theme.palette.text.primary,
               }}
           >
             {faq.question}
           </span>
 
-                            <span className="ml-2">
-            {openIndex === index ? (
-                <RemoveIcon className="text-indigo-500" />
-            ) : (
-                <AddIcon className="text-indigo-500" />
-            )}
+          <span className="ml-2">
+                  {openIndex === index ? (
+                      <KeyboardArrowUpIcon style={{ color: theme.palette.primary.main }} />
+                  ) : (
+                      <KeyboardArrowDownIcon style={{ color: theme.palette.primary.main }}/>
+                  )}
           </span>
                         </button>
 
                         {openIndex === index && (
-                            <div className="px-4 pb-4 text-gray-700 text-sm sm:text-base md:text-lg leading-7 text-right">
+                            <div
+                                className="px-4 pb-4 text-sm sm:text-base md:text-lg leading-7 text-right" style={{color: theme.palette.grey["600"]}}>
                                 {faq.answer}
                             </div>
                         )}
