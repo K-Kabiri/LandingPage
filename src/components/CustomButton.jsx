@@ -14,7 +14,10 @@ const CustomButton = ({bgColor, textColor, fontSize,px,py,borderRadius, children
                 fontWeight: 'bold',
                 boxShadow: 1,
                 textTransform: 'none',
-
+                alignSelf: {
+                xs: 'center',
+                md: 'auto',
+            }
             }}
         >
             {children}
