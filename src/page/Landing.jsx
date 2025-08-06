@@ -9,6 +9,7 @@ import ChatBot from "../components/ChatBot.jsx";
 import HowItWorks from "../components/HowItWorks.jsx";
 import Footer from "../components/Footer.jsx";
 import UI from "../components/UI.jsx";
+import Companies from "../components/Companies.jsx";
 const Landing = () => {
   return (
       <div className={"w-screen flex flex-col justify-center items-center overflow-x-hidden"}>
@@ -20,6 +21,7 @@ const Landing = () => {
           <ModernDesign/>
           <FAQ/>
           <UI/>
+          <Companies/>
           <ChatBot/>
           <Footer/>
       </div>

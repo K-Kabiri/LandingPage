@@ -10,6 +10,7 @@ import {Tab} from "@mui/material";
 import CustomButton from "./CustomButton.jsx";
 import CustomTab from "./CustomTab.jsx";
 import {useHeaderData} from "../api/header.js";
+import theme from "../theme.js";
 
 const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -32,9 +33,10 @@ const Header = () => {
         <AppBar
             className="sticky top-0"
             sx={{
-                backgroundColor: "white",
+                backgroundColor: "rgba(255, 255, 255, 0.7)",
                 boxShadow: "0 1px 3px rgba(0, 0, 0, 0.3)",
                 overflowX: "hidden",
+                backdropFilter: "blur(10px)",
             }}
             dir="rtl"
         >
@@ -116,7 +118,8 @@ const Header = () => {
                     <a
                         key={link.id}
                         href={link.link || '#'}
-                        className="block px-4 py-2 text-gray-700 hover:bg-purple-800"
+                        className="block px-4 py-2 "
+                        style={{color: `${theme.palette.text.primary} hover:${theme.palette.primary.main}`}}
                     >
                         {link.label}
                     </a>
@@ -125,9 +128,7 @@ const Header = () => {
                     {ctaButtons.map((btn) => (
                         <CustomButton
                             key={btn.id}
-                            variant="contained"
                             onClick={() => window.open(btn.link, '_blank')}
-                            bgColor={'primary.main'}
                             textColor="white"
                             py={1}
                             px={3}
