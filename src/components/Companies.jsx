@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -11,26 +11,30 @@ const images = [
     "/src/assets/react.svg",
     "/vite.svg",
     "/src/assets/react.svg",
+    "/src/assets/react.svg",
+    "/vite.svg",
+    "/src/assets/react.svg",
     "/vite.svg",
     "/src/assets/react.svg",
 ];
 
-export default function BeautifulInterfaceSection() {
+export default function Companies() {
     const theme = useTheme();
     const [activeIndex, setActiveIndex] = useState(0);
+    const [centerIndex, setCenterIndex] = useState(0);
 
-    const isSwiperActive = images.length > 3;
+    const isSwiperActive = images.length > 5;
 
     const getCardSize = (width) => {
-        if (width < 480) return { width: 280, height: 160 };
-        if (width < 768) return { width: 320, height: 180 };
-        if (width < 1024) return { width: 350, height: 200 };
-        return { width: 350, height: 200 };
+        if (width < 480) return { width: 280, height: 100 };
+        if (width < 768) return { width: 320, height: 100 };
+        if (width < 1024) return { width: 350, height: 100 };
+        return { width: 200, height: 100 };
     };
 
-    const [cardSize, setCardSize] = React.useState(getCardSize(window.innerWidth));
+    const [cardSize, setCardSize] = useState(getCardSize(window.innerWidth));
 
-    React.useEffect(() => {
+    useEffect(() => {
         const handleResize = () => {
             setCardSize(getCardSize(window.innerWidth));
         };
@@ -43,7 +47,7 @@ export default function BeautifulInterfaceSection() {
             dir="rtl"
             className="overflow-x-hidden w-screen"
             sx={{
-                background: 'linear-gradient(to bottom, #ffffff, #FFE8F5)',
+                background: 'linear-gradient(to bottom, #FFE8F5, #ffffff)',
                 py: 10,
                 display: "flex",
                 justifyContent: "center",
@@ -63,18 +67,20 @@ export default function BeautifulInterfaceSection() {
             >
                 <Box sx={{ textAlign: "center" }}>
                     <Typography variant="h4" fontWeight="bold" mb={2}>
-                        رابط کاربری{" "}
+                        مورد اعتماد{" "}
                         <Box component="span" color={theme.palette.primary.main}>
-                            زیبا
-                        </Box>
+                            ۱۵+
+                        </Box>{" "}
+                        شرکت
                     </Typography>
                     <Typography color="text.secondary" fontSize="1.1rem">
-                        ساده سازی امور پیچیده در تخصص ماست
+                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
+                        چاپگرها و متون بلکه روزنامه با استفاده از طراحان گرافیک است.
                     </Typography>
                 </Box>
 
-                {/* Pictures */}
-                <Box sx={{ width: "100%", overflow: "visible", height: cardSize.height + 60 }}>
+                {/* Logos */}
+                <Box sx={{ width: "100%", overflow: "hidden", height: cardSize.height + 60 }}>
                     {isSwiperActive ? (
                         <Swiper
                             modules={[Autoplay]}
@@ -83,18 +89,23 @@ export default function BeautifulInterfaceSection() {
                             slidesPerView={1}
                             spaceBetween={16}
                             grabCursor={true}
-                            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+                            onSlideChange={(swiper) => {
+                                const visibleSlides = swiper.params.slidesPerView;
+                                const center =
+                                    (swiper.realIndex + Math.floor(visibleSlides / 2)) % images.length;
+                                setActiveIndex(swiper.realIndex);
+                                setCenterIndex(center);
+                            }}
                             breakpoints={{
-                                0: { slidesPerView: 1, spaceBetween: 16 },
-                                480: { slidesPerView: 2, spaceBetween: 20 },
-                                768: { slidesPerView: 2, spaceBetween: 24 },
-                                1024: { slidesPerView: 3, spaceBetween: 36 },
+                                0: { slidesPerView: 1, spaceBetween: 2 },
+                                480: { slidesPerView: 3, spaceBetween: 3 },
+                                768: { slidesPerView: 3, spaceBetween: 3 },
+                                1024: { slidesPerView: 5, spaceBetween: 10 },
                             }}
                             style={{ overflow: "visible" }}
                         >
                             {images.map((src, idx) => {
-                                const isCenterSlide =
-                                    idx === (activeIndex + 1) % images.length;
+                                const isCenterSlide = idx === centerIndex;
 
                                 return (
                                     <SwiperSlide
@@ -118,9 +129,6 @@ export default function BeautifulInterfaceSection() {
                                                 alignItems: "center",
                                                 justifyContent: "center",
                                                 p: 1,
-                                                transform: isCenterSlide
-                                                    ? "scale(1.1)"
-                                                    : "scale(1)",
                                                 transition: "transform 0.5s ease",
                                             }}
                                         >
@@ -133,6 +141,10 @@ export default function BeautifulInterfaceSection() {
                                                     height: "100%",
                                                     objectFit: "contain",
                                                     borderRadius: 2,
+                                                    filter: isCenterSlide
+                                                        ? "none"
+                                                        : "grayscale(100%)",
+                                                    transition: "filter 0.5s ease",
                                                 }}
                                             />
                                         </Paper>
@@ -175,6 +187,7 @@ export default function BeautifulInterfaceSection() {
                                             height: "100%",
                                             objectFit: "contain",
                                             borderRadius: 2,
+                                            filter: "grayscale(100%)",
                                         }}
                                     />
                                 </Paper>
