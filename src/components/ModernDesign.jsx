@@ -41,7 +41,7 @@ const ModernDesign = () => {
                     maxWidth: '1280px',
                 }}
             >
-                {/* Right Section - متن */}
+                {/* Right Section */}
                 <Box
                     sx={{
                         flex: 1,
@@ -100,7 +100,7 @@ const ModernDesign = () => {
                     </Box>
                 </Box>
 
-                {/* Left Section - تصویر */}
+                {/* Left Section  */}
                 <Box
                     sx={{
                         flex: 1,
