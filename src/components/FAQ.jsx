@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import theme from "../theme.js";
-import {Typography} from "@mui/material";
+import { Typography, Box } from "@mui/material";
 
 const faqs = [
     {
@@ -35,69 +35,118 @@ const FAQ = () => {
     };
 
     return (
-        <div
-            className="flex flex-col gap-6 px-6 md:px-10 py-10 text-center bg-gradient-to-b from-orange-100 to-white w-full"
-            dir="rtl">
-            <Typography
-                variant="h4"
-                fontWeight="bold"
-                gutterBottom
-                dir="rtl"
-                className="text-center"
-                style={{color: theme.palette.text.primary}}
+        <Box
+            dir="rtl"
+            sx={{
+                background: 'linear-gradient(to bottom, #FFEDD5, #ffffff)',
+                py: 10,
+                width: '100%',
+                overflowX: 'hidden',
+                display: 'flex',
+                justifyContent: 'center',
+            }}
+        >
+            <Box
+                sx={{
+                    width: '100%',
+                    maxWidth: '1280px',
+                    px: { xs: 2, md: 4 },
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 6,
+                }}
             >
-                <span style={{color: theme.palette.primary.main}}>سوالات متداول - </span>سوالات متداول پرسیده شده
-            </Typography>
+                <Typography
+                    variant="h4"
+                    fontWeight="bold"
+                    color={theme.palette.text.primary}
+                    sx={{ textAlign: 'center' }}
+                >
+                    <Box component="span" color={theme.palette.primary.main}>
+                        سوالات متداول -
+                    </Box>{' '}
+                    سوالات متداول پرسیده شده
+                </Typography>
 
-            <Typography
-                color={theme.palette.text.primary}
-                lineHeight={2}
-                sx={{px: 2, justifyContent: 'center', width: '100%'}}
-                className="text-sm sm:text-base md:text-lg leading-relaxed"
-            >
-                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، چیدمان و متون بلکه روزنامه با استفاده از
-                طراحان گرافیک است.
-            </Typography>
+                <Typography
+                    color={theme.palette.text.primary}
+                    lineHeight={2}
+                    sx={{ maxWidth: '100%', mx: 'auto', textAlign: 'center' }}
+                    fontSize={{ xs: '0.875rem', sm: '1rem', md: '1.125rem' }}
+                >
+                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، چیدمان و متون بلکه روزنامه با استفاده از
+                    طراحان گرافیک است.
+                </Typography>
 
-            <div className="space-y-6 sm:space-y-8 mx-0 md:mx-30">
-                {faqs.map((faq, index) => (
-                    <div key={index} className="rounded-xl bg-violet-100 overflow-hidden shadow-sm">
-                        <button
-                            className="w-full flex items-center justify-between p-4 sm:p-5 font-medium focus:outline-none transition-all"
-                            onClick={() => toggleFAQ(index)}
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 3,
+                    }}
+                >
+                    {faqs.map((faq, index) => (
+                        <Box
+                            key={index}
+                            sx={{
+                                borderRadius: 2,
+                                backgroundColor: '#ede7f6', // مشابه violet-100 (میتونی تغییر بدی)
+                                boxShadow: 1,
+                                overflow: 'hidden',
+                                width: '100%',
+                            }}
                         >
-          <span
-              className="text-right font-bold text-sm sm:text-base md:text-lg"
-              style={{
-                  color:
-                      openIndex === index
-                          ? theme.palette.primary.main
-                          : theme.palette.text.primary,
-              }}
-          >
-            {faq.question}
-          </span>
+                            <button
+                                style={{
+                                    width: '100%',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between',
+                                    padding: '16px 20px',
+                                    fontWeight: 600,
+                                    background: 'transparent',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                }}
+                                onClick={() => toggleFAQ(index)}
+                            >
+                                <Typography
+                                    variant="subtitle1"
+                                    sx={{
+                                        color: openIndex === index ? theme.palette.primary.main : theme.palette.text.primary,
+                                        textAlign: 'right',
+                                        fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' },
+                                    }}
+                                >
+                                    {faq.question}
+                                </Typography>
 
-          <span className="ml-2">
-                  {openIndex === index ? (
-                      <KeyboardArrowUpIcon style={{ color: theme.palette.primary.main }} />
-                  ) : (
-                      <KeyboardArrowDownIcon style={{ color: theme.palette.primary.main }}/>
-                  )}
-          </span>
-                        </button>
+                                {openIndex === index ? (
+                                    <KeyboardArrowUpIcon sx={{ color: theme.palette.primary.main }} />
+                                ) : (
+                                    <KeyboardArrowDownIcon sx={{ color: theme.palette.primary.main }} />
+                                )}
+                            </button>
 
-                        {openIndex === index && (
-                            <div
-                                className="px-4 pb-4 text-sm sm:text-base md:text-lg leading-7 text-right" style={{color: theme.palette.grey["600"]}}>
-                                {faq.answer}
-                            </div>
-                        )}
-                    </div>
-                ))}
-            </div>
-        </div>
-
+                            {openIndex === index && (
+                                <Typography
+                                    sx={{
+                                        px: 4,
+                                        pb: 4,
+                                        color: theme.palette.grey[600],
+                                        fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' },
+                                        lineHeight: 1.75,
+                                        textAlign: 'right',
+                                    }}
+                                >
+                                    {faq.answer}
+                                </Typography>
+                            )}
+                        </Box>
+                    ))}
+                </Box>
+            </Box>
+        </Box>
     );
 };
 

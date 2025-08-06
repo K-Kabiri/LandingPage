@@ -42,7 +42,7 @@ const FeaturesSection = () => {
             sx={{
                 background: 'linear-gradient(to bottom, #ffffff, #f3e8ff)',
                 py: 8,
-                px: { xs: 2, md: 4 },
+                px: { xs: 2, md: 3 },
                 overflowX: 'hidden',
                 display: 'flex',
                 justifyContent: 'center',

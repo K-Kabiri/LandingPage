@@ -7,6 +7,7 @@ import ModernDesign from "../components/ModernDesign.jsx";
 import FAQ from "../components/FAQ.jsx";
 import ChatBot from "../components/ChatBot.jsx";
 import HowItWorks from "../components/HowItWorks.jsx";
+import Footer from "../components/Footer.jsx";
 
 const Landing = () => {
   return (
@@ -18,7 +19,8 @@ const Landing = () => {
           <HowItWorks/>
           <ModernDesign/>
           <FAQ/>
-          {/*<ChatBot/>*/}
+          <ChatBot/>
+          <Footer/>
       </div>
   )
 }

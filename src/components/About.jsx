@@ -15,7 +15,7 @@ export default function AboutProgram() {
             className="overflow-x-hidden w-screen"
             sx={{
                 background: 'linear-gradient(to bottom, #f3e8ff, #ffffff)',
-                px: { xs: 2, md: 4 },
+                px: { xs: 2, md: 3 },
                 py: 10,
                 overflowX: 'hidden',
                 display: 'flex',
