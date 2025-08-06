@@ -50,7 +50,7 @@ export default function Footer() {
 
                 {/* Links */}
                 <Box sx={{ flex: 1, minWidth: 0, textAlign: 'center', p: 0 }}>
-                    <Typography variant="h6" fontWeight="bold" color={theme.palette.text.primary}>
+                    <Typography fontWeight="bold" color={theme.palette.text.primary}>
                         لینک‌های مفید
                     </Typography>
                     <Box display="flex" flexDirection="column" gap={1}>
@@ -77,7 +77,7 @@ export default function Footer() {
 
                 {/*   (QR Code) */}
                 <Box sx={{ flex: 1, minWidth: 0, textAlign: 'center' }}>
-                    <Typography variant="h6" fontWeight="bold" gutterBottom>امتحان کنید</Typography>
+                    <Typography fontWeight="bold" gutterBottom>امتحان کنید</Typography>
                     <Box
                         component="img"
                         src="/qr-code.png"
@@ -89,7 +89,7 @@ export default function Footer() {
 
                 {/* views */}
                 <Box sx={{ flex: 1, minWidth: 0, textAlign: 'center' }}>
-                    <Typography variant="h6" fontWeight="bold" gutterBottom>آمار بازدید</Typography>
+                    <Typography fontWeight="bold" gutterBottom>آمار بازدید</Typography>
                     <Box sx={{ backgroundColor: '#a855f7', borderRadius: 2, color: '#fff', p: 2, fontSize: 12, lineHeight: 1.8 }}>
                         <div>👤 افراد آنلاین: ۱ نفر</div>
                         <div>📅 بازدید امروز: ۳ نفر</div>
