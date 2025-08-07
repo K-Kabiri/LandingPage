@@ -90,7 +90,7 @@ const FAQ = () => {
                             key={index}
                             sx={{
                                 borderRadius: 2,
-                                backgroundColor: '#ede7f6', // مشابه violet-100 (میتونی تغییر بدی)
+                                backgroundColor: '#ede7f6',
                                 boxShadow: 1,
                                 overflow: 'hidden',
                                 width: '100%',

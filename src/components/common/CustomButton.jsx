@@ -6,7 +6,7 @@ const CustomButton = ({bgColor, textColor, fontSize,px,py,borderRadius, children
         <Button
             sx={{
                 backgroundColor: theme.palette[bgColor]?.main || bgColor|| theme.palette.primary.main,
-                color: theme.palette[textColor]?.main || textColor || theme.palette.secondary.main,
+                color: theme.palette[textColor]?.main || textColor ||  'white',
                 px: px || 4,
                 py:py || 1,
                 borderRadius: borderRadius || 8,
