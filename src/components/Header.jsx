@@ -7,8 +7,8 @@ import Box from '@mui/material/Box';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {useTheme} from '@mui/material/styles';
 import {Tab} from "@mui/material";
-import CustomButton from "./CustomButton.jsx";
-import CustomTab from "./CustomTab.jsx";
+import CustomButton from "../components/common/CustomButton.jsx";
+import CustomTab from "../components/common/CustomTab.jsx";
 import {useHeaderData} from "../api/header.js";
 import theme from "../theme.js";
 

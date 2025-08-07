@@ -7,8 +7,8 @@ import {
     Typography,
     Avatar,
 } from "@mui/material";
-import CustomInput from "./CustomInput.jsx";
-import CustomButton from "./CustomButton.jsx";
+import CustomInput from "../components/common/CustomInput.jsx";
+import CustomButton from "../components/common/CustomButton.jsx";
 
 
 const Banner = () => {
@@ -89,11 +89,7 @@ const Banner = () => {
                     >
                         <CustomInput placeholder="ایمیل خود را وارد کنید" borderRadius={3}/>
                         <CustomButton
-                            className="!m-0"
                             variant="contained"
-                            color="white"
-                            bgColor={theme.palette.primary.main}
-                            textColor={theme.palette.secondary.main}
                             borderRadius={3}
                         >
                             ارسال
