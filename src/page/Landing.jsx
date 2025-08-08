@@ -10,6 +10,7 @@ import Footer from "../components/Footer.jsx";
 import UI from "../components/UI.jsx";
 import Companies from "../components/Companies.jsx";
 import ContactUs from "../components/ContactUs.jsx";
+import Newsletter from "../components/Newsletter.jsx";
 const Landing = () => {
   return (
       <div className={"w-screen flex flex-col justify-center items-center overflow-x-hidden"}>
@@ -22,6 +23,7 @@ const Landing = () => {
           <FAQ/>
           <UI/>
           <Companies/>
+          <Newsletter/>
           <ContactUs/>
           <ChatBot/>
           <Footer/>

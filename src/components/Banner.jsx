@@ -2,7 +2,6 @@ import React from "react";
 import theme from "../theme.js";
 import {
     Box,
-    Button,
     Stack,
     Typography,
     Avatar,
@@ -12,6 +11,8 @@ import CustomButton from "../components/common/CustomButton.jsx";
 
 
 const Banner = () => {
+    const images = [1, 2, 3, 4]; // number of picture
+
     return (
         <Box
             className="bg-white overflow-x-hidden w-screen"
@@ -29,7 +30,7 @@ const Banner = () => {
                         md: 'row-reverse',
                     },
                     gap: 10,
-                    mt:5,
+                    mt: 5,
                     py: 10,
                     px: {xs: 2, md: 4},
                     justifyContent: 'center',
@@ -41,9 +42,28 @@ const Banner = () => {
             >
 
                 {/* Left Section */}
-                <Box className="grid grid-cols-2 gap-4 w-full md:w-[50%]">
-                    {[1, 2, 3, 4].map((item) => (
-                        <Box key={item} className="h-64 rounded-lg overflow-hidden shadow-md">
+                <Box
+                    className={`grid gap-4 w-full md:w-[50%] ${
+                        images.length === 1
+                            ? 'grid-cols-1 place-items-center'
+                            : images.length === 3
+                                ? 'grid-cols-2 grid-rows-[auto_auto]'
+                                : 'grid-cols-2'
+                    }`}
+                >
+                    {images.map((item, index) => (
+                        <Box
+                            key={item}
+                            className={`rounded-lg overflow-hidden shadow-md h-64${
+                                images.length === 1
+                                    ? 'w-3/4'
+                                    : images.length === 3
+                                        ? index === 2
+                                            ? 'col-span-2 justify-self-center w-3/4'
+                                            : ''
+                                        : ''
+                            }`}
+                        >
                             <img
                                 src={`/vite.svg`}
                                 alt={`تصویر ${item}`}
@@ -52,7 +72,6 @@ const Banner = () => {
                         </Box>
                     ))}
                 </Box>
-
                 {/* Right Section */}
                 <Box className="w-full md:w-[50%] flex flex-col gap-4"
                      sx={{
@@ -79,13 +98,13 @@ const Banner = () => {
                     </Typography>
 
                     <Box className="flex md:flex-col flex-row gap-4"
-                        sx={{
-                            display: 'flex',
-                            flexDirection: {
-                                xs: 'column',
-                                md: 'row',
-                            },
-                        }}
+                         sx={{
+                             display: 'flex',
+                             flexDirection: {
+                                 xs: 'column',
+                                 md: 'row',
+                             },
+                         }}
                     >
                         <CustomInput placeholder="ایمیل خود را وارد کنید" borderRadius={3}/>
                         <CustomButton

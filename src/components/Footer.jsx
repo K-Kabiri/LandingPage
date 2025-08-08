@@ -1,8 +1,9 @@
-import { Box, Typography, Link, IconButton } from '@mui/material';
+import { Box, Typography, Link, IconButton, Tooltip } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import theme from "../theme.js";
+
 export default function Footer() {
     const usefulLinks = [
         { label: 'خانه', href: '#' },
@@ -17,40 +18,54 @@ export default function Footer() {
             component="footer"
             dir="rtl"
             sx={{
-                background: 'white',
+                background: `linear-gradient(${theme.palette.background.paper}, ${theme.palette.primary.light})`,
                 px: { xs: 2, md: 6 },
                 py: 5,
-                borderTop: '1px solid #e0e0e0',
+                boxShadow: "0 1px 3px rgba(0, 0, 0, 1)",
+
             }}
-            className={"w-full"}
+            className="w-full"
         >
             <Box
                 sx={{
                     display: 'flex',
                     flexDirection: { xs: 'column', md: 'row' },
                     justifyContent: 'space-between',
-                    alignItems: 'stretch',
+                    alignItems: 'center',
                     flexWrap: 'wrap',
                     gap: { xs: 4, md: 0 },
                     maxWidth: '1280px',
                     mx: 'auto',
+                    textAlign: 'center',
                 }}
             >
                 {/* Contact us */}
-                <Box className={"flex flex-col justify-center items-center"} sx={{ flex: 1, minWidth: 0}} dir={"ltr"}>
-                    <img src="/src/assets/react.svg" alt="SYNTA" width={80} className={"mb-6"} />
+                <Box className="flex flex-col justify-center items-center" sx={{ flex: 1, minWidth: 0 }} dir="ltr">
+                    <img src="/src/assets/react.svg" alt="SYNTA" width={80} className="mb-6" />
                     <Typography variant="body2" color="text.secondary">synta@farda-studio.ir</Typography>
-                    <Typography variant="body2" color="text.secondary" >+98 913 655 8750</Typography>
+                    <Typography variant="body2" color="text.secondary">+98 913 655 8750</Typography>
                     <Box mt={1}>
-                        <IconButton><InstagramIcon fontSize="small" /></IconButton>
-                        <IconButton><TelegramIcon fontSize="small" /></IconButton>
-                        <IconButton><TwitterIcon fontSize="small" /></IconButton>
+                        <Tooltip title="Instagram">
+                            <IconButton sx={{ '&:hover': { transform: 'scale(1.2)', color: theme.palette.primary.main, transition: '0.3s' } }}>
+                                <InstagramIcon fontSize="small" />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Telegram">
+                            <IconButton sx={{ '&:hover': { transform: 'scale(1.2)', color: theme.palette.primary.main, transition: '0.3s' } }}>
+                                <TelegramIcon fontSize="small" />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Twitter">
+                            <IconButton sx={{ '&:hover': { transform: 'scale(1.2)', color: theme.palette.primary.main, transition: '0.3s' } }}>
+                                <TwitterIcon fontSize="small" />
+                            </IconButton>
+                        </Tooltip>
                     </Box>
                 </Box>
 
                 {/* Links */}
-                <Box sx={{ flex: 1, minWidth: 0, textAlign: 'center', p: 0 }}>
-                    <Typography fontWeight="bold" color={theme.palette.text.primary}>
+                <Box sx={{ flex: 1, minWidth: 0 }}>
+                    <Typography fontWeight="bold" color={theme.palette.text.primary} gutterBottom>
                         لینک‌های مفید
                     </Typography>
                     <Box display="flex" flexDirection="column" gap={1}>
@@ -66,6 +81,7 @@ export default function Footer() {
                                     transition: 'color 0.2s ease',
                                     '&:hover': {
                                         color: theme.palette.primary.main,
+                                        pl: 1
                                     },
                                 }}
                             >
@@ -75,22 +91,22 @@ export default function Footer() {
                     </Box>
                 </Box>
 
-                {/*   (QR Code) */}
-                <Box sx={{ flex: 1, minWidth: 0, textAlign: 'center' }}>
+                {/* QR Code */}
+                <Box sx={{ flex: 1, minWidth: 0 }}>
                     <Typography fontWeight="bold" gutterBottom>امتحان کنید</Typography>
                     <Box
                         component="img"
-                        src="/qr-code.png"
+                        src="/vite.svg"
                         alt="QR Code"
-                        sx={{ width: 120, height: 120, mx: 'auto' }}
+                        sx={{ width: 120, height: 120, mx: 'auto', display: 'block' }}
                     />
-                    <Typography variant="caption" display="block" mt={1} color="primary">Connect</Typography>
+                    <Typography variant="caption" display="block" mt={1} color="primary">با موبایل اسکن کنید</Typography>
                 </Box>
 
-                {/* views */}
-                <Box sx={{ flex: 1, minWidth: 0, textAlign: 'center' }}>
+                {/* Views */}
+                <Box sx={{ flex: 1, minWidth: 0 }}>
                     <Typography fontWeight="bold" gutterBottom>آمار بازدید</Typography>
-                    <Box sx={{ backgroundColor: '#a855f7', borderRadius: 2, color: '#fff', p: 2, fontSize: 12, lineHeight: 1.8 }}>
+                    <Box sx={{ fontSize: 14, lineHeight: 1.8 }}>
                         <div>👤 افراد آنلاین: ۱ نفر</div>
                         <div>📅 بازدید امروز: ۳ نفر</div>
                         <div>📊 بازدید هفته: ۳۴ نفر</div>
@@ -105,6 +121,5 @@ export default function Footer() {
                 © تمام حقوق مادی و معنوی این وبسایت متعلق به استارتاپ سینتا می‌باشد.
             </Typography>
         </Box>
-
     );
 }
