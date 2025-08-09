@@ -15,19 +15,20 @@ import theme from "../theme.js";
 const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-    const {data, isLoading, error} = useHeaderData(2);
+    const {data, isLoading, error} = useHeaderData(1);
     const theme1 = useTheme();
     const isDesktop = useMediaQuery(theme1.breakpoints.up('md'));
 
     if (isLoading) return <div>در حال بارگذاری...</div>;
     if (error) return <div>خطا در دریافت داده‌ها</div>;
 
-    const navLinks = data?.tabs || [];
+    const navLinks = data?.header_tabs || [];
     const ctaButtons = data?.buttons || [];
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
+    console.log(data.icon_image);
 
     return (
         <AppBar
@@ -51,7 +52,8 @@ const Header = () => {
                 }}
             >
                 <Box sx={{flexShrink: 0}}>
-                    <img src={data?.icon_image.url} alt="Logo" style={{height: 40}}/>
+                    <img src={data?.icon_image} alt="Logo" style={{height:60}}/>
+
                 </Box>
 
                 {isDesktop && (
