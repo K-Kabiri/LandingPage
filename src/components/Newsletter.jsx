@@ -1,5 +1,7 @@
 import { Box, Typography, Button, InputBase } from "@mui/material";
 import theme from "../theme.js";
+import CustomInput from "./common/CustomInput.jsx";
+import CustomButton from "./common/CustomButton.jsx";
 
 export default function NewsletterSection() {
     return (
@@ -18,7 +20,7 @@ export default function NewsletterSection() {
                 sx={{
                     display: "flex",
                     flexDirection: { xs: "column", md: "row" },
-                    alignItems: { xs: "flex-start", md: "center" },
+                    alignItems: { xs: 'center', md: 'center' },
                     justifyContent: "space-between",
                     gap: 5,
                     width: "100%",
@@ -30,8 +32,12 @@ export default function NewsletterSection() {
                     p: { xs: 3, md: 5 },
                 }}
             >
-                {/* متن سمت راست */}
-                <Box sx={{ flex: 1 }}>
+                {/* Right Section */}
+                <Box sx={{ flex: 1,display: "flex",flexDirection:"column", alignItems: {
+                    xs:"center",
+                        md:"start"
+                    }
+                     }}>
                     <Typography
                         variant="h5"
                         fontWeight="bold"
@@ -39,50 +45,38 @@ export default function NewsletterSection() {
                     >
                         اشتراک خبرنامه
                     </Typography>
-                    <Typography sx={{ color: "#f3f3f3" }}>
+                    <Typography sx={{ color: "#f3f3f3", textAlign: {
+                        xs:"center",
+                        md:"right"
+                    } }}>
                         اولین کسی باشید که آخرین پست را در صندوق ورودی خود دریافت می‌کنید
                     </Typography>
                 </Box>
 
-                {/* فرم سمت چپ */}
+                {/* Left Section */}
                 <Box
                     sx={{
                         display: "flex",
                         flexDirection: { xs: "column", sm: "row" },
-                        alignItems: "center",
+                        alignItems: { xs: "center", md: "center" },
+                        justifyContent: "center",
                         gap: 1.5,
                         flex: 1,
-                        justifyContent: { xs: "flex-start", md: "flex-end" },
-                    }}
-                >
-                    <InputBase
+                        width: "100%",
+                    }}>
+                    <CustomInput
                         placeholder="ایمیل خود را وارد کنید"
-                        inputProps={{
-                            style: { textAlign: "right" },
-                        }}
-                        sx={{
-                            backgroundColor: "#fff",
-                            borderRadius: 1,
-                            px: 2,
-                            py: 1,
-                            flex: 1,
-                            minWidth: { xs: "100%", sm: "250px" },
-                        }}
+                        borderRadius={1}
+                        bgColor={'white'}
+
                     />
-                    <Button
-                        variant="contained"
-                        sx={{
-                            backgroundColor: "#fff",
-                            color: theme.palette.primary.main,
-                            px: 4,
-                            py: 1,
-                            borderRadius: 1,
-                            "&:hover": { backgroundColor: "#f0f0f0" },
-                            minWidth: { xs: "100%", sm: "auto" },
-                        }}
+                    <CustomButton
+                        borderRadius={1}
+                        bgColor={'white'}
+                        textColor={theme.palette.primary.main}
                     >
                         ارسال
-                    </Button>
+                    </CustomButton>
                 </Box>
             </Box>
         </Box>

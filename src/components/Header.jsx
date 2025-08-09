@@ -6,7 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {useTheme} from '@mui/material/styles';
-import {Tab} from "@mui/material";
+import {Tab,Link} from "@mui/material";
 import CustomButton from "../components/common/CustomButton.jsx";
 import CustomTab from "../components/common/CustomTab.jsx";
 import {useHeaderData} from "../api/header.js";
@@ -115,23 +115,31 @@ const Header = () => {
                 dir="rtl"
             >
                 {navLinks.map((link) => (
-                    <a
+                    <Link
                         key={link.id}
                         href={link.link || '#'}
-                        className="block px-4 py-2 "
-                        style={{color: `${theme.palette.text.primary} hover:${theme.palette.primary.main}`}}
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            color: theme.palette.primary.main,
+                            '&:hover': {
+                                color: theme.palette.primary.main,
+                            },
+                            textDecoration: 'none',
+                            mt:2,
+                        }}
                     >
                         {link.label}
-                    </a>
+                    </Link>
                 ))}
-                <Box className="mt-2 grid gap-2">
+                <div className={"border-t-gray-200 border-t-1 mt-5"}></div>
+                <Box className="mt-5 flex flex-row gap-2 ">
                     {ctaButtons.map((btn) => (
                         <CustomButton
                             key={btn.id}
                             onClick={() => window.open(btn.link, '_blank')}
                             textColor="white"
-                            py={1}
-                            px={3}
+
                             borderRadius={4}
                         >
                             {btn.label}

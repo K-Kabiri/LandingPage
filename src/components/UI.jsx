@@ -81,16 +81,16 @@ export default function BeautifulInterfaceSection() {
                             loop={true}
                             autoplay={{ delay: 1500, disableOnInteraction: false }}
                             slidesPerView={1}
-                            spaceBetween={16}
                             grabCursor={true}
                             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
                             breakpoints={{
-                                0: { slidesPerView: 1, spaceBetween: 16 },
-                                480: { slidesPerView: 2, spaceBetween: 20 },
+                                0: { slidesPerView: 1, spaceBetween: 0 },
+                                480: { slidesPerView: 1, spaceBetween: 0 },
                                 768: { slidesPerView: 2, spaceBetween: 24 },
                                 1024: { slidesPerView: 3, spaceBetween: 36 },
                             }}
-                            style={{ overflow: "visible" }}
+                            style={{ overflow: "visible", justifyContent: "center",
+                                alignItems: "center", }}
                         >
                             {images.map((src, idx) => {
                                 const isCenterSlide =
@@ -103,6 +103,9 @@ export default function BeautifulInterfaceSection() {
                                             zIndex: isCenterSlide ? 2 : 1,
                                             position: "relative",
                                             transition: "transform 0.5s ease",
+                                            width: "auto",
+                                            justifyContent: "center",
+                                            alignItems: "center",
                                         }}
                                     >
                                         <Paper
