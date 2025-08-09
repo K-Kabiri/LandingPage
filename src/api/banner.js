@@ -5,7 +5,7 @@ export const useBannerData = (id) => {
     return useQuery({
         queryKey: ['banner', id],
         queryFn: () =>
-            fetch(`${BASE_URL}/api/banner/${id}/`)
+            fetch(`${BASE_URL}/api/banner-sections/${id}/`)
                 .then(res => {
                     if (!res.ok) throw new Error('Error in catching data from API');
                     return res.json();
