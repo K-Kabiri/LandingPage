@@ -6,32 +6,32 @@ import InputAdornment from '@mui/material/InputAdornment';
 const ChatBot = () => {
 
     const [messages, setMessages] = useState([
-        // { id: 0, text: "سلام، در مورد سینتا بهم بگو", sender: "user" },
-        // {
-        //     id: 1,
-        //     text: "پلتفرم سینتا یک پلتفرم کم‌کد برای طراحی فرایندهای کسب‌وکار است.",
-        //     sender: "bot",
-        // },
-        //         { id: 2, text: "سلام، در مورد سینتا بهم بگو", sender: "user" },
+        { id: 0, text: "سلام، در مورد سینتا بهم بگو", sender: "user" },
+        {
+            id: 1,
+            text: "پلتفرم سینتا یک پلتفرم کم‌کد برای طراحی فرایندهای کسب‌وکار است.",
+            sender: "bot",
+        },
+                { id: 2, text: "سلام، در مورد سینتا بهم بگو", sender: "user" },
 
-        // {
-        //     id: 3,
-        //     text: "پلتفرم سینتا یک پلتفرم کم‌کد برای طراحی فرایندهای کسب‌وکار است.",
-        //     sender: "bot",
-        // },
-        // { id: 2, text: "سلام، در مورد سینتا بهم بگو", sender: "user" },
+        {
+            id: 3,
+            text: "پلتفرم سینتا یک پلتفرم کم‌کد برای طراحی فرایندهای کسب‌وکار است.",
+            sender: "bot",
+        },
+        { id: 2, text: "سلام، در مورد سینتا بهم بگو", sender: "user" },
 
-        // {
-        //     id: 3,
-        //     text: "پلتفرم سینتا یک پلتفرم کم‌کد برای طراحی فرایندهای کسب‌وکار است.",
-        //     sender: "bot",
-        // },
+        {
+            id: 3,
+            text: "پلتفرم سینتا یک پلتفرم کم‌کد برای طراحی فرایندهای کسب‌وکار است.",
+            sender: "bot",
+        },
     ]);
 
 
     const theme = useTheme();
     return(
-        <div className="w-full bg-white p-5 flex md:flex-row flex-col justify-between">
+        <div className="w-full bg-white p-5 flex md:flex-row flex-col justify-between items-end">
             <IconButton>
 
             </IconButton>
@@ -42,28 +42,39 @@ const ChatBot = () => {
                 {/* <Box className=" flex flex-row justify-between w-full px-4 py-3 rounded-t-3xl bg-contain bg-no-repeat items-start h-20 bg-[#B7ACFF] "> */}
 
                     {/* <img src="./public\images\Rectangle 4168.png"/> */}
-                    <div className="flex flex-row text-purple-900 items-center justify-center">
+                    <div className="flex flex-row items-center justify-center" style={{color: theme.palette.primary.main}}>
                         <svg width="32" height="32" viewBox="0 0 24 24" fill="currentCOlor" xmlns="http://www.w3.org/2000/svg">
                             <path d="M15.7756 5.77566L16.4308 3.81026H17.5692L18.2243 5.77566L20.1897 6.43079V7.56921L18.2243 8.22434L17.5692 10.1897H16.4308L15.7756 8.22434L13.8102 7.56921V6.43079L15.7756 5.77566Z" fill="currentCOlor"/>
                             <path d="M18 12V19H16V12H18Z" fill="currentCOlor"/>
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M7.33728 6H10.6627L14.0329 19H11.9668L11.1891 16H6.81082L6.03304 19H3.96692L7.33728 6ZM7.32934 14H10.6706L9.11505 8H8.88489L7.32934 14Z" fill="currentCOlor"/>
                         </svg>
                         <RobotIcon/>
-                        
+
                     </div>
                     {/* <p>Hi...</p> */}
                 </Box>
                 {messages.length > 0 ? (
                 <Box className="flex flex-col gap-3 p-4 max-h-[80vh] overflow-y-auto">
                     {messages.map((msg) => (
-                    <Box
-                        key={msg.id}
-                        className={`max-w-[75%] px-4 py-2 rounded-xl text-xs leading-6 ${
-                        msg.sender === "user"
-                            ? "self-end bg-blue-100 text-right rounded-br-none"
-                            : "self-start bg-gray-100 text-right rounded-bl-none"
-                        }`}
-                    >
+                        <Box
+                            key={msg.id}
+                            className={`max-w-[75%] px-4 py-2 rounded-xl text-xs leading-6 ${
+                                msg.sender === "user"
+                                    ? "self-end text-right rounded-br-none"
+                                    : "self-start text-right rounded-bl-none"
+                            }`}
+                            style={
+                                msg.sender === "user"
+                                    ? {
+                                        backgroundColor: theme.palette.primary.light,
+                                        color: theme.palette.text.primary,
+                                    }
+                                    : {
+                                        backgroundColor: theme.palette.grey[100],
+                                        color: theme.palette.text.primary,
+                                    }
+                            }
+                        dir={"rtl"}>
                         {msg.text}
                     </Box>
                     ))}
@@ -78,14 +89,14 @@ const ChatBot = () => {
                             <path d="M7 12C7.26522 12 7.51957 12.1054 7.70711 12.2929C7.89464 12.4804 8 12.7348 8 13V21C8 21.2652 7.89464 21.5196 7.70711 21.7071C7.51957 21.8946 7.26522 22 7 22C6.73478 22 6.48043 21.8946 6.29289 21.7071C6.10536 21.5196 6 21.2652 6 21V13C6 12.7348 6.10536 12.4804 6.29289 12.2929C6.48043 12.1054 6.73478 12 7 12ZM26 13C26 12.7348 25.8946 12.4804 25.7071 12.2929C25.5196 12.1054 25.2652 12 25 12C24.7348 12 24.4804 12.1054 24.2929 12.2929C24.1054 12.4804 24 12.7348 24 13V21C24 21.2652 24.1054 21.5196 24.2929 21.7071C24.4804 21.8946 24.7348 22 25 22C25.2652 22 25.5196 21.8946 25.7071 21.7071C25.8946 21.5196 26 21.2652 26 21V13ZM13 21C13.2652 21 13.5196 21.1054 13.7071 21.2929C13.8946 21.4804 14 21.7348 14 22V27C14.2652 27 14.5196 27.1054 14.7071 27.2929C14.8946 27.4804 15 27.7348 15 28C15 28.2652 14.8946 28.5196 14.7071 28.7071C14.5196 28.8946 14.2652 29 14 29H12C11.7348 29 11.4804 28.8946 11.2929 28.7071C11.1054 28.5196 11 28.2652 11 28C11 27.7348 11.1054 27.4804 11.2929 27.2929C11.4804 27.1054 11.7348 27 12 27V22C12 21.7348 12.1054 21.4804 12.2929 21.2929C12.4804 21.1054 12.7348 21 13 21ZM20 22C20 21.7348 19.8946 21.4804 19.7071 21.2929C19.5196 21.1054 19.2652 21 19 21C18.7348 21 18.4804 21.1054 18.2929 21.2929C18.1054 21.4804 18 21.7348 18 22V27C17.7348 27 17.4804 27.1054 17.2929 27.2929C17.1054 27.4804 17 27.7348 17 28C17 28.2652 17.1054 28.5196 17.2929 28.7071C17.4804 28.8946 17.7348 29 18 29H20C20.2652 29 20.5196 28.8946 20.7071 28.7071C20.8946 28.5196 21 28.2652 21 28C21 27.7348 20.8946 27.4804 20.7071 27.2929C20.5196 27.1054 20.2652 27 20 27V22Z" fill="currentCOlor"/>
                         </svg>
                     </div>
-                    <Typography className=" text-xs" 
+                    <Typography className=" text-xs"
                         sx={{ fontSize: theme.typography.sm.fontSize}}
                         >
                         سلاام. چه کمکی از دستم برمیاد ؟
                     </Typography>
                 </Box>
                 )}
-                
+
                 <Box className="flex flex-row justify-between items-center pb-3 px-4 gap-2 w-full">
                 <TextField
                     id="outlined-basic"
@@ -105,7 +116,7 @@ const ChatBot = () => {
                         borderColor: '#d1d5db',
                         },
                         '&.Mui-focused fieldset': {
-                        borderColor: '#7e3af2',
+                        borderColor: theme.palette.primary.main,
                         borderWidth: '1px',
                         },
                     },
@@ -113,7 +124,7 @@ const ChatBot = () => {
                     InputProps={{
                     endAdornment: (
                         <InputAdornment position="end">
-                        <IconButton className=" rounded-full !bg-[#B7ACFF] shadow-lg/20 !p-1.5"
+                        <IconButton className=" rounded-full  shadow-lg/20 !p-1.5" style={{backgroundColor:theme.palette.primary.light}}
                                   sx={{ minWidth: 'auto', height: 'fit-content' ,marginRight: 1}} // دقیق‌تر کردن سایز
                         >
                             <SendIcon />
@@ -125,7 +136,7 @@ const ChatBot = () => {
                 </Box>
 
             </Box>
-            <Box className="h-fit w-fit rounded-full p-3 bg-purple-500  text-white shadow-lg/30">
+            <Box className="h-fit w-fit rounded-full p-3 shadow-lg/30" style={{backgroundColor:theme.palette.primary.main, color:theme.palette.text.secondary} }>
                 <svg width="40" height="40" viewBox="0 0 33 33" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path d="M27.7395 16.0145H27.5528C26.7862 12.5878 23.7262 10.0145 20.0728 10.0145H17.7395V9.16118C18.8995 8.74785 19.7395 7.64785 19.7395 6.34785C19.7395 4.69451 18.3928 3.34785 16.7395 3.34785C15.0862 3.34785 13.7395 4.69451 13.7395 6.34785C13.7395 7.64785 14.5795 8.74785 15.7395 9.16118V10.0145H13.4062C9.75284 10.0145 6.69284 12.5878 5.92617 16.0145H5.7395C4.6395 16.0145 3.7395 16.9145 3.7395 18.0145V20.0145C3.7395 21.1145 4.6395 22.0145 5.7395 22.0145H6.10617C6.89284 24.4678 8.8795 26.3745 11.3728 27.0678C11.1862 27.4612 11.0728 27.8878 11.0728 28.3478C11.0728 28.9012 11.5195 29.3478 12.0728 29.3478H21.4062C21.9595 29.3478 22.4062 28.9012 22.4062 28.3478C22.4062 27.8878 22.2928 27.4545 22.1062 27.0678C24.5995 26.3812 26.5862 24.4678 27.3728 22.0145H27.7395C28.8395 22.0145 29.7395 21.1145 29.7395 20.0145V18.0145C29.7395 16.9145 28.8395 16.0145 27.7395 16.0145ZM16.7395 5.34785C17.2928 5.34785 17.7395 5.79451 17.7395 6.34785C17.7395 6.90118 17.2928 7.34785 16.7395 7.34785C16.1862 7.34785 15.7395 6.90118 15.7395 6.34785C15.7395 5.79451 16.1862 5.34785 16.7395 5.34785ZM20.0728 25.3478H13.4062C10.2795 25.3478 7.7395 22.8078 7.7395 19.6812V17.6812C7.7395 14.5545 10.2795 12.0145 13.4062 12.0145H20.0728C23.1995 12.0145 25.7395 14.5545 25.7395 17.6812V19.6812C25.7395 22.8078 23.1995 25.3478 20.0728 25.3478Z" fill="currentColor"/>
                     <path d="M13.0728 14.6812C11.9728 14.6812 11.0728 15.5812 11.0728 16.6812V18.6812C11.0728 19.7812 11.9728 20.6812 13.0728 20.6812C14.1728 20.6812 15.0728 19.7812 15.0728 18.6812V16.6812C15.0728 15.5812 14.1728 14.6812 13.0728 14.6812Z" fill="currentColor"/>
