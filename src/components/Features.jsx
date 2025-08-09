@@ -38,15 +38,15 @@ const features = [
 const FeaturesSection = () => {
     return (
         <Box className={"w-screen"}
-            dir="rtl"
-            sx={{
-                background: 'linear-gradient(to bottom, #ffffff, #f3e8ff)',
-                py: 8,
-                px: { xs: 2, md: 3 },
-                overflowX: 'hidden',
-                display: 'flex',
-                justifyContent: 'center',
-            }}
+             dir="rtl"
+             sx={{
+                 background: 'linear-gradient(to bottom, #ffffff, #f3e8ff)',
+                 py: 8,
+                 px: {xs: 2, md: 3},
+                 overflowX: 'hidden',
+                 display: 'flex',
+                 justifyContent: 'center',
+             }}
         >
             <Box
                 sx={{
@@ -54,11 +54,10 @@ const FeaturesSection = () => {
                 }}
             >
 
-                {/* تصویر بالا */}
-                <Box sx={{ mb: 10, display: 'flex', justifyContent: 'center' }}>
+                <Box sx={{mb: 10, display: 'flex', justifyContent: 'center'}}>
                     <Box
                         sx={{
-                            width: { xs: '100%', md: '60%' },
+                            width: {xs: '100%', md: '60%'},
                             borderRadius: 2,
                             boxShadow: 3,
                             overflow: 'hidden',
@@ -68,12 +67,11 @@ const FeaturesSection = () => {
                             component="img"
                             src="/src/assets/react.svg"
                             alt="پیش‌نمایش سیستم"
-                            sx={{ width: '100%', height: 'auto', display: 'block' }}
+                            sx={{width: '100%', height: 'auto', display: 'block'}}
                         />
                     </Box>
                 </Box>
 
-                {/* عنوان */}
                 <Typography
                     variant="h4"
                     fontWeight="bold"
@@ -87,7 +85,6 @@ const FeaturesSection = () => {
                     ما را متفاوت می‌کند.
                 </Typography>
 
-                {/* کارت‌ها */}
                 <Box
                     sx={{
                         display: 'flex',
@@ -95,8 +92,7 @@ const FeaturesSection = () => {
                         justifyContent: 'center',
                         gap: 3,
                         mt: 4,
-                    }}
-                >
+                    }}>
                     {features.map((feature, index) => (
                         <Card
                             key={index}
@@ -104,21 +100,28 @@ const FeaturesSection = () => {
                             sx={{
                                 borderRadius: 4,
                                 width: 280,
-                                textAlign: 'right',
+                                textAlign: {
+                                    md: 'right',
+                                    xs: 'center'
+                                },
+                                justifyContent: 'center',
                                 display: 'flex',
                                 flexDirection: 'column',
-                                alignItems: 'flex-start',
+                                alignItems: {
+                                    xs: 'center',
+                                    md: 'flex-start'
+                                },
                                 p: 2,
-                                boxSizing: 'border-box', // ✅ جلوگیری از بیرون‌زدگی
+                                boxSizing: 'border-box',
                             }}
                         >
                             <CardMedia
                                 component="img"
                                 image={feature.icon}
                                 alt={feature.title}
-                                sx={{ width: 48, height: 48, mt: 2, mb: 2 }}
+                                sx={{width: 48, height: 48, mt: 2, mb: 2,}}
                             />
-                            <CardContent sx={{ p: 0 }}>
+                            <CardContent sx={{p: 0}}>
                                 <Typography
                                     variant="h6"
                                     fontWeight="bold"

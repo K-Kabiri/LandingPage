@@ -50,7 +50,7 @@ const HowItWorks = () => {
             id="how_it_work"
             className="bg-white px-2 py-10 flex flex-col gap-10 w-screen  justify-center items-center"
         >
-            <div className="flex flex-col max-w-[1280px] w-[100%] gap-10 px-16">
+            <div className="flex flex-col max-w-[1280px] w-[100%] gap-10 px-4 md:px-16">
                 <div className="flex flex-col gap-10 text-center">
                     <h2 className="text-3xl font-bold">
                         <span style={{color: theme.palette.primary.main}}>نحوه کار</span> - سه قدم آسان

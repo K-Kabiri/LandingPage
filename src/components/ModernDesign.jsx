@@ -75,7 +75,13 @@ const ModernDesign = () => {
                                 key={idx}
                                 sx={{
                                     display: 'flex',
-                                    alignItems: 'flex-start',
+                                    flexDirection:{
+                                        xs: 'column',
+                                        md: 'row',},
+                                    alignItems: {
+                                        md: 'flex-start',
+                                        xs:'center',
+                                    },
                                     gap: 2,
                                     mb: 2,
                                 }}

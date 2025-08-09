@@ -104,6 +104,9 @@ const Banner = () => {
                                  xs: 'column',
                                  md: 'row',
                              },
+                             justifyContent: 'center',
+                             alignItems: 'center',
+
                          }}
                     >
                         <CustomInput placeholder="ایمیل خود را وارد کنید" borderRadius={3}/>
