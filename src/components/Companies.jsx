@@ -20,8 +20,6 @@ const images = [
 
 export default function Companies() {
     const theme = useTheme();
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [centerIndex, setCenterIndex] = useState(0);
 
     const isSwiperActive = images.length > 5;
 
@@ -47,7 +45,7 @@ export default function Companies() {
             dir="rtl"
             className="overflow-x-hidden w-screen"
             sx={{
-                background: 'linear-gradient(to bottom, #FFE8F5, #ffffff)',
+                background: "linear-gradient(to bottom, #FFE8F5, #ffffff)",
                 py: 10,
                 display: "flex",
                 justifyContent: "center",
@@ -86,71 +84,59 @@ export default function Companies() {
                             modules={[Autoplay]}
                             loop={true}
                             autoplay={{ delay: 1500, disableOnInteraction: false }}
-                            slidesPerView={1}
-                            spaceBetween={16}
                             grabCursor={true}
-                            onSlideChange={(swiper) => {
-                                const visibleSlides = swiper.params.slidesPerView;
-                                const center =
-                                    (swiper.realIndex + Math.floor(visibleSlides / 2)) % images.length;
-                                setActiveIndex(swiper.realIndex);
-                                setCenterIndex(center);
-                            }}
+                            centeredSlides={true}
+                            centerInsufficientSlides={true}
                             breakpoints={{
-                                0: { slidesPerView: 1, spaceBetween: 2 },
-                                480: { slidesPerView: 3, spaceBetween: 3 },
-                                768: { slidesPerView: 3, spaceBetween: 3 },
-                                1024: { slidesPerView: 5, spaceBetween: 10 },
+                                0: { slidesPerView: 1, spaceBetween: 2, centeredSlides: true },
+                                480: { slidesPerView: 3, spaceBetween: 3, centeredSlides: true },
+                                768: { slidesPerView: 3, spaceBetween: 3, centeredSlides: true },
+                                1024: { slidesPerView: 5, spaceBetween: 10, centeredSlides: true },
                             }}
                             style={{ overflow: "visible" }}
                         >
-                            {images.map((src, idx) => {
-                                const isCenterSlide = idx === centerIndex;
-
-                                return (
-                                    <SwiperSlide
-                                        key={idx}
-                                        style={{
-                                            zIndex: isCenterSlide ? 2 : 1,
-                                            position: "relative",
+                            {images.map((src, idx) => (
+                                <SwiperSlide
+                                    key={idx}
+                                    style={{
+                                        position: "relative",
+                                        transition: "transform 0.5s ease",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <Paper
+                                        elevation={3}
+                                        sx={{
+                                            height: cardSize.height,
+                                            width: cardSize.width,
+                                            borderRadius: 2,
+                                            borderWidth: 1,
+                                            borderColor: theme.palette.primary.main,
+                                            overflow: "hidden",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            p: 1,
                                             transition: "transform 0.5s ease",
                                         }}
+                                        className="company-card"
                                     >
-                                        <Paper
-                                            elevation={3}
+                                        <Box
+                                            component="img"
+                                            src={src}
+                                            alt={`image-${idx}`}
                                             sx={{
-                                                height: cardSize.height,
-                                                width: cardSize.width,
+                                                width: "100%",
+                                                height: "100%",
+                                                objectFit: "contain",
                                                 borderRadius: 2,
-                                                borderWidth: 1,
-                                                borderColor: theme.palette.primary.main,
-                                                overflow: "hidden",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                p: 1,
-                                                transition: "transform 0.5s ease",
+                                                transition: "filter 0.5s ease",
                                             }}
-                                        >
-                                            <Box
-                                                component="img"
-                                                src={src}
-                                                alt={`image-${idx}`}
-                                                sx={{
-                                                    width: "100%",
-                                                    height: "100%",
-                                                    objectFit: "contain",
-                                                    borderRadius: 2,
-                                                    filter: isCenterSlide
-                                                        ? "none"
-                                                        : "grayscale(100%)",
-                                                    transition: "filter 0.5s ease",
-                                                }}
-                                            />
-                                        </Paper>
-                                    </SwiperSlide>
-                                );
-                            })}
+                                        />
+                                    </Paper>
+                                </SwiperSlide>
+                            ))}
                         </Swiper>
                     ) : (
                         <Box
@@ -176,6 +162,7 @@ export default function Companies() {
                                         alignItems: "center",
                                         justifyContent: "center",
                                         p: 1,
+                                        filter: "grayscale(100%)",
                                     }}
                                 >
                                     <Box
@@ -187,7 +174,6 @@ export default function Companies() {
                                             height: "100%",
                                             objectFit: "contain",
                                             borderRadius: 2,
-                                            filter: "grayscale(100%)",
                                         }}
                                     />
                                 </Paper>
@@ -196,6 +182,17 @@ export default function Companies() {
                     )}
                 </Box>
             </Box>
+
+            <style>
+                {`
+                .swiper-slide-active .company-card img {
+                    filter: none !important;
+                }
+                .company-card img {
+                    filter: grayscale(100%);
+                }
+                `}
+            </style>
         </Box>
     );
 }

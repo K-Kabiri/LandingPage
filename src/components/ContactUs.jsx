@@ -12,7 +12,7 @@ export default function ContactUs() {
                 py: 10,
                 display: 'flex',
                 justifyContent: 'center',
-                px: { xs: 2, md: 20 },
+                px: { xs: 2, md: 4 },
 
             }}
         >
