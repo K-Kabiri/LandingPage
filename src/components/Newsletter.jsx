@@ -13,7 +13,7 @@ export default function NewsletterSection() {
                 py: 10,
                 display: "flex",
                 justifyContent: "center",
-                px: { xs: 2, md: 20 },
+                px: { xs: 2, md: 4 },
             }}
         >
             <Box
@@ -29,7 +29,7 @@ export default function NewsletterSection() {
                     boxShadow: 2,
                     backgroundColor: theme.palette.primary.main,
                     color: "#fff",
-                    p: { xs: 3, md: 5 },
+                    p: { xs: 2, md: 5 },
                 }}
             >
                 {/* Right Section */}

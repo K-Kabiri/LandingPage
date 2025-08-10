@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -17,7 +17,6 @@ const images = [
 
 export default function BeautifulInterfaceSection() {
     const theme = useTheme();
-    const [activeIndex, setActiveIndex] = useState(0);
 
     const isSwiperActive = images.length > 3;
 
@@ -28,9 +27,9 @@ export default function BeautifulInterfaceSection() {
         return { width: 350, height: 200 };
     };
 
-    const [cardSize, setCardSize] = React.useState(getCardSize(window.innerWidth));
+    const [cardSize, setCardSize] = useState(getCardSize(window.innerWidth));
 
-    React.useEffect(() => {
+    useEffect(() => {
         const handleResize = () => {
             setCardSize(getCardSize(window.innerWidth));
         };
@@ -43,7 +42,7 @@ export default function BeautifulInterfaceSection() {
             dir="rtl"
             className="overflow-x-hidden w-screen"
             sx={{
-                background: 'linear-gradient(to bottom, #ffffff, #FFE8F5)',
+                background: "linear-gradient(to bottom, #ffffff, #FFE8F5)",
                 py: 10,
                 display: "flex",
                 justifyContent: "center",
@@ -80,68 +79,63 @@ export default function BeautifulInterfaceSection() {
                             modules={[Autoplay]}
                             loop={true}
                             autoplay={{ delay: 1500, disableOnInteraction: false }}
-                            slidesPerView={1}
                             grabCursor={true}
-                            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+                            centeredSlides={true}
+                            centerInsufficientSlides={true}
                             breakpoints={{
-                                0: { slidesPerView: 1, spaceBetween: 0 },
-                                480: { slidesPerView: 1, spaceBetween: 0 },
-                                768: { slidesPerView: 2, spaceBetween: 24 },
-                                1024: { slidesPerView: 3, spaceBetween: 36 },
+                                0: { slidesPerView: 1, spaceBetween: 0, centeredSlides: true },
+                                480: { slidesPerView: 1, spaceBetween: 0, centeredSlides: true },
+                                768: { slidesPerView: 2, spaceBetween: 24, centeredSlides: true },
+                                1024: { slidesPerView: 3, spaceBetween: 36, centeredSlides: true },
                             }}
-                            style={{ overflow: "visible", justifyContent: "center",
-                                alignItems: "center", }}
+                            style={{
+                                overflow: "visible",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
                         >
-                            {images.map((src, idx) => {
-                                const isCenterSlide =
-                                    idx === (activeIndex + 1) % images.length;
-
-                                return (
-                                    <SwiperSlide
-                                        key={idx}
-                                        style={{
-                                            zIndex: isCenterSlide ? 2 : 1,
-                                            position: "relative",
-                                            transition: "transform 0.5s ease",
-                                            width: "auto",
-                                            justifyContent: "center",
+                            {images.map((src, idx) => (
+                                <SwiperSlide
+                                    key={idx}
+                                    style={{
+                                        position: "relative",
+                                        transition: "transform 0.5s ease",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <Paper
+                                        elevation={3}
+                                        sx={{
+                                            height: cardSize.height,
+                                            width: cardSize.width,
+                                            borderRadius: 2,
+                                            borderWidth: 1,
+                                            borderColor: theme.palette.primary.main,
+                                            overflow: "hidden",
+                                            display: "flex",
                                             alignItems: "center",
+                                            justifyContent: "center",
+                                            p: 1,
+                                            transition: "transform 0.5s ease",
                                         }}
+                                        className="interface-card"
                                     >
-                                        <Paper
-                                            elevation={3}
+                                        <Box
+                                            component="img"
+                                            src={src}
+                                            alt={`image-${idx}`}
                                             sx={{
-                                                height: cardSize.height,
-                                                width: cardSize.width,
+                                                width: "100%",
+                                                height: "100%",
+                                                objectFit: "contain",
                                                 borderRadius: 2,
-                                                borderWidth: 1,
-                                                borderColor: theme.palette.primary.main,
-                                                overflow: "hidden",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                p: 1,
-                                                transform: isCenterSlide
-                                                    ? "scale(1.1)"
-                                                    : "scale(1)",
                                                 transition: "transform 0.5s ease",
                                             }}
-                                        >
-                                            <Box
-                                                component="img"
-                                                src={src}
-                                                alt={`image-${idx}`}
-                                                sx={{
-                                                    width: "100%",
-                                                    height: "100%",
-                                                    objectFit: "contain",
-                                                    borderRadius: 2,
-                                                }}
-                                            />
-                                        </Paper>
-                                    </SwiperSlide>
-                                );
-                            })}
+                                        />
+                                    </Paper>
+                                </SwiperSlide>
+                            ))}
                         </Swiper>
                     ) : (
                         <Box
@@ -186,6 +180,17 @@ export default function BeautifulInterfaceSection() {
                     )}
                 </Box>
             </Box>
+
+            <style>
+                {`
+                .swiper-slide-active .interface-card {
+                    transform: scale(1.1);
+                }
+                .interface-card {
+                    transform: scale(1);
+                }
+                `}
+            </style>
         </Box>
     );
 }
