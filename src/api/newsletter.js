@@ -5,7 +5,7 @@ export const useNewslettersData = (id) => {
     return useQuery({
         queryKey: ['Newsletter', id],
         queryFn: () =>
-            fetch(`${BASE_URL}/api/Newsletter/${id}/`)
+            fetch(`${BASE_URL}/api/newsletter-sections/${id}/`)
                 .then(res => {
                     if (!res.ok) throw new Error('Error in catching data from API');
                     return res.json();
