@@ -1,21 +1,46 @@
 import React from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, CircularProgress } from "@mui/material";
 import theme from "../theme.js";
+import { useModerDesignData } from "../api/modernDesign.js";
 
-const ModernDesign = () => {
-    const features = [
+const ModernDesign = ({ id = 1 }) => {
+    const { data, isLoading, isError, error } = useModerDesignData(id);
+
+    if (isLoading) {
+        return (
+            <Box display="flex" justifyContent="center" py={10}>
+                <CircularProgress />
+            </Box>
+        );
+    }
+
+    if (isError) {
+        return (
+            <Box display="flex" justifyContent="center" py={10} color="red">
+                خطا در دریافت داده‌ها: {error.message}
+            </Box>
+        );
+    }
+
+    const { title, subtitle, description, advantages, images } = data;
+
+    const overlayStyles = [
         {
-            title: "رابط گرافیکی کاربر پسند",
-            desc: "ساد‌ه‌سازی تست، مدیریت سیستم و رفع مشکلات برای تیم توسعه.",
+            top: { xs: 210, md: 70 },
+            right: { xs: 430, md: 500 },
+            width: { xs: 100, md: 150 },
+            height: { xs: 100, md: 150 },
+            borderRadius: "50%",
         },
         {
-            title: "مناسب برای انواع کسب‌وکارها",
-            desc: "قابل سفارشی‌سازی برای انواع کسب‌وکارهای سنتی یا مدرن.",
-        },
-        {
-            title: "انتشار خودکار",
-            desc: "استقرار خودکار نرم‌افزار با فرآیند DevOps سریع و امن.",
+            top: { xs: 300, md: 200 },
+            right: { xs: 350, md: 450 },
+            width: { xs: 150, md: 200 },
+            height: { xs: 150, md: 200 },
+            borderRadius: 2,
+            boxShadow: 2,
+            border: "1px solid #e0e0e0",
         },
     ];
 
@@ -24,29 +49,29 @@ const ModernDesign = () => {
             dir="rtl"
             className="overflow-x-hidden w-screen"
             sx={{
-                background:'linear-gradient(to bottom, #ffffff, #FFEDD5)',
+                background: "linear-gradient(to bottom, #ffffff, #FFEDD5)",
                 py: 10,
-                display: 'flex',
-                justifyContent: 'center',
+                display: "flex",
+                justifyContent: "center",
             }}
         >
             <Box
                 sx={{
-                    display: 'flex',
-                    flexDirection: { xs: 'column', md: 'row' },
-                    alignItems: 'center',
+                    display: "flex",
+                    flexDirection: { xs: "column", md: "row" },
+                    alignItems: "center",
                     px: { xs: 2, md: 4 },
                     gap: 5,
-                    width: '100%',
-                    maxWidth: '1280px',
+                    width: "100%",
+                    maxWidth: "1280px",
                 }}
             >
-                {/* Right Section */}
+                {/* Right Section  */}
                 <Box
                     sx={{
                         flex: 1,
-                        textAlign: { xs: 'center', md: 'right' },
-                        width: '100%',
+                        textAlign: { xs: "center", md: "right" },
+                        width: "100%",
                     }}
                 >
                     <Typography
@@ -55,39 +80,34 @@ const ModernDesign = () => {
                         color={theme.palette.text.primary}
                         sx={{ mb: 2 }}
                     >
-                        طراحی زیبا همراه{" "}
+                        {title}{" "}
                         <Box component="span" color={theme.palette.primary.main}>
-                            طراحی رابط کاربری مدرن
+                            {subtitle}
                         </Box>
                     </Typography>
 
                     <Typography
                         color={theme.palette.text.primary}
                         lineHeight={2}
-                        sx={{ maxWidth: '100%', mx: { xs: 'auto', md: 0 } }}
+                        sx={{ maxWidth: "100%", mx: { xs: "auto", md: 0 } }}
                     >
-                        هدف این طرح کمک به صاحبان کسب‌وکار و متخصصان فناوری اطلاعات است تا بدون نیاز به کدنویسی، برنامه‌های تجاری خود را به‌سرعت پیاده‌سازی کنند.
+                        {description}
                     </Typography>
 
                     <Box sx={{ mt: 4 }}>
-                        {features.map((item, idx) => (
+                        {advantages?.map((item) => (
                             <Box
-                                key={idx}
+                                key={item.id}
                                 sx={{
-                                    display: 'flex',
-                                    flexDirection:{
-                                        xs: 'column',
-                                        md: 'row',},
-                                    alignItems: {
-                                        md: 'flex-start',
-                                        xs:'center',
-                                    },
+                                    display: "flex",
+                                    flexDirection: { xs: "column", md: "row" },
+                                    alignItems: { md: "flex-start", xs: "center" },
                                     gap: 2,
                                     mb: 2,
                                 }}
                             >
                                 <CheckCircleIcon
-                                    sx={{ color: theme.palette.primary.main, mt: '4px' }}
+                                    sx={{ color: theme.palette.primary.main, mt: "4px" }}
                                 />
                                 <Box>
                                     <Typography
@@ -98,7 +118,7 @@ const ModernDesign = () => {
                                         {item.title}
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        {item.desc}
+                                        {item.description}
                                     </Typography>
                                 </Box>
                             </Box>
@@ -106,56 +126,58 @@ const ModernDesign = () => {
                     </Box>
                 </Box>
 
-                {/* Left Section  */}
+                {/* Left Section */}
                 <Box
                     sx={{
                         flex: 1,
-                        width: '100%',
-                        position: 'relative',
-                        display: 'flex',
-                        justifyContent: 'center',
+                        width: "100%",
+                        position: "relative",
+                        display: "flex",
+                        justifyContent: "center",
+                        animation: 'floatUpDown 3s ease-in-out infinite',
+                        animationDelay: `${0.1}s`,
+                        '@keyframes floatUpDown': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
                     }}
                 >
-                    <Box
-                        component="img"
-                        src="/vite.svg"
-                        alt="main"
-                        sx={{
-                            width: { xs: '100%', sm: 300, md: 400 },
-                            borderRadius: 2,
-                            boxShadow: 3,
-                        }}
-                    />
+                    {images?.length > 0 && (
+                        <>
+                            <Box
+                                component="img"
+                                src={images[0].image}
+                                alt="main"
+                                sx={{
+                                    width: { xs: "100%", sm: 400, md: 500 },
+                                    borderRadius: 2,
+                                    objectFit: "cover",
+                                }}
+                            />
 
-                    <Box
-                        component="img"
-                        src="/src/assets/react.svg"
-                        alt="overlay1"
-                        sx={{
-                            position: 'absolute',
-                            top: { xs: 60, md: 15 },
-                            left: { xs: 100, md: 0 },
-                            width: { xs: 100, md: 120 },
-                            borderRadius: 50,
-                            boxShadow: 4,
-                            border: '1px solid #e0e0e0',
-                        }}
-                    />
-
-                    <Box
-                        component="img"
-                        src="/src/assets/react.svg"
-                        alt="overlay2"
-                        sx={{
-                            position: 'absolute',
-                            top: { xs: 150, md: 125 },
-                            left: { xs: 100, md: 30 },
-                            width: { xs: 140, md: 200 },
-                            borderRadius: 2,
-                            boxShadow: 4,
-                            border: '1px solid #e0e0e0',
-                        }}
-                    />
+                            {images.slice(1).map((img, idx) => (
+                                <Box
+                                    key={img.id}
+                                    sx={{
+                                        position: "absolute",
+                                        ...overlayStyles[idx],
+                                        overflow: "hidden",
+                                    }}
+                                >
+                                    <Box
+                                        component="img"
+                                        src={img.image}
+                                        alt={`overlay-${idx + 1}`}
+                                        sx={{
+                                            width: "100%",
+                                            height: "100%",
+                                            objectFit: "cover",
+                                        }}
+                                    />
+                                </Box>
+                            ))}
+                        </>
+                    )}
                 </Box>
             </Box>
         </Box>

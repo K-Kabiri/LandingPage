@@ -5,7 +5,7 @@ export const useModerDesignData = (id) => {
     return useQuery({
         queryKey: ['modernDesign', id],
         queryFn: () =>
-            fetch(`${BASE_URL}/api/modernDesign/${id}/`)
+            fetch(`${BASE_URL}/api/advantage-sections/${id}/`)
                 .then(res => {
                     if (!res.ok) throw new Error('Error in catching data from API');
                     return res.json();
