@@ -2,23 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import { Box, Typography, Paper, CircularProgress, useTheme } from "@mui/material";
+import { useUIData } from "../api/UI.js";
 
-import { Box, Typography, Paper, useTheme } from "@mui/material";
-
-const images = [
-    "/src/assets/react.svg",
-    "/vite.svg",
-    "/src/assets/react.svg",
-    "/vite.svg",
-    "/src/assets/react.svg",
-    "/vite.svg",
-    "/src/assets/react.svg",
-];
-
-export default function BeautifulInterfaceSection() {
+export default function BeautifulInterfaceSection({ id = 1 }) {
     const theme = useTheme();
-
-    const isSwiperActive = images.length > 3;
+    const { data, isLoading, isError, error } = useUIData(id);
 
     const getCardSize = (width) => {
         if (width < 480) return { width: 280, height: 160 };
@@ -36,6 +25,28 @@ export default function BeautifulInterfaceSection() {
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
     }, []);
+
+    if (isLoading) {
+        return (
+            <Box display="flex" justifyContent="center" alignItems="center" py={10}>
+                <CircularProgress />
+            </Box>
+        );
+    }
+
+    if (isError) {
+        return (
+            <Box textAlign="center" py={10} color="red">
+                خطا در دریافت اطلاعات: {error.message}
+            </Box>
+        );
+    }
+
+    let images = data?.images?.map(img => img.image) || [];
+    if (images.length > 3) {
+        images = [...images, ...images];
+    }
+    const isSwiperActive = images.length > 3;
 
     return (
         <Box
@@ -60,19 +71,20 @@ export default function BeautifulInterfaceSection() {
                     overflow: "hidden",
                 }}
             >
+                {/* عنوان */}
                 <Box sx={{ textAlign: "center" }}>
                     <Typography variant="h4" fontWeight="bold" mb={2}>
-                        رابط کاربری{" "}
+                        {data?.title}{" "}
                         <Box component="span" color={theme.palette.primary.main}>
-                            زیبا
+                            {data?.subtitle}
                         </Box>
                     </Typography>
                     <Typography color="text.secondary" fontSize="1.1rem">
-                        ساده سازی امور پیچیده در تخصص ماست
+                        {data?.description}
                     </Typography>
                 </Box>
 
-                {/* Pictures */}
+                {/* عکس‌ها */}
                 <Box sx={{ width: "100%", overflow: "visible", height: cardSize.height + 60 }}>
                     {isSwiperActive ? (
                         <Swiper
@@ -128,7 +140,7 @@ export default function BeautifulInterfaceSection() {
                                             sx={{
                                                 width: "100%",
                                                 height: "100%",
-                                                objectFit: "contain",
+                                                objectFit: "cover",
                                                 borderRadius: 2,
                                                 transition: "transform 0.5s ease",
                                             }}
@@ -170,7 +182,7 @@ export default function BeautifulInterfaceSection() {
                                         sx={{
                                             width: "100%",
                                             height: "100%",
-                                            objectFit: "contain",
+                                            objectFit: "cover",
                                             borderRadius: 2,
                                         }}
                                     />
