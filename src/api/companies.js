@@ -5,7 +5,7 @@ export const useCompaniesData = (id) => {
     return useQuery({
         queryKey: ['Companies', id],
         queryFn: () =>
-            fetch(`${BASE_URL}/api/Companies/${id}/`)
+            fetch(`${BASE_URL}/api/companies-sections/${id}/`)
                 .then(res => {
                     if (!res.ok) throw new Error('Error in catching data from API');
                     return res.json();
