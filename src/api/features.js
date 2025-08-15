@@ -5,7 +5,7 @@ export const useFeaturesData = (id) => {
     return useQuery({
         queryKey: ['feature', id],
         queryFn: () =>
-            fetch(`${BASE_URL}/api/features/${id}/`)
+            fetch(`${BASE_URL}/api/features-sections/${id}/`)
                 .then(res => {
                     if (!res.ok) throw new Error('Error in catching data from API');
                     return res.json();
