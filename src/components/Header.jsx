@@ -84,6 +84,7 @@ const Header = () => {
                                 key={btn.id}
                                 onClick={() => window.open(btn.link, '_blank')}
                                 bgColor={'primary.main'}
+                                iconUrl={btn.icon}
                             >
                                 {btn.label}
                             </CustomButton>
@@ -141,8 +142,8 @@ const Header = () => {
                             key={btn.id}
                             onClick={() => window.open(btn.link, '_blank')}
                             textColor="white"
-
                             borderRadius={4}
+                            iconUrl={btn.icon}
                         >
                             {btn.label}
                         </CustomButton>

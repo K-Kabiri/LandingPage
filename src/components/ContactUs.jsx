@@ -1,8 +1,15 @@
-import { Box, TextField, Button, Typography } from '@mui/material';
+import { Box, TextField, Typography } from '@mui/material';
 import theme from "../theme.js";
 import CustomButton from "./common/CustomButton.jsx";
+import {useContactUsData} from "../api/contactUs.js";
 
-export default function ContactUs() {
+
+export default function ContactUs({ id = 1 }) {
+    const { data, isLoading, isError, error } = useContactUsData(id);
+
+    if (isLoading) return <Typography>در حال بارگذاری...</Typography>;
+    if (isError) return <Typography>خطا در دریافت داده‌ها</Typography>;
+
     return (
         <Box
             dir="rtl"
@@ -13,14 +20,12 @@ export default function ContactUs() {
                 display: 'flex',
                 justifyContent: 'center',
                 px: { xs: 2, md: 4 },
-
             }}
         >
             <Box
                 sx={{
                     display: 'flex',
                     flexDirection: { xs: 'column', md: 'row' },
-                    // backgroundColor: '#ede7f6',
                     gap: 5,
                     alignItems: 'center',
                     width: '100%',
@@ -28,8 +33,9 @@ export default function ContactUs() {
                     borderRadius: 2,
                     boxShadow: 2,
                 }}
-                dir={"rtl"}
+                dir="rtl"
             >
+
                 {/* Right Section */}
                 <Box
                     sx={{
@@ -37,21 +43,17 @@ export default function ContactUs() {
                         display: 'flex',
                         justifyContent: 'center',
                         width: { xs: '100%', sm: 300, md: 400 },
-
                     }}
                 >
                     <Box
                         component="img"
-                        src="images/contact-us.png"
-                        alt="تماس با ما"
-                        sx={{
-                            width: '90%',
-
-                        }}
+                        src={data.images?.[0]?.image}
+                        alt={data.images?.[0]?.name }
+                        sx={{ width: '90%' }}
                     />
                 </Box>
 
-                {/* Left Section */}
+                {/* Left Section  */}
                 <Box
                     sx={{
                         flex: 1,
@@ -61,40 +63,39 @@ export default function ContactUs() {
                         padding: 5,
                         width: '100%',
                         alignItems: 'center',
-                        backgroundColor: '#ede7f6',
+                        backgroundColor: theme.palette.primary.light,
                         borderRadius: 2,
                     }}
-                    dir={"rtl"}
+                    dir="rtl"
                 >
-                    <Typography variant="h5" fontWeight="bold" mb={2} style={{color:theme.palette.primary.main}}>
-                        تماس با ما
+                    <Typography
+                        variant="h5"
+                        fontWeight="bold"
+                        mb={2}
+                        style={{ color: theme.palette.primary.main }}
+                    >
+                        {data.title}
                     </Typography>
 
-                    <TextField
-                        label="نام"
-                        variant="outlined"
-                        fullWidth
+                    {data.input_fields_items?.map((field) => (
+                        <TextField
+                            key={field.id}
+                            label={field.label}
+                            placeholder={field.placeholder_text}
+                            variant="outlined"
+                            fullWidth
+                            multiline={field.label === "پیام"}
+                            rows={field.label === "پیام" ? 5 : 1}
+                        />
+                    ))}
 
-                    />
-                    <TextField
-                        label="ایمیل"
-                        variant="outlined"
-                        fullWidth
-                    />
-                    <TextField
-                        label="پیام"
-                        variant="outlined"
-                        fullWidth
-                        multiline
-                        rows={5}
-                    />
                     <CustomButton
                         variant="contained"
                         px={6}
                         py={1}
                         borderRadius={3}
                     >
-                        ارسال
+                        {data.buttons?.[0]?.label }
                     </CustomButton>
                 </Box>
             </Box>

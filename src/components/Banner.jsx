@@ -52,7 +52,7 @@ const Banner = () => {
                     {images.map((item, index) => (
                         <Box
                             key={item.id}
-                            className={`rounded-lg overflow-hidden shadow-md h-30${
+                            className={`rounded-lg overflow-hidden shadow-md h-80 w-40${
                                 images.length === 1
                                     ? 'w-3/4'
                                     : images.length === 3
@@ -61,8 +61,14 @@ const Banner = () => {
                                             : ''
                                         : ''
                             }`}
-                            sx={{height:300, width:250}}
-
+                            sx={{
+                                animation: 'floatUpDown 3s ease-in-out infinite',
+                                animationDelay: `${index * 0.9}s`,
+                                '@keyframes floatUpDown': {
+                                    '0%, 100%': { transform: 'translateY(10)' },
+                                    '50%': { transform: 'translateY(-10px)' },
+                                }
+                            }}
                         >
                             <img
                                 src={item.image}
@@ -71,6 +77,7 @@ const Banner = () => {
                             />
                         </Box>
                     ))}
+
                 </Box>
 
                 {/* Right Section */}

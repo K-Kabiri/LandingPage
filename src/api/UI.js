@@ -5,7 +5,7 @@ export const useUIData = (id) => {
     return useQuery({
         queryKey: ['UI', id],
         queryFn: () =>
-            fetch(`${BASE_URL}/api/UI/${id}/`)
+            fetch(`${BASE_URL}/api/user_interface-sections/${id}/`)
                 .then(res => {
                     if (!res.ok) throw new Error('Error in catching data from API');
                     return res.json();

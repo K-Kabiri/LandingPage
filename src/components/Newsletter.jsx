@@ -1,9 +1,30 @@
-import { Box, Typography, Button, InputBase } from "@mui/material";
+import { Box, Typography, CircularProgress } from "@mui/material";
 import theme from "../theme.js";
 import CustomInput from "./common/CustomInput.jsx";
 import CustomButton from "./common/CustomButton.jsx";
+import { useNewslettersData } from "../api/newsletter.js";
+import { useState } from "react";
 
-export default function NewsletterSection() {
+export default function NewsletterSection({ id = 1 }) {
+    const { data, isLoading, isError, error } = useNewslettersData(id);
+    const [email, setEmail] = useState("");
+
+    if (isLoading) {
+        return (
+            <Box display="flex" justifyContent="center" alignItems="center" py={10}>
+                <CircularProgress />
+            </Box>
+        );
+    }
+
+    if (isError) {
+        return (
+            <Box textAlign="center" py={10} color="red">
+                خطا در دریافت اطلاعات: {error.message}
+            </Box>
+        );
+    }
+
     return (
         <Box
             dir="rtl"
@@ -32,28 +53,33 @@ export default function NewsletterSection() {
                     p: { xs: 2, md: 5 },
                 }}
             >
-                {/* Right Section */}
-                <Box sx={{ flex: 1,display: "flex",flexDirection:"column", alignItems: {
-                    xs:"center",
-                        md:"start"
-                    }
-                     }}>
+                {/* بخش راست */}
+                <Box
+                    sx={{
+                        flex: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: { xs: "center", md: "start" },
+                    }}
+                >
                     <Typography
                         variant="h5"
                         fontWeight="bold"
                         sx={{ mb: 1, color: "#fff" }}
                     >
-                        اشتراک خبرنامه
+                        {data?.title}
                     </Typography>
-                    <Typography sx={{ color: "#f3f3f3", textAlign: {
-                        xs:"center",
-                        md:"right"
-                    } }}>
-                        اولین کسی باشید که آخرین پست را در صندوق ورودی خود دریافت می‌کنید
+                    <Typography
+                        sx={{
+                            color: "#f3f3f3",
+                            textAlign: { xs: "center", md: "right" },
+                        }}
+                    >
+                        {data?.description}
                     </Typography>
                 </Box>
 
-                {/* Left Section */}
+                {/* بخش چپ */}
                 <Box
                     sx={{
                         display: "flex",
@@ -63,17 +89,23 @@ export default function NewsletterSection() {
                         gap: 1.5,
                         flex: 1,
                         width: "100%",
-                    }}>
+                    }}
+                >
                     <CustomInput
-                        placeholder="ایمیل خود را وارد کنید"
+                        placeholder={data?.email_box?.[0]?.placeholder_text || "ایمیل خود را وارد کنید"}
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
                         borderRadius={1}
-                        bgColor={'white'}
-
+                        bgColor={"white"}
                     />
                     <CustomButton
                         borderRadius={1}
-                        bgColor={'white'}
+                        bgColor={"white"}
                         textColor={theme.palette.primary.main}
+                        onClick={() => {
+                            console.log("ارسال ایمیل:", email);
+                            // request post for submit email
+                        }}
                     >
                         ارسال
                     </CustomButton>

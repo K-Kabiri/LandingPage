@@ -3,25 +3,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 
-import { Box, Typography, Paper, useTheme } from "@mui/material";
+import { Box, Typography, Paper, useTheme, CircularProgress } from "@mui/material";
+import { useCompaniesData } from "../api/companies.js";
 
-const images = [
-    "/src/assets/react.svg",
-    "/vite.svg",
-    "/src/assets/react.svg",
-    "/vite.svg",
-    "/src/assets/react.svg",
-    "/src/assets/react.svg",
-    "/vite.svg",
-    "/src/assets/react.svg",
-    "/vite.svg",
-    "/src/assets/react.svg",
-];
-
-export default function Companies() {
+export default function Companies({ sectionId=1 }) {
     const theme = useTheme();
+    const { data, isLoading, isError } = useCompaniesData(sectionId);
 
-    const isSwiperActive = images.length > 5;
+    const isSwiperActive = data?.companies?.length > 5;
 
     const getCardSize = (width) => {
         if (width < 480) return { width: 280, height: 100 };
@@ -40,6 +29,15 @@ export default function Companies() {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
+    if (isLoading) return <CircularProgress />;
+    if (isError) return <Typography color="error">خطا در بارگذاری اطلاعات</Typography>;
+
+    let images = data?.companies?.map(c => c.company_image) || [];
+
+    if (images.length > 5) {
+        images = [...images, ...images];
+    }
+
     return (
         <Box
             dir="rtl"
@@ -55,7 +53,7 @@ export default function Companies() {
                 sx={{
                     width: "100%",
                     maxWidth: "1280px",
-                    px: { xs: 2, md: 4 },
+                    px: { xs: 4, md: 4 },
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -65,15 +63,13 @@ export default function Companies() {
             >
                 <Box sx={{ textAlign: "center" }}>
                     <Typography variant="h4" fontWeight="bold" mb={2}>
-                        مورد اعتماد{" "}
+                        {data?.title}{" "}
                         <Box component="span" color={theme.palette.primary.main}>
-                            ۱۵+
+                            {data?.subtitle}
                         </Box>{" "}
-                        شرکت
                     </Typography>
                     <Typography color="text.secondary" fontSize="1.1rem">
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
-                        چاپگرها و متون بلکه روزنامه با استفاده از طراحان گرافیک است.
+                        {data?.description}
                     </Typography>
                 </Box>
 
@@ -82,11 +78,11 @@ export default function Companies() {
                     {isSwiperActive ? (
                         <Swiper
                             modules={[Autoplay]}
-                            loop={true}
+                            loop
                             autoplay={{ delay: 1500, disableOnInteraction: false }}
-                            grabCursor={true}
-                            centeredSlides={true}
-                            centerInsufficientSlides={true}
+                            grabCursor
+                            centeredSlides
+                            centerInsufficientSlides
                             breakpoints={{
                                 0: { slidesPerView: 1, spaceBetween: 2, centeredSlides: true },
                                 480: { slidesPerView: 3, spaceBetween: 3, centeredSlides: true },
@@ -125,7 +121,7 @@ export default function Companies() {
                                         <Box
                                             component="img"
                                             src={src}
-                                            alt={`image-${idx}`}
+                                            alt={`company-${idx}`}
                                             sx={{
                                                 width: "100%",
                                                 height: "100%",
@@ -162,13 +158,12 @@ export default function Companies() {
                                         alignItems: "center",
                                         justifyContent: "center",
                                         p: 1,
-                                        filter: "grayscale(100%)",
                                     }}
                                 >
                                     <Box
                                         component="img"
                                         src={src}
-                                        alt={`image-${idx}`}
+                                        alt={`company-${idx}`}
                                         sx={{
                                             width: "100%",
                                             height: "100%",
