@@ -5,7 +5,7 @@ export const useFooterData = (id) => {
     return useQuery({
         queryKey: ['Footer', id],
         queryFn: () =>
-            fetch(`${BASE_URL}/api/Footer/${id}/`)
+            fetch(`${BASE_URL}/api/footers/${id}/`)
                 .then(res => {
                     if (!res.ok) throw new Error('Error in catching data from API');
                     return res.json();

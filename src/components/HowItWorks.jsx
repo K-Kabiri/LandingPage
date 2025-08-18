@@ -48,7 +48,7 @@ const HowItWorks = ({ id = 1 }) => {
                 <div className="relative flex flex-col">
                     <div className="absolute left-1/2 top-0 h-full w-1 bg-gray-200 transform -translate-x-1/2 z-0"></div>
 
-                    <ul className="flex flex-col">
+                    <ul className="flex flex-col gap-20">
                         {steps.map((step, idx) => (
                             <li
                                 key={idx}
@@ -94,7 +94,7 @@ const HowItWorks = ({ id = 1 }) => {
                                     <img
                                         src={step.image}
                                         alt={`step-${idx + 1}`}
-                                        className="rounded-xl bg-cover w-100 h-100"
+                                        className="rounded-xl bg-cover w-100 h-60"
                                     />
                                 </div>
                             </li>

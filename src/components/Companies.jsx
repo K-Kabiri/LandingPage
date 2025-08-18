@@ -6,11 +6,20 @@ import "swiper/css";
 import { Box, Typography, Paper, useTheme, CircularProgress } from "@mui/material";
 import { useCompaniesData } from "../api/companies.js";
 
-export default function Companies({ sectionId=1 }) {
+export default function Companies({ sectionId = 1 }) {
     const theme = useTheme();
     const { data, isLoading, isError } = useCompaniesData(sectionId);
 
-    const isSwiperActive = data?.companies?.length > 5;
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => setWindowWidth(window.innerWidth);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    const isMobileOrTablet = windowWidth < 1024;
+    const isSwiperActive = isMobileOrTablet || (data?.companies?.length > 5);
 
     const getCardSize = (width) => {
         if (width < 480) return { width: 280, height: 100 };
@@ -32,7 +41,7 @@ export default function Companies({ sectionId=1 }) {
     if (isLoading) return <CircularProgress />;
     if (isError) return <Typography color="error">خطا در بارگذاری اطلاعات</Typography>;
 
-    let images = data?.companies?.map(c => c.company_image) || [];
+    let images = data?.companies?.map((c) => c.company_image) || [];
 
     if (images.length > 5) {
         images = [...images, ...images];
@@ -73,21 +82,20 @@ export default function Companies({ sectionId=1 }) {
                     </Typography>
                 </Box>
 
-                {/* Logos */}
                 <Box sx={{ width: "100%", overflow: "hidden", height: cardSize.height + 60 }}>
                     {isSwiperActive ? (
                         <Swiper
                             modules={[Autoplay]}
                             loop
-                            autoplay={{ delay: 1500, disableOnInteraction: false }}
-                            grabCursor
-                            centeredSlides
-                            centerInsufficientSlides
+                            autoplay={{ delay: 2000, disableOnInteraction: false }}
+                            grabCursor={true}
+                            centeredSlides={true}
+                            centerInsufficientSlides={true}
                             breakpoints={{
-                                0: { slidesPerView: 1, spaceBetween: 2, centeredSlides: true },
-                                480: { slidesPerView: 3, spaceBetween: 3, centeredSlides: true },
-                                768: { slidesPerView: 3, spaceBetween: 3, centeredSlides: true },
-                                1024: { slidesPerView: 5, spaceBetween: 10, centeredSlides: true },
+                                0: { slidesPerView: 1, spaceBetween: 10,centeredSlides:true},     // موبایل کوچک
+                                480: { slidesPerView: 2, spaceBetween: 10,centeredSlides:true },   // موبایل بزرگ
+                                768: { slidesPerView: 2, spaceBetween: 10,centeredSlides:true },   // تبلت
+                                1024: { slidesPerView: 5, spaceBetween: 20,centeredSlides:true },  // لپ‌تاپ و دسکتاپ
                             }}
                             style={{ overflow: "visible" }}
                         >
@@ -180,13 +188,13 @@ export default function Companies({ sectionId=1 }) {
 
             <style>
                 {`
-                .swiper-slide-active .company-card img {
-                    filter: none !important;
-                }
-                .company-card img {
-                    filter: grayscale(100%);
-                }
-                `}
+          .swiper-slide-active .company-card img {
+            filter: none !important;
+          }
+          .company-card img {
+            filter: grayscale(100%);
+          }
+        `}
             </style>
         </Box>
     );
