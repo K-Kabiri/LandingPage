@@ -1,9 +1,22 @@
-import {Button} from "@mui/material";
-import theme from "../../theme.js";
+import { Button } from "@mui/material";
+import {useTheme} from "@mui/material/styles";
 
-const CustomButton = ({bgColor, textColor, fontSize, px, py, borderRadius, iconUrl, children}) => {
+const CustomButton = ({
+                          bgColor,
+                          textColor,
+                          fontSize,
+                          px,
+                          py,
+                          borderRadius,
+                          iconUrl,
+                          children,
+                          onClick
+                      }) => {
+    const theme = useTheme();
+
     return (
         <Button
+            onClick={onClick}
             sx={{
                 backgroundColor: theme.palette[bgColor]?.main || bgColor || theme.palette.primary.main,
                 color: theme.palette[textColor]?.main || textColor || 'white',
@@ -21,7 +34,7 @@ const CustomButton = ({bgColor, textColor, fontSize, px, py, borderRadius, iconU
                 alignItems: 'center',
             }}
         >
-            {iconUrl && <img src={iconUrl} alt="icon" className={"w-5 h-5" } />}
+            {iconUrl && <img src={iconUrl} alt="icon" className={"w-5 h-5"} />}
             {children}
         </Button>
     )

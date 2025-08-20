@@ -1,17 +1,38 @@
-import React from "react";
-import theme from "../theme.js";
+import React, { useState } from "react";
 import {
     Box,
     Stack,
     Typography,
-    Avatar,
+    Avatar, useTheme,
 } from "@mui/material";
 import CustomInput from "../components/common/CustomInput.jsx";
 import CustomButton from "../components/common/CustomButton.jsx";
-import { useBannerData } from "../api/banner.js"; // مسیر رو بر اساس پروژه‌ت درست کن
+import { useBannerData } from "../api/banner.js";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { sendEmail } from "../api/banner.js";
+import { useMutation } from "@tanstack/react-query";
 
-const Banner = () => {
-    const { data, isLoading, error } = useBannerData(1);
+const Banner = ({id}) => {
+    const { data, isLoading, error } = useBannerData(id);
+    const theme = useTheme();
+
+    const [email, setEmail] = useState("");
+
+    const { mutate: sendEmailMutate, isLoading: isSending } = useMutation({
+        mutationFn: sendEmail,
+        onSuccess: () => {
+            alert("ایمیل با موفقیت ارسال شد ✅");
+            setEmail("");
+        },
+        onError: () => {
+            alert("ایمیل وارد شده نامعتبر است ❌");
+        },
+    });
+
+    const handleSubmit = () => {
+        if (!email) return;
+        sendEmailMutate(email);
+    };
 
     if (isLoading) return <p>در حال بارگذاری...</p>;
     if (error) return <p>خطا در دریافت داده</p>;
@@ -77,7 +98,6 @@ const Banner = () => {
                             />
                         </Box>
                     ))}
-
                 </Box>
 
                 {/* Right Section */}
@@ -106,13 +126,20 @@ const Banner = () => {
                                 alignItems: 'center',
                             }}
                         >
-                            <CustomInput placeholder={email_boxes[0].placeholder_text} borderRadius={3} />
+                            <CustomInput
+                                placeholder={email_boxes[0].placeholder_text}
+                                borderRadius={3}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
                             {email_boxes[0].buttons.length > 0 && (
                                 <CustomButton
                                     variant="contained"
                                     borderRadius={3}
+                                    onClick={handleSubmit}
+                                    disabled={isSending}
                                 >
-                                    {email_boxes[0].buttons[0].label}
+                                    {isSending ? "در حال ارسال..." : email_boxes[0].buttons[0].label}
                                 </CustomButton>
                             )}
                         </Box>
@@ -129,7 +156,10 @@ const Banner = () => {
                         fontSize="0.875rem"
                     >
                         {notes.map(note => (
-                            <span className={"flex flex-row gap-2"} key={note.id}><img  src={note.icon} alt={""}/>{note.text}</span>
+                            <span className={"flex flex-row gap-2"} key={note.id}>
+                                <CheckCircleIcon sx={{ color: theme.palette.primary.main}} />
+                                {note.text}
+                            </span>
                         ))}
                     </Box>
 
@@ -143,7 +173,7 @@ const Banner = () => {
                         gap={2}
                     >
                         <Stack direction="row" spacing={-1}>
-                            {user_box.users_images.map(user => (
+                            {(user_box?.users_images ?? []).map(user => (
                                 <Avatar
                                     key={user.id}
                                     alt={user.name}
@@ -152,11 +182,12 @@ const Banner = () => {
                                 />
                             ))}
                         </Stack>
+
                         <Typography
                             variant="body2"
                             sx={{ color: theme.palette.text.primary, width: "40%" }}
                         >
-                            {user_box.text}
+                            {user_box?.text}
                         </Typography>
                     </Stack>
                 </Box>

@@ -1,13 +1,35 @@
-import { Box, Typography, CircularProgress } from "@mui/material";
-import theme from "../theme.js";
+import {Box, Typography, CircularProgress, useTheme} from "@mui/material";
 import CustomInput from "./common/CustomInput.jsx";
 import CustomButton from "./common/CustomButton.jsx";
-import { useNewslettersData } from "../api/newsletter.js";
+import { useNewslettersData,sendEmail } from "../api/newsletter.js";
 import { useState } from "react";
+import {useMutation} from "@tanstack/react-query";
 
-export default function NewsletterSection({ id = 1 }) {
+export default function NewsletterSection({ id  }) {
     const { data, isLoading, isError, error } = useNewslettersData(id);
+    const theme = useTheme();
     const [email, setEmail] = useState("");
+
+    const { mutate: sendEmailMutate, isLoading: isSending } = useMutation({
+        mutationFn: sendEmail,
+        onSuccess: (res) => {
+            alert(res?.message || "ایمیل با موفقیت ارسال شد ✅");
+            setEmail("");
+        },
+        onError: (err) => {
+            const msg = err.response?.data?.message || "ایمیل وارد شده نامعتبر است ❌";
+            alert(msg);
+        },
+    });
+
+
+    const handleSubmit = () => {
+        if (!email) return;
+        sendEmailMutate(email);
+    };
+
+
+
 
     if (isLoading) {
         return (
@@ -53,7 +75,7 @@ export default function NewsletterSection({ id = 1 }) {
                     p: { xs: 2, md: 5 },
                 }}
             >
-                {/* بخش راست */}
+                {/*Right Section*/}
                 <Box
                     sx={{
                         flex: 1,
@@ -79,7 +101,7 @@ export default function NewsletterSection({ id = 1 }) {
                     </Typography>
                 </Box>
 
-                {/* بخش چپ */}
+                {/*Left Section*/}
                 <Box
                     sx={{
                         display: "flex",
@@ -102,10 +124,8 @@ export default function NewsletterSection({ id = 1 }) {
                         borderRadius={1}
                         bgColor={"white"}
                         textColor={theme.palette.primary.main}
-                        onClick={() => {
-                            console.log("ارسال ایمیل:", email);
-                            // request post for submit email
-                        }}
+                        onClick={handleSubmit}
+                        disabled={isSending}
                     >
                         ارسال
                     </CustomButton>
@@ -114,3 +134,4 @@ export default function NewsletterSection({ id = 1 }) {
         </Box>
     );
 }
+

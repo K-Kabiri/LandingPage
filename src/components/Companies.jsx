@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
-
 import { Box, Typography, Paper, useTheme, CircularProgress } from "@mui/material";
 import { useCompaniesData } from "../api/companies.js";
 
-export default function Companies({ sectionId = 1 }) {
+export default function Companies({ id  }) {
+    console.log(id);
     const theme = useTheme();
-    const { data, isLoading, isError } = useCompaniesData(sectionId);
+    const { data, isLoading, isError, error } = useCompaniesData(id);
 
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -52,7 +52,8 @@ export default function Companies({ sectionId = 1 }) {
             dir="rtl"
             className="overflow-x-hidden w-screen"
             sx={{
-                background: "linear-gradient(to bottom, #FFE8F5, #ffffff)",
+                // background: "linear-gradient(to bottom, #FFE8F5, #ffffff)",
+                backgroundColor: theme.palette.background.paper,
                 py: 10,
                 display: "flex",
                 justifyContent: "center",

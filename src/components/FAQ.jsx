@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import theme from "../theme.js";
-import { Typography, Box, CircularProgress } from "@mui/material";
+import {Typography, Box, CircularProgress, useTheme} from "@mui/material";
 import { useFAQData } from "../api/FAQ.js";
 
-const FAQ = ({ id = 1 }) => {
+const FAQ = ({ id  }) => {
     const [openIndex, setOpenIndex] = useState(null);
     const { data, isLoading, isError, error } = useFAQData(id);
+    const theme = useTheme();
 
     const toggleFAQ = (index) => {
         setOpenIndex(openIndex === index ? null : index);
@@ -33,7 +33,8 @@ const FAQ = ({ id = 1 }) => {
         <Box
             dir="rtl"
             sx={{
-                background: 'linear-gradient(to bottom, #FFEDD5, #ffffff)',
+                // background: 'linear-gradient(to bottom, #FFEDD5, #ffffff)',
+                backgroundColor: theme.palette.background.paper,
                 py: 10,
                 width: '100%',
                 overflowX: 'hidden',
@@ -51,7 +52,6 @@ const FAQ = ({ id = 1 }) => {
                     gap: 6,
                 }}
             >
-                {/* عنوان */}
                 <Typography
                     variant="h4"
                     fontWeight="bold"
@@ -64,7 +64,6 @@ const FAQ = ({ id = 1 }) => {
                     {data?.subtitle}
                 </Typography>
 
-                {/* توضیحات */}
                 <Typography
                     color={theme.palette.text.primary}
                     lineHeight={2}
@@ -74,7 +73,6 @@ const FAQ = ({ id = 1 }) => {
                     {data?.description}
                 </Typography>
 
-                {/* لیست سوالات */}
                 <Box
                     sx={{
                         display: 'flex',
@@ -87,7 +85,7 @@ const FAQ = ({ id = 1 }) => {
                             key={faq.id}
                             sx={{
                                 borderRadius: 2,
-                                backgroundColor: '#ede7f6',
+                                backgroundColor: theme.palette.primary.light,
                                 boxShadow: 1,
                                 overflow: 'hidden',
                                 width: '100%',
@@ -110,7 +108,7 @@ const FAQ = ({ id = 1 }) => {
                                 <Typography
                                     variant="subtitle1"
                                     sx={{
-                                        color: openIndex === index ? theme.palette.primary.main : theme.palette.text.primary,
+                                        color: openIndex === index ? theme.palette.primary.main : theme.palette.grey[800],
                                         textAlign: 'right',
                                         fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' },
                                     }}
@@ -130,7 +128,7 @@ const FAQ = ({ id = 1 }) => {
                                     sx={{
                                         px: 4,
                                         pb: 4,
-                                        color: theme.palette.grey[600],
+                                        color: theme.palette.grey[800],
                                         fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' },
                                         lineHeight: 1.75,
                                         textAlign: 'right',

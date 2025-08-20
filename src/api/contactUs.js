@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
+import axios from "axios";
 const BASE_URL = "http://127.0.0.1:8000";
 
 export const useContactUsData = (id) => {
@@ -13,4 +14,25 @@ export const useContactUsData = (id) => {
         enabled: !!id,
         staleTime: 1000 * 60 * 5,
     });
+};
+
+
+export const contactEmail = async ({ name, email, message, csrfToken }) => {
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("message", message);
+
+    const res = await axios.post(
+        `${BASE_URL}/api/emails/contact/`,
+        formData,
+        {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                "accept": "application/json",
+            },
+        }
+    );
+
+    return res.data;
 };

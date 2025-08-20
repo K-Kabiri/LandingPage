@@ -6,16 +6,16 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {useTheme} from '@mui/material/styles';
-import {Tab,Link} from "@mui/material";
+import {Tab,Link, Typography} from "@mui/material";
 import CustomButton from "../components/common/CustomButton.jsx";
 import CustomTab from "../components/common/CustomTab.jsx";
 import {useHeaderData} from "../api/header.js";
-import theme from "../theme.js";
 
-const Header = () => {
+const Header = ({id}) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const theme = useTheme();
 
-    const {data, isLoading, error} = useHeaderData(1);
+    const {data, isLoading, error} = useHeaderData(id);
     const theme1 = useTheme();
     const isDesktop = useMediaQuery(theme1.breakpoints.up('md'));
 
@@ -46,13 +46,20 @@ const Header = () => {
                     width: '100%',
                     maxWidth: '1280px',
                     margin: '0 auto',
-                    paddingX: { xs: 2, md: 4 },
+                    paddingX: {xs: 2, md: 4},
                     display: 'flex',
                     justifyContent: 'space-between',
                 }}
             >
-                <Box sx={{flexShrink: 0}}>
-                    <img src={data?.icon_image} alt="Logo" style={{height:60}}/>
+                <Box sx={{flexShrink: 0, display: 'flex', flexDirection: 'row', alignItems: 'center', gap:1}}>
+                    <img src={data?.icon_image} alt="Logo" style={{height: 60}}/>
+                    <Typography
+                        variant="h6"
+                        fontWeight="bold"
+                        color={theme.palette.primary.main}
+                    >
+                        {data?.subtitle}
+                    </Typography>
 
                 </Box>
 
@@ -129,7 +136,7 @@ const Header = () => {
                                 color: theme.palette.primary.main,
                             },
                             textDecoration: 'none',
-                            mt:2,
+                            mt: 2,
                         }}
                     >
                         {link.label}

@@ -1,8 +1,9 @@
-import {Tabs} from "@mui/material";
-import theme from "../../theme.js";
+import {Tabs, useTheme} from "@mui/material";
 import React from "react";
 
 const CustomTab = ({fontSize,paddingX, textColor, children}) => {
+    const theme = useTheme();
+
     return (
         <Tabs
             sx={{

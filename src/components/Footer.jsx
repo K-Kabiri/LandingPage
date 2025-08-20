@@ -1,9 +1,8 @@
-import { Box, Typography, Link, IconButton, Tooltip } from '@mui/material';
+import {Box, Typography, Link, IconButton, Tooltip, useTheme} from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
-import theme from "../theme.js";
 import { useFooterData } from "../api/footer.js";
 
 const iconMap = {
@@ -13,8 +12,9 @@ const iconMap = {
     Facebook: FacebookIcon,
 };
 
-export default function Footer() {
-    const { data, isLoading, error } = useFooterData(1);
+export default function Footer({id}) {
+    const { data, isLoading, error } = useFooterData(id);
+    const theme = useTheme();
 
     if (isLoading) return <div>در حال بارگذاری...</div>;
     if (error) return <div>خطا در دریافت اطلاعات</div>;
@@ -126,7 +126,7 @@ export default function Footer() {
                 </Box>
 
                 <iframe
-                    src="https://1abzar.ir/abzar/tools/stat/stat-v3.php?color=FFFFFF&bg=5249B4&kc=888888&kadr=1&amar=b498xne0fb3j3p6hmf9a8k6dot1o3w&show=1|0|1|1|1|1|1"
+                    src="https://1abzar.ir/abzar/tools/stat/stat-v3.php?color=FFFFFF&bg=6F6F75&kc=888888&kadr=1&amar=b498xne0fb3j3p6hmf9a8k6dot1o3w&show=1|0|1|1|1|1|1"
                     scrolling="no"
                     frameBorder="0"
                     name="alir"

@@ -1,68 +1,99 @@
-import { Box, TextField, Typography } from '@mui/material';
-import theme from "../theme.js";
+import { Box, Typography, useTheme } from "@mui/material";
 import CustomButton from "./common/CustomButton.jsx";
-import {useContactUsData} from "../api/contactUs.js";
+import CustomInput from "./common/CustomInput.jsx";
+import { useContactUsData } from "../api/contactUs.js";
+import { useState } from "react";
+import { contactEmail } from "../api/contactUs.js";
 
+export default function ContactUs({ id }) {
+    const { data, isLoading, isError } = useContactUsData(id);
+    const theme = useTheme();
 
-export default function ContactUs({ id = 1 }) {
-    const { data, isLoading, isError, error } = useContactUsData(id);
+    const [formValues, setFormValues] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(null);
+    const [error, setError] = useState(null);
 
     if (isLoading) return <Typography>در حال بارگذاری...</Typography>;
     if (isError) return <Typography>خطا در دریافت داده‌ها</Typography>;
 
+    const handleChange = (label, value) => {
+        setFormValues((prev) => ({ ...prev, [label]: value }));
+    };
+
+    const handleSubmit = async () => {
+        setLoading(true);
+        setSuccess(null);
+        setError(null);
+        try {
+            const res = await contactEmail({
+                name: formValues["نام"] || formValues["Name"] || "",
+                email: formValues["ایمیل"] || formValues["Email"] || "",
+                message: formValues["پیام"] || formValues["Message"] || "",
+            });
+            setSuccess("پیام شما با موفقیت ارسال شد!");
+        } catch (err) {
+            console.error(err);
+            setError("ارسال پیام با خطا مواجه شد.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <Box
+            id={id}
             dir="rtl"
-            className="w-screen overflow-x-hidden"
+            className="w-screen overflow-x-hidden scroll-mt-24"
             sx={{
-                backgroundColor: '#ffffff',
+                backgroundColor: "#ffffff",
                 py: 10,
-                display: 'flex',
-                justifyContent: 'center',
+                display: "flex",
+                justifyContent: "center",
                 px: { xs: 2, md: 4 },
             }}
         >
             <Box
                 sx={{
-                    display: 'flex',
-                    flexDirection: { xs: 'column', md: 'row' },
+                    display: "flex",
+                    flexDirection: { xs: "column", md: "row" },
                     gap: 5,
-                    alignItems: 'center',
-                    width: '100%',
-                    maxWidth: '1280px',
+                    alignItems: "center",
+                    width: "100%",
+                    maxWidth: "1280px",
                     borderRadius: 2,
                     boxShadow: 2,
                 }}
                 dir="rtl"
             >
-
                 {/* Right Section */}
                 <Box
                     sx={{
                         flex: 1,
-                        display: 'flex',
-                        justifyContent: 'center',
-                        width: { xs: '100%', sm: 300, md: 400 },
+                        display: "flex",
+                        justifyContent: "center",
+                        width: { xs: "100%", sm: 300, md: 400 },
                     }}
                 >
                     <Box
                         component="img"
                         src={data.images?.[0]?.image}
-                        alt={data.images?.[0]?.name }
-                        sx={{ width: '90%' }}
+                        alt={data.images?.[0]?.name}
+                        sx={{ width: "90%" }}
                     />
                 </Box>
 
-                {/* Left Section  */}
+                {/* Left Section */}
                 <Box
                     sx={{
                         flex: 1,
-                        display: 'flex',
-                        flexDirection: 'column',
+                        display: "flex",
+                        flexDirection: "column",
                         gap: 2,
                         padding: 5,
-                        width: '100%',
-                        alignItems: 'center',
+                        width: "100%",
+                        height: "100%",
+                        alignItems: "center",
                         backgroundColor: theme.palette.primary.light,
                         borderRadius: 2,
                     }}
@@ -78,7 +109,7 @@ export default function ContactUs({ id = 1 }) {
                     </Typography>
 
                     {data.input_fields_items?.map((field) => (
-                        <TextField
+                        <CustomInput
                             key={field.id}
                             label={field.label}
                             placeholder={field.placeholder_text}
@@ -86,16 +117,34 @@ export default function ContactUs({ id = 1 }) {
                             fullWidth
                             multiline={field.label === "پیام"}
                             rows={field.label === "پیام" ? 5 : 1}
+                            borderRadius={2}
+                            borderColor={theme.palette.grey[700]}
+                            placeholderColor={theme.palette.grey[700]}
+                            value={formValues[field.label] || ""}
+                            onChange={(e) => handleChange(field.label, e.target.value)}
                         />
                     ))}
+
+                    {success && (
+                        <Typography color="green" mt={1}>
+                            {success}
+                        </Typography>
+                    )}
+                    {error && (
+                        <Typography color="red" mt={1}>
+                            {error}
+                        </Typography>
+                    )}
 
                     <CustomButton
                         variant="contained"
                         px={6}
                         py={1}
                         borderRadius={3}
+                        onClick={handleSubmit}
+                        disabled={loading}
                     >
-                        {data.buttons?.[0]?.label }
+                        {loading ? "در حال ارسال..." : data.buttons?.[0]?.label}
                     </CustomButton>
                 </Box>
             </Box>

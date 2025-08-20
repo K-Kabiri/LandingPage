@@ -5,13 +5,13 @@ import {
     Card,
     CardContent,
     CardMedia,
-    CircularProgress,
+    CircularProgress, useTheme,
 } from "@mui/material";
-import theme from "../theme.js";
 import { useFeaturesData } from "../api/features.js"
 
-const FeaturesSection = ({ id = 1 }) => {
+const FeaturesSection = ({ id  }) => {
     const { data, isLoading, isError, error } = useFeaturesData(id);
+    const theme = useTheme();
 
     if (isLoading) {
         return (
@@ -52,7 +52,8 @@ const FeaturesSection = ({ id = 1 }) => {
             className={"w-screen"}
             dir="rtl"
             sx={{
-                background: "linear-gradient(to bottom, #ffffff, #f3e8ff)",
+                // background: "linear-gradient(to bottom, #ffffff, #f3e8ff)",
+                backgroundColor: theme.palette.background.paper,
                 py: 8,
                 px: { xs: 2, md: 3 },
                 overflowX: "hidden",
@@ -116,6 +117,7 @@ const FeaturesSection = ({ id = 1 }) => {
                             key={feature.id}
                             elevation={3}
                             sx={{
+                                backgroundColor:theme.palette.primary.light,
                                 borderRadius: 4,
                                 width: 280,
                                 textAlign: { md: "right", xs: "center" },
@@ -143,7 +145,7 @@ const FeaturesSection = ({ id = 1 }) => {
                                 <Typography
                                     variant="h6"
                                     fontWeight="bold"
-                                    color={theme.palette.text.primary}
+                                    color={theme.palette.primary.main}
                                     gutterBottom
                                 >
                                     {feature.title}

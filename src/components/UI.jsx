@@ -5,7 +5,7 @@ import "swiper/css";
 import { Box, Typography, Paper, CircularProgress, useTheme } from "@mui/material";
 import { useUIData } from "../api/UI.js";
 
-export default function BeautifulInterfaceSection({ id = 1 }) {
+export default function BeautifulInterfaceSection({ id }) {
     const theme = useTheme();
     const { data, isLoading, isError, error } = useUIData(id);
 
@@ -53,7 +53,8 @@ export default function BeautifulInterfaceSection({ id = 1 }) {
             dir="rtl"
             className="overflow-x-hidden w-screen"
             sx={{
-                background: "linear-gradient(to bottom, #ffffff, #FFE8F5)",
+                // background: "linear-gradient(to bottom, #ffffff, #FFE8F5)",
+                backgroundColor: theme.palette.background.paper,
                 py: 10,
                 display: "flex",
                 justifyContent: "center",

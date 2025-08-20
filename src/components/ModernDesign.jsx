@@ -1,11 +1,11 @@
 import React from "react";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import { Box, Typography, CircularProgress } from "@mui/material";
-import theme from "../theme.js";
+import {Box, Typography, CircularProgress, useTheme} from "@mui/material";
 import { useModerDesignData } from "../api/modernDesign.js";
 
-const ModernDesign = ({ id = 1 }) => {
+const ModernDesign = ({ id  }) => {
     const { data, isLoading, isError, error } = useModerDesignData(id);
+    const theme = useTheme();
 
     if (isLoading) {
         return (
@@ -27,17 +27,17 @@ const ModernDesign = ({ id = 1 }) => {
 
     const overlayStyles = [
         {
-            top: { xs: 210, md: 70 },
-            right: { xs: 430, md: 500 },
+            top: { xs: 120, md: 70 },
+            right: { xs: 280, md: 500 },
             width: { xs: 100, md: 150 },
             height: { xs: 100, md: 150 },
             borderRadius: "50%",
         },
         {
-            top: { xs: 300, md: 200 },
-            right: { xs: 350, md: 450 },
-            width: { xs: 150, md: 200 },
-            height: { xs: 150, md: 200 },
+            top: { xs: 200, md: 200 },
+            right: { xs: 250, md: 450 },
+            width: { xs: 120, md: 200 },
+            height: { xs: 120, md: 200 },
             borderRadius: 2,
             boxShadow: 2,
             border: "1px solid #e0e0e0",
@@ -49,10 +49,12 @@ const ModernDesign = ({ id = 1 }) => {
             dir="rtl"
             className="overflow-x-hidden w-screen"
             sx={{
-                background: "linear-gradient(to bottom, #ffffff, #FFEDD5)",
+                // background: "linear-gradient(to bottom, #ffffff, #FFEDD5)",
+                backgroundColor: theme.palette.background.paper,
                 py: 10,
                 display: "flex",
                 justifyContent: "center",
+                overflow: "hidden",
             }}
         >
             <Box

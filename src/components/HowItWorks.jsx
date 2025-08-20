@@ -1,12 +1,13 @@
 import React from "react";
 import { useHowItWorksData } from "../api/howItWorks.js";
-import theme from "../theme.js";
+import {useTheme} from "@mui/material";
 
-const HowItWorks = ({ id = 1 }) => {
+const HowItWorks = ({ id  }) => {
     const { data, isLoading, isError } = useHowItWorksData(id);
 
     if (isLoading) return <p className="text-center">در حال بارگذاری...</p>;
     if (isError) return <p className="text-center text-red-500">خطا در دریافت اطلاعات</p>;
+    const theme = useTheme();
 
     const steps = data.workSteps_items.map((item, idx) => ({
         number: (idx + 1).toString().padStart(2, "0"),
@@ -94,7 +95,7 @@ const HowItWorks = ({ id = 1 }) => {
                                     <img
                                         src={step.image}
                                         alt={`step-${idx + 1}`}
-                                        className="rounded-xl bg-cover w-100 h-60"
+                                        className="rounded-xl bg-cover w-60 md:w-100 h-40 md:h-60"
                                     />
                                 </div>
                             </li>
