@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useRef, useState} from "react";
 import {
     Box,
     Stack,
@@ -12,9 +12,10 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { sendEmail } from "../api/banner.js";
 import { useMutation } from "@tanstack/react-query";
 
-const Banner = ({id}) => {
+const Banner = ({id,scrollId}) => {
     const { data, isLoading, error } = useBannerData(id);
     const theme = useTheme();
+    const sectionRef = useRef(null);
 
     const [email, setEmail] = useState("");
 
@@ -41,6 +42,8 @@ const Banner = ({id}) => {
 
     return (
         <Box
+            id={scrollId}
+            ref={sectionRef}
             className="bg-white overflow-x-hidden w-screen"
             dir="rtl"
             sx={{ display: 'flex', justifyContent: 'center' }}

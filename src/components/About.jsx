@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Box, Typography, Paper, Avatar, CircularProgress } from "@mui/material";
-import theme from "../theme.js";
+import {Box, Typography, Paper, Avatar, CircularProgress, useTheme} from "@mui/material";
 import { useAboutData } from "../api/about.js";
 
-export default function AboutProgram({ id = 1 }) {
+export default function AboutProgram({ id,scrollId }) {
+    const theme = useTheme();
+
     const { data, isLoading, isError, error } = useAboutData(id);
     const sectionRef = useRef(null);
     const [counts, setCounts] = useState([]);
+
 
     const toPersianDigits = (num) =>
         num.toString().replace(/\d/g, (d) => "۰۱۲۳۴۵۶۷۸۹"[d]);
@@ -99,11 +101,12 @@ export default function AboutProgram({ id = 1 }) {
 
     return (
         <Box
+            id={scrollId}
             ref={sectionRef}
             dir="rtl"
             className="overflow-x-hidden w-screen"
             sx={{
-                background: "linear-gradient(to bottom, #f3e8ff, #ffffff)",
+                backgroundColor: theme.palette.background.paper,
                 px: { xs: 2, md: 3 },
                 py: 10,
                 overflowX: "hidden",
@@ -168,6 +171,7 @@ export default function AboutProgram({ id = 1 }) {
                                     alignItems: "center",
                                     p: 2,
                                     borderRadius: 2,
+                                    backgroundColor: theme.palette.primary.light,
                                 }}
                             >
                                 <Avatar

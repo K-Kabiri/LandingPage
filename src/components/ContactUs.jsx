@@ -2,10 +2,10 @@ import { Box, Typography, useTheme } from "@mui/material";
 import CustomButton from "./common/CustomButton.jsx";
 import CustomInput from "./common/CustomInput.jsx";
 import { useContactUsData } from "../api/contactUs.js";
-import { useState } from "react";
+import {useRef, useState} from "react";
 import { contactEmail } from "../api/contactUs.js";
 
-export default function ContactUs({ id }) {
+export default function ContactUs({ id , scrollId}) {
     const { data, isLoading, isError } = useContactUsData(id);
     const theme = useTheme();
 
@@ -13,6 +13,8 @@ export default function ContactUs({ id }) {
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(null);
     const [error, setError] = useState(null);
+    const sectionRef = useRef(null);
+
 
     if (isLoading) return <Typography>در حال بارگذاری...</Typography>;
     if (isError) return <Typography>خطا در دریافت داده‌ها</Typography>;
@@ -42,7 +44,8 @@ export default function ContactUs({ id }) {
 
     return (
         <Box
-            id={id}
+            id={scrollId}
+            ref={sectionRef}
             dir="rtl"
             className="w-screen overflow-x-hidden scroll-mt-24"
             sx={{

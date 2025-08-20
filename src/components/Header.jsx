@@ -73,6 +73,25 @@ const Header = ({id}) => {
                                     value={link.link}
                                     component="a"
                                     href={link.link || '#'}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        if(link.link === "banner") {
+                                            const el = document.getElementById("bannerSection");
+                                            el?.scrollIntoView({ behavior: "smooth" });
+                                        }
+                                        if(link.link === "aboutUs") {
+                                            const el = document.getElementById("aboutUsSection");
+                                            el?.scrollIntoView({ behavior: "smooth" });
+                                        }
+                                        if(link.link === "contactUs") {
+                                            const el = document.getElementById("contactUsSection");
+                                            el?.scrollIntoView({ behavior: "smooth" });
+                                        }
+                                        if(link.link === "features") {
+                                            const el = document.getElementById("featuresSection");
+                                            el?.scrollIntoView({ behavior: "smooth" });
+                                        }
+                                    }}
                                 />
                             )}
                         </CustomTab>

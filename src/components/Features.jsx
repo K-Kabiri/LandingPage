@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useRef} from "react";
 import {
     Box,
     Typography,
@@ -9,9 +9,10 @@ import {
 } from "@mui/material";
 import { useFeaturesData } from "../api/features.js"
 
-const FeaturesSection = ({ id  }) => {
+const FeaturesSection = ({ id, scrollId  }) => {
     const { data, isLoading, isError, error } = useFeaturesData(id);
     const theme = useTheme();
+    const sectionRef = useRef(null);
 
     if (isLoading) {
         return (
@@ -49,6 +50,8 @@ const FeaturesSection = ({ id  }) => {
 
     return (
         <Box
+            id={scrollId}
+            ref={sectionRef}
             className={"w-screen"}
             dir="rtl"
             sx={{
