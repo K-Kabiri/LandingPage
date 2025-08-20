@@ -48,7 +48,7 @@ const ChatBot = () => {
                     }}
                 >
                     <Box
-                        className="flex flex-row justify-between w-full px-4 py-3 rounded-t-3xl bg-contain bg-no-repeat items-start h-28 !bg-[url(./images/Rectangle4.png)]"
+                        className="flex flex-row justify-between w-full px-4 py-3 rounded-t-3xl bg-contain bg-no-repeat items-start h-28"
                     >
                         <div
                             className="flex flex-row items-center justify-center"

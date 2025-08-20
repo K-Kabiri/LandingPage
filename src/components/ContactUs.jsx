@@ -47,10 +47,10 @@ export default function ContactUs({ id , scrollId}) {
             id={scrollId}
             ref={sectionRef}
             dir="rtl"
-            className="w-screen overflow-x-hidden scroll-mt-24"
+            className="w-screen overflow-x-hidden scroll-mt-10"
             sx={{
                 backgroundColor: "#ffffff",
-                py: 5,
+                py: 10,
                 display: "flex",
                 justifyContent: "center",
                 px: { xs: 2, md: 4 },

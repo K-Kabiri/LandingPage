@@ -6,7 +6,6 @@ import { Box, Typography, Paper, useTheme, CircularProgress } from "@mui/materia
 import { useCompaniesData } from "../api/companies.js";
 
 export default function Companies({ id  }) {
-    console.log(id);
     const theme = useTheme();
     const { data, isLoading, isError, error } = useCompaniesData(id);
 

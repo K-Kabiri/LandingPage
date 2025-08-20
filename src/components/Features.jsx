@@ -55,7 +55,6 @@ const FeaturesSection = ({ id, scrollId  }) => {
             className={"w-screen"}
             dir="rtl"
             sx={{
-                // background: "linear-gradient(to bottom, #ffffff, #f3e8ff)",
                 backgroundColor: theme.palette.background.paper,
                 py: 8,
                 px: { xs: 2, md: 3 },
