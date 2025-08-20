@@ -157,6 +157,29 @@ const Header = ({id}) => {
                             textDecoration: 'none',
                             mt: 2,
                         }}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            if(link.link === "banner") {
+                                const el = document.getElementById("bannerSection");
+                                setIsMobileMenuOpen(!isMobileMenuOpen);
+                                el?.scrollIntoView({ behavior: "smooth" });
+                            }
+                            if(link.link === "aboutUs") {
+                                const el = document.getElementById("aboutUsSection");
+                                setIsMobileMenuOpen(!isMobileMenuOpen);
+                                el?.scrollIntoView({ behavior: "smooth" });
+                            }
+                            if(link.link === "contactUs") {
+                                const el = document.getElementById("contactUsSection");
+                                setIsMobileMenuOpen(!isMobileMenuOpen);
+                                el?.scrollIntoView({ behavior: "smooth" });
+                            }
+                            if(link.link === "features") {
+                                const el = document.getElementById("featuresSection");
+                                setIsMobileMenuOpen(!isMobileMenuOpen);
+                                el?.scrollIntoView({ behavior: "smooth" });
+                            }
+                        }}
                     >
                         {link.label}
                     </Link>

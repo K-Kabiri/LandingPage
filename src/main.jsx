@@ -19,8 +19,6 @@ function Main() {
             const data = await res.json();
             const palette = data.color_palettes[0];
 
-            console.log(palette);
-            // اینجا فقط دیتا رو پاس میدی به فایل theme.js
             const newTheme = customTheme(palette);
             setTheme2(newTheme);
         };

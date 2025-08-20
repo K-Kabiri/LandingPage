@@ -50,7 +50,7 @@ export default function ContactUs({ id , scrollId}) {
             className="w-screen overflow-x-hidden scroll-mt-24"
             sx={{
                 backgroundColor: "#ffffff",
-                py: 10,
+                py: 5,
                 display: "flex",
                 justifyContent: "center",
                 px: { xs: 2, md: 4 },
