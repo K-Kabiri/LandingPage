@@ -6,16 +6,15 @@ import "./styles/fonts.css";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { customTheme } from "./theme.js";
-
 const queryClient = new QueryClient();
 const BASE_URL = "http://127.0.0.1:8000";
-
+const landingId=2;
 function Main() {
     const [theme2, setTheme2] = useState(null);
 
     useEffect(() => {
         const fetchTheme = async () => {
-            const res = await fetch(`${BASE_URL}/api/landing-pages/2/`);
+            const res = await fetch(`${BASE_URL}/api/landing-pages/${landingId}`);
             const data = await res.json();
             const palette = data.color_palettes[0];
 
@@ -33,7 +32,7 @@ function Main() {
             <ThemeProvider theme={theme2}>
                 <CssBaseline />
                 <StrictMode>
-                    <App />
+                    <App landingId={landingId} />
                 </StrictMode>
             </ThemeProvider>
         </QueryClientProvider>

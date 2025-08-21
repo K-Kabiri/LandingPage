@@ -12,17 +12,16 @@ import UI from "../components/UI.jsx";
 import Companies from "../components/Companies.jsx";
 import ContactUs from "../components/ContactUs.jsx";
 import Newsletter from "../components/Newsletter.jsx";
-
 const BASE_URL = "http://127.0.0.1:8000";
 
-const Landing = () => {
+const Landing = ({landingId}) => {
         const [sections, setSections] = useState([]);
         const [headerId, setHeaderId] = useState(null);
         const [footerId, setFooterId] = useState(null);
 
         useEffect(() => {
                 const fetchSections = async () => {
-                        const res = await fetch(`${BASE_URL}/api/landing-pages/2/`);
+                        const res = await fetch(`${BASE_URL}/api/landing-pages/${landingId}/`);
                         const data = await res.json();
                         setSections(data.sections_info);
                         setHeaderId(data.header_id);
