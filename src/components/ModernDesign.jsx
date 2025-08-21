@@ -27,15 +27,17 @@ const ModernDesign = ({ id  }) => {
 
     const overlayStyles = [
         {
+            position: "absolute",
             top: { xs: 120, md: 70 },
-            right: { xs: 280, md: 500 },
+            right: { xs: 280, md: 500,sm:580 },
             width: { xs: 100, md: 150 },
             height: { xs: 100, md: 150 },
             borderRadius: "50%",
         },
         {
+            position: "absolute",
             top: { xs: 200, md: 200 },
-            right: { xs: 250, md: 450 },
+            right: { xs: 250, md: 450 , sm:530},
             width: { xs: 120, md: 200 },
             height: { xs: 120, md: 200 },
             borderRadius: 2,

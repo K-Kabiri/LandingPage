@@ -221,7 +221,6 @@ export default function AboutProgram({ id,scrollId }) {
                             alt={data.images[0].name}
                             sx={{
                                 width: { xs: "100%", sm: 400, md: 500 },
-
                             }}
                         />
                     )}
@@ -234,7 +233,7 @@ export default function AboutProgram({ id,scrollId }) {
                                 alt={data.images[0].name}
                                 sx={{
                                     width: { xs: "100%", sm: 400, md: 500 },
-
+                                    borderRadius:3,
                                     position: "relative",
                                     zIndex: 1,
                                 }}

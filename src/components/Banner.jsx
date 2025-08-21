@@ -12,7 +12,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { sendEmail } from "../api/banner.js";
 import { useMutation } from "@tanstack/react-query";
 
-const Banner = ({id,scrollId}) => {
+const Banner = ({id,scrollId,landingId}) => {
     const { data, isLoading, error } = useBannerData(id);
     const theme = useTheme();
     const sectionRef = useRef(null);
@@ -32,7 +32,7 @@ const Banner = ({id,scrollId}) => {
 
     const handleSubmit = () => {
         if (!email) return;
-        sendEmailMutate(email);
+        sendEmailMutate({ email, landingId });
     };
 
     if (isLoading) return <p>در حال بارگذاری...</p>;
@@ -87,7 +87,7 @@ const Banner = ({id,scrollId}) => {
                             }`}
                             sx={{
                                 animation: 'floatUpDown 3s ease-in-out infinite',
-                                animationDelay: `${index * 0.9}s`,
+                                animationDelay: `${index * 0.5}s`,
                                 '@keyframes floatUpDown': {
                                     '0%, 100%': { transform: 'translateY(10)' },
                                     '50%': { transform: 'translateY(-10px)' },
@@ -97,7 +97,7 @@ const Banner = ({id,scrollId}) => {
                             <img
                                 src={item.image}
                                 alt={item.name}
-                                className="w-full h-full object-contain block"
+                                className="w-full h-full object-cover block"
                             />
                         </Box>
                     ))}

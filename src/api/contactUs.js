@@ -16,12 +16,12 @@ export const useContactUsData = (id) => {
     });
 };
 
-
-export const contactEmail = async ({ name, email, message, csrfToken }) => {
+export const contactEmail = async ({  name, email, message, landingId }) => {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("email", email);
     formData.append("message", message);
+    formData.append("landing_page_id", landingId);
 
     const res = await axios.post(
         `${BASE_URL}/api/emails/contact/`,
@@ -29,10 +29,10 @@ export const contactEmail = async ({ name, email, message, csrfToken }) => {
         {
             headers: {
                 "Content-Type": "multipart/form-data",
-                "accept": "application/json",
             },
         }
     );
 
     return res.data;
 };
+

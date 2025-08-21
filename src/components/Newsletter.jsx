@@ -5,7 +5,7 @@ import { useNewslettersData,sendEmail } from "../api/newsletter.js";
 import { useState } from "react";
 import {useMutation} from "@tanstack/react-query";
 
-export default function NewsletterSection({ id  }) {
+export default function NewsletterSection({ id,landingId  }) {
     const { data, isLoading, isError, error } = useNewslettersData(id);
     const theme = useTheme();
     const [email, setEmail] = useState("");
@@ -25,7 +25,7 @@ export default function NewsletterSection({ id  }) {
 
     const handleSubmit = () => {
         if (!email) return;
-        sendEmailMutate(email);
+        sendEmailMutate({ email, landingId });
     };
 
 

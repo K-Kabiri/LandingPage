@@ -38,7 +38,7 @@ const Landing = ({landingId}) => {
                     {headerId && <Header id={headerId} />}
                     {sections.map((section, index) => {
                             if (section.banner_section)
-                                    return <Banner key={index} id={section.banner_section} scrollId="bannerSection"/>;
+                                    return <Banner key={index} id={section.banner_section} scrollId="bannerSection" landingId={landingId}/>;
                             if (section.feature_section)
                                     return <Features key={index} id={section.feature_section} scrollId="featuresSection" />;
                             if (section.workSteps_section)
@@ -54,9 +54,9 @@ const Landing = ({landingId}) => {
                             if (section.companies_section)
                                     return <Companies key={index} id={section.companies_section} />;
                             if (section.newsletter_section)
-                                    return <Newsletter key={index} id={section.newsletter_section} />;
+                                    return <Newsletter key={index} id={section.newsletter_section} landingId={landingId} />;
                             if (section.form_section)
-                                    return <ContactUs key={index} id={section.form_section} scrollId="contactUsSection" />;
+                                    return <ContactUs key={index} id={section.form_section} scrollId="contactUsSection" landingId={landingId} />;
                             return null;
                     })}
                     <ChatBot />

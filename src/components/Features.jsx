@@ -87,7 +87,7 @@ const FeaturesSection = ({ id, scrollId  }) => {
                             component="img"
                             src={data?.image || "/src/assets/react.svg"}
                             alt="پیش‌نمایش سیستم"
-                            sx={{ width: "100%", height: "auto", display: "block" }}
+                            sx={{ width: "100%", height: "auto", display: "block",objectFit: "cover" }}
                         />
                     </Box>
                 </Box>

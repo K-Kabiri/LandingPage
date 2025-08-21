@@ -5,7 +5,7 @@ import { useContactUsData } from "../api/contactUs.js";
 import {useRef, useState} from "react";
 import { contactEmail } from "../api/contactUs.js";
 
-export default function ContactUs({ id , scrollId}) {
+export default function ContactUs({ id , scrollId,landingId}) {
     const { data, isLoading, isError } = useContactUsData(id);
     const theme = useTheme();
 
@@ -32,6 +32,7 @@ export default function ContactUs({ id , scrollId}) {
                 name: formValues["نام"] || formValues["Name"] || "",
                 email: formValues["ایمیل"] || formValues["Email"] || "",
                 message: formValues["پیام"] || formValues["Message"] || "",
+                landingId: landingId,
             });
             setSuccess("پیام شما با موفقیت ارسال شد!");
         } catch (err) {

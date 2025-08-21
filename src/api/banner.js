@@ -16,9 +16,11 @@ export const useBannerData = (id) => {
     });
 };
 
-export const sendEmail = async (email) => {
+
+export const sendEmail = async ({ email, landingId }) => {
     const formData = new FormData();
     formData.append("email", email);
+    formData.append("landing_page_id", landingId);
 
     const res = await axios.post(
         `${BASE_URL}/api/emails/send/welcome`,
@@ -32,3 +34,4 @@ export const sendEmail = async (email) => {
 
     return res.data;
 };
+
