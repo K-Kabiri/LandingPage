@@ -1,15 +1,17 @@
 import { StrictMode, useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import App from "./App.jsx";
 import "./styles/fonts.css";
+import App from "./App.jsx";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { customTheme } from "./theme.js";
+
 const queryClient = new QueryClient();
 const BASE_URL = "http://127.0.0.1:8000";
 const landingId = 1;
-function Main() {
+
+const Main = () => {
   const [theme2, setTheme2] = useState(null);
 
   useEffect(() => {
@@ -17,11 +19,8 @@ function Main() {
       const res = await fetch(`${BASE_URL}/api/landing-pages/${landingId}/`);
       const data = await res.json();
       const palette = data.color_palettes[0];
-
-      const newTheme = customTheme(palette);
-      setTheme2(newTheme);
+      setTheme2(customTheme(palette));
     };
-
     fetchTheme();
   }, []);
 
@@ -37,6 +36,9 @@ function Main() {
       </ThemeProvider>
     </QueryClientProvider>
   );
-}
+};
 
+export default Main;
+
+// render
 createRoot(document.getElementById("root")).render(<Main />);

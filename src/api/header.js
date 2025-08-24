@@ -1,14 +1,15 @@
+import { fetcher } from "./config";
 import { useQuery } from "@tanstack/react-query";
-const BASE_URL = "http://127.0.0.1:8000";
+
+const getHeaderData = async (id) => {
+  const { data } = await fetcher.get(`/headers/${id}/`);
+  return data;
+};
 
 export const useHeaderData = (id) => {
   return useQuery({
     queryKey: ["header", id],
-    queryFn: () =>
-      fetch(`${BASE_URL}/api/headers/${id}/`).then((res) => {
-        if (!res.ok) throw new Error("Error in catching data from API");
-        return res.json();
-      }),
+    queryFn: () => getHeaderData(id),
     enabled: !!id,
     staleTime: 1000 * 60 * 5,
   });

@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 # Vite cache
 .vite
+
+# Environment Files
+.env
