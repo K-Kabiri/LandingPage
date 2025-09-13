@@ -6,23 +6,43 @@ import "./styles/fonts.css";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { customTheme } from "./theme.js";
+
 const queryClient = new QueryClient();
 const BASE_URL = "http://127.0.0.1:8000";
-const landingId=1;
+const landingId = 1;
+
 function Main() {
     const [theme2, setTheme2] = useState(null);
 
     useEffect(() => {
-        const fetchTheme = async () => {
-            const res = await fetch(`${BASE_URL}/api/landing-pages/${landingId}/`);
-            const data = await res.json();
-            const palette = data.color_palettes[0];
+        const fetchLandingData = async () => {
+            try {
+                const res = await fetch(`${BASE_URL}/api/landing-pages/${landingId}/`);
+                const data = await res.json();
 
-            const newTheme = customTheme(palette);
-            setTheme2(newTheme);
+                const palette = data.color_palettes[0];
+                const newTheme = customTheme(palette);
+                setTheme2(newTheme);
+
+                if (data.browser_tab_title) {
+                    document.title = data.browser_tab_title;
+                }
+
+                if (data.browser_tab_icon) {
+                    let link = document.querySelector("link[rel~='icon']");
+                    if (!link) {
+                        link = document.createElement("link");
+                        link.rel = "icon";
+                        document.head.appendChild(link);
+                    }
+                    link.href = data.browser_tab_icon;
+                }
+            } catch (error) {
+                console.error("خطا در گرفتن اطلاعات لندینگ:", error);
+            }
         };
 
-        fetchTheme();
+        fetchLandingData();
     }, []);
 
     if (!theme2) return <div>Loading...</div>;
