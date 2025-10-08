@@ -1,4 +1,4 @@
-# Landing Page Project – Internship at Payam Pardaze, Sanita Team 💼
+# Landing Page Project
 
 This project is a **single landing page** built during my internship at **Payam Pardaze** within the **Sanita Team**. The goal was to gain hands-on experience in **modern front-end development**, UI design, and building interactive web pages using React.
 
