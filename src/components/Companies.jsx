@@ -2,28 +2,23 @@ import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
+import { Box, Typography, Paper, useTheme, CircularProgress } from "@mui/material";
+import { useCompaniesData } from "../api/companies.js";
 
-import { Box, Typography, Paper, useTheme } from "@mui/material";
-
-const images = [
-    "/src/assets/react.svg",
-    "/vite.svg",
-    "/src/assets/react.svg",
-    "/vite.svg",
-    "/src/assets/react.svg",
-    "/src/assets/react.svg",
-    "/vite.svg",
-    "/src/assets/react.svg",
-    "/vite.svg",
-    "/src/assets/react.svg",
-];
-
-export default function Companies() {
+export default function Companies({ id  }) {
     const theme = useTheme();
-    const [activeIndex, setActiveIndex] = useState(0);
-    const [centerIndex, setCenterIndex] = useState(0);
+    const { data, isLoading, isError, error } = useCompaniesData(id);
 
-    const isSwiperActive = images.length > 5;
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const handleResize = () => setWindowWidth(window.innerWidth);
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
+
+    const isMobileOrTablet = windowWidth < 1024;
+    const isSwiperActive = isMobileOrTablet || (data?.companies?.length > 5);
 
     const getCardSize = (width) => {
         if (width < 480) return { width: 280, height: 100 };
@@ -42,12 +37,22 @@ export default function Companies() {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
+    if (isLoading) return <CircularProgress />;
+    if (isError) return <Typography color="error">خطا در بارگذاری اطلاعات</Typography>;
+
+    let images = data?.companies?.map((c) => c.company_image) || [];
+
+    if (images.length > 5) {
+        images = [...images, ...images];
+    }
+
     return (
         <Box
             dir="rtl"
             className="overflow-x-hidden w-screen"
             sx={{
-                background: 'linear-gradient(to bottom, #FFE8F5, #ffffff)',
+                // background: "linear-gradient(to bottom, #FFE8F5, #ffffff)",
+                backgroundColor: theme.palette.background.paper,
                 py: 10,
                 display: "flex",
                 justifyContent: "center",
@@ -57,7 +62,7 @@ export default function Companies() {
                 sx={{
                     width: "100%",
                     maxWidth: "1280px",
-                    px: { xs: 2, md: 4 },
+                    px: { xs: 4, md: 4 },
                     display: "flex",
                     flexDirection: "column",
                     alignItems: "center",
@@ -67,90 +72,75 @@ export default function Companies() {
             >
                 <Box sx={{ textAlign: "center" }}>
                     <Typography variant="h4" fontWeight="bold" mb={2}>
-                        مورد اعتماد{" "}
+                        {data?.title}{" "}
                         <Box component="span" color={theme.palette.primary.main}>
-                            ۱۵+
+                            {data?.subtitle}
                         </Box>{" "}
-                        شرکت
                     </Typography>
                     <Typography color="text.secondary" fontSize="1.1rem">
-                        لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ
-                        چاپگرها و متون بلکه روزنامه با استفاده از طراحان گرافیک است.
+                        {data?.description}
                     </Typography>
                 </Box>
 
-                {/* Logos */}
                 <Box sx={{ width: "100%", overflow: "hidden", height: cardSize.height + 60 }}>
                     {isSwiperActive ? (
                         <Swiper
                             modules={[Autoplay]}
-                            loop={true}
-                            autoplay={{ delay: 1500, disableOnInteraction: false }}
-                            slidesPerView={1}
-                            spaceBetween={16}
+                            loop
+                            autoplay={{ delay: 2000, disableOnInteraction: false }}
                             grabCursor={true}
-                            onSlideChange={(swiper) => {
-                                const visibleSlides = swiper.params.slidesPerView;
-                                const center =
-                                    (swiper.realIndex + Math.floor(visibleSlides / 2)) % images.length;
-                                setActiveIndex(swiper.realIndex);
-                                setCenterIndex(center);
-                            }}
+                            centeredSlides={true}
+                            centerInsufficientSlides={true}
                             breakpoints={{
-                                0: { slidesPerView: 1, spaceBetween: 2 },
-                                480: { slidesPerView: 3, spaceBetween: 3 },
-                                768: { slidesPerView: 3, spaceBetween: 3 },
-                                1024: { slidesPerView: 5, spaceBetween: 10 },
+                                0: { slidesPerView: 1, spaceBetween: 10,centeredSlides:true},     // موبایل کوچک
+                                480: { slidesPerView: 2, spaceBetween: 10,centeredSlides:true },   // موبایل بزرگ
+                                768: { slidesPerView: 2, spaceBetween: 10,centeredSlides:true },   // تبلت
+                                1024: { slidesPerView: 5, spaceBetween: 20,centeredSlides:true },  // لپ‌تاپ و دسکتاپ
                             }}
                             style={{ overflow: "visible" }}
                         >
-                            {images.map((src, idx) => {
-                                const isCenterSlide = idx === centerIndex;
-
-                                return (
-                                    <SwiperSlide
-                                        key={idx}
-                                        style={{
-                                            zIndex: isCenterSlide ? 2 : 1,
-                                            position: "relative",
+                            {images.map((src, idx) => (
+                                <SwiperSlide
+                                    key={idx}
+                                    style={{
+                                        position: "relative",
+                                        transition: "transform 0.5s ease",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                    }}
+                                >
+                                    <Paper
+                                        elevation={3}
+                                        sx={{
+                                            height: cardSize.height,
+                                            width: cardSize.width,
+                                            borderRadius: 2,
+                                            borderWidth: 1,
+                                            borderColor: theme.palette.primary.main,
+                                            overflow: "hidden",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            p: 1,
                                             transition: "transform 0.5s ease",
                                         }}
+                                        className="company-card"
                                     >
-                                        <Paper
-                                            elevation={3}
+                                        <Box
+                                            component="img"
+                                            src={src}
+                                            alt={`company-${idx}`}
                                             sx={{
-                                                height: cardSize.height,
-                                                width: cardSize.width,
+                                                width: "100%",
+                                                height: "100%",
+                                                objectFit: "contain",
                                                 borderRadius: 2,
-                                                borderWidth: 1,
-                                                borderColor: theme.palette.primary.main,
-                                                overflow: "hidden",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                p: 1,
-                                                transition: "transform 0.5s ease",
+                                                transition: "filter 0.5s ease",
                                             }}
-                                        >
-                                            <Box
-                                                component="img"
-                                                src={src}
-                                                alt={`image-${idx}`}
-                                                sx={{
-                                                    width: "100%",
-                                                    height: "100%",
-                                                    objectFit: "contain",
-                                                    borderRadius: 2,
-                                                    filter: isCenterSlide
-                                                        ? "none"
-                                                        : "grayscale(100%)",
-                                                    transition: "filter 0.5s ease",
-                                                }}
-                                            />
-                                        </Paper>
-                                    </SwiperSlide>
-                                );
-                            })}
+                                        />
+                                    </Paper>
+                                </SwiperSlide>
+                            ))}
                         </Swiper>
                     ) : (
                         <Box
@@ -181,13 +171,12 @@ export default function Companies() {
                                     <Box
                                         component="img"
                                         src={src}
-                                        alt={`image-${idx}`}
+                                        alt={`company-${idx}`}
                                         sx={{
                                             width: "100%",
                                             height: "100%",
                                             objectFit: "contain",
                                             borderRadius: 2,
-                                            filter: "grayscale(100%)",
                                         }}
                                     />
                                 </Paper>
@@ -196,6 +185,17 @@ export default function Companies() {
                     )}
                 </Box>
             </Box>
+
+            <style>
+                {`
+          .swiper-slide-active .company-card img {
+            filter: none !important;
+          }
+          .company-card img {
+            filter: grayscale(100%);
+          }
+        `}
+            </style>
         </Box>
     );
 }

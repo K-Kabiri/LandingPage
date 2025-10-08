@@ -1,63 +1,100 @@
-import { Box, Typography, Link, IconButton } from '@mui/material';
+import {Box, Typography, Link, IconButton, Tooltip, useTheme} from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import theme from "../theme.js";
-export default function Footer() {
-    const usefulLinks = [
-        { label: 'خانه', href: '#' },
-        { label: 'درباره ما', href: '#' },
-        { label: 'سرویس‌ها', href: '#' },
-        { label: 'بلاگ', href: '#' },
-        { label: 'ارتباط با ما', href: '#' },
-    ];
+import FacebookIcon from '@mui/icons-material/Facebook';
+import { useFooterData } from "../api/footer.js";
+
+const iconMap = {
+    Instagram: InstagramIcon,
+    Telegram: TelegramIcon,
+    Twitter: TwitterIcon,
+    Facebook: FacebookIcon,
+};
+
+export default function Footer({id}) {
+    const { data, isLoading, error } = useFooterData(id);
+    const theme = useTheme();
+
+    if (isLoading) return <div>در حال بارگذاری...</div>;
+    if (error) return <div>خطا در دریافت اطلاعات</div>;
+
+    const { logo, contact_information, useful_links, qr_code, copyright_notice } = data;
 
     return (
         <Box
             component="footer"
             dir="rtl"
             sx={{
-                background: 'white',
+                background: `linear-gradient(${theme.palette.background.paper}, ${theme.palette.primary.light})`,
                 px: { xs: 2, md: 6 },
                 py: 5,
-                borderTop: '1px solid #e0e0e0',
+                boxShadow: "0 1px 3px rgba(0, 0, 0, 1)",
             }}
-            className={"w-full"}
+            className="w-full"
         >
             <Box
                 sx={{
                     display: 'flex',
                     flexDirection: { xs: 'column', md: 'row' },
                     justifyContent: 'space-between',
-                    alignItems: 'stretch',
+                    alignItems: 'center',
                     flexWrap: 'wrap',
                     gap: { xs: 4, md: 0 },
                     maxWidth: '1280px',
                     mx: 'auto',
+                    textAlign: 'center',
                 }}
             >
                 {/* Contact us */}
-                <Box className={"flex flex-col justify-center items-center"} sx={{ flex: 1, minWidth: 0}} dir={"ltr"}>
-                    <img src="/src/assets/react.svg" alt="SYNTA" width={80} className={"mb-6"} />
-                    <Typography variant="body2" color="text.secondary">synta@farda-studio.ir</Typography>
-                    <Typography variant="body2" color="text.secondary" >+98 913 655 8750</Typography>
-                    <Box mt={1}>
-                        <IconButton><InstagramIcon fontSize="small" /></IconButton>
-                        <IconButton><TelegramIcon fontSize="small" /></IconButton>
-                        <IconButton><TwitterIcon fontSize="small" /></IconButton>
+                <Box className="flex flex-col justify-center items-center" sx={{ flex: 1, minWidth: 0 }} dir="ltr">
+                    {logo && <img src={logo} alt="SYNTA" width={120} className="mb-6" />}
+                    <Typography variant="body2" color="text.secondary">{contact_information?.email}</Typography>
+                    <Typography variant="body2" color="text.secondary">{contact_information?.phone_number}</Typography>
+                    <Box mt={1} display="flex" gap={1}>
+                        {contact_information?.social_links?.map((social) => {
+                            const IconComponent = iconMap[social.label];
+                            if (!IconComponent) return null;
+
+                            return (
+                                <Tooltip key={social.id} title={social.label}>
+                                    <IconButton
+                                        component="a"
+                                        href={social.link || "#"}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        sx={{
+                                            borderRadius: "50%",
+                                            transition: "all 0.3s ease",
+                                            color: theme.palette.text.secondary,
+                                            cursor: "pointer",
+                                            '&:hover': {
+                                                transform: 'scale(1.2)',
+                                                color: theme.palette.primary.contrastText,
+                                                backgroundColor: theme.palette.primary.main,
+                                                boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+                                            },
+                                        }}
+                                    >
+                                        <IconComponent fontSize="small" />
+                                    </IconButton>
+                                </Tooltip>
+                            );
+                        })}
                     </Box>
+
                 </Box>
 
                 {/* Links */}
-                <Box sx={{ flex: 1, minWidth: 0, textAlign: 'center', p: 0 }}>
-                    <Typography fontWeight="bold" color={theme.palette.text.primary}>
-                        لینک‌های مفید
+                <Box sx={{ flex: 1, minWidth: 0 }}>
+                    <Typography fontWeight="bold" color={theme.palette.text.primary} gutterBottom>
+                        {useful_links?.title}
                     </Typography>
                     <Box display="flex" flexDirection="column" gap={1}>
-                        {usefulLinks.map((link, i) => (
+                        {useful_links?.links?.map((link) => (
                             <Link
-                                key={i}
-                                href={link.href}
+                                key={link.id}
+                                href={link.link || "#"}
                                 underline="none"
                                 sx={{
                                     color: theme.palette.text.primary,
@@ -66,45 +103,68 @@ export default function Footer() {
                                     transition: 'color 0.2s ease',
                                     '&:hover': {
                                         color: theme.palette.primary.main,
+                                        pl: 1
                                     },
                                 }}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    if(link.link === "banner") {
+                                        const el = document.getElementById("bannerSection");
+                                        el?.scrollIntoView({ behavior: "smooth" });
+                                    }
+                                    if(link.link === "aboutUs") {
+                                        const el = document.getElementById("aboutUsSection");
+                                        el?.scrollIntoView({ behavior: "smooth" });
+                                    }
+                                    if(link.link === "contactUs") {
+                                        const el = document.getElementById("contactUsSection");
+                                        el?.scrollIntoView({ behavior: "smooth" });
+                                    }
+                                    if(link.link === "features") {
+                                        const el = document.getElementById("featuresSection");
+                                        el?.scrollIntoView({ behavior: "smooth" });
+                                    }
+                                }}
                             >
-                                {link.label}
+                                {link.text}
                             </Link>
                         ))}
                     </Box>
                 </Box>
 
-                {/*   (QR Code) */}
-                <Box sx={{ flex: 1, minWidth: 0, textAlign: 'center' }}>
-                    <Typography fontWeight="bold" gutterBottom>امتحان کنید</Typography>
+                {/* QR Code */}
+                <Box sx={{ flex: 1, minWidth: 0 }}>
+                    <Typography fontWeight="bold" gutterBottom>{qr_code?.title}</Typography>
                     <Box
                         component="img"
-                        src="/qr-code.png"
+                        src={qr_code?.image}
                         alt="QR Code"
-                        sx={{ width: 120, height: 120, mx: 'auto' }}
+                        sx={{ width: 120, height: 120, mx: 'auto', display: 'block' }}
                     />
-                    <Typography variant="caption" display="block" mt={1} color="primary">Connect</Typography>
+                    <Typography variant="caption" display="block" mt={1} color="primary">با موبایل اسکن کنید</Typography>
                 </Box>
 
-                {/* views */}
-                <Box sx={{ flex: 1, minWidth: 0, textAlign: 'center' }}>
-                    <Typography fontWeight="bold" gutterBottom>آمار بازدید</Typography>
-                    <Box sx={{ backgroundColor: '#a855f7', borderRadius: 2, color: '#fff', p: 2, fontSize: 12, lineHeight: 1.8 }}>
-                        <div>👤 افراد آنلاین: ۱ نفر</div>
-                        <div>📅 بازدید امروز: ۳ نفر</div>
-                        <div>📊 بازدید هفته: ۳۴ نفر</div>
-                        <div>🌍 بازدید ماهانه: ۴۵ نفر</div>
-                        <div>🇮🇷 بازدید کل: ۴۶ نفر</div>
-                        <div>توسط یک ای‌پی</div>
-                    </Box>
-                </Box>
+                <iframe
+                    src="https://1abzar.ir/abzar/tools/stat/stat-v3.php?color=FFFFFF&bg=6F6F75&kc=888888&kadr=1&amar=b498xne0fb3j3p6hmf9a8k6dot1o3w&show=1|0|1|1|1|1|1"
+                    scrolling="no"
+                    frameBorder="0"
+                    name="alir"
+                    width="160"
+                    height="183"
+                    style={{
+                        border: "1px solid #888888",
+                        borderRadius: "4px",
+                        WebkitBorderRadius: "4px",
+                        MozBorderRadius: "4px",
+                    }}
+                    title="site-visitor-stats"
+                />
+
             </Box>
 
             <Typography variant="caption" display="block" textAlign="center" mt={4} color="text.secondary">
-                © تمام حقوق مادی و معنوی این وبسایت متعلق به استارتاپ سینتا می‌باشد.
+                {copyright_notice}
             </Typography>
         </Box>
-
     );
 }

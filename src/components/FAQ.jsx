@@ -1,44 +1,40 @@
 import React, { useState } from "react";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import theme from "../theme.js";
-import { Typography, Box } from "@mui/material";
+import {Typography, Box, CircularProgress, useTheme} from "@mui/material";
+import { useFAQData } from "../api/FAQ.js";
 
-const faqs = [
-    {
-        question: "چگونه می توانم پرداخت کنم؟",
-        answer:
-            "پس از انتخاب نوع سرویس خود با پشتیبان ما تماس گرفته و ضمن دریافت فاکتور و صورت‌حساب، حساب کاربری خود را فعال نمایید.",
-    },
-    {
-        question: "چگونه حساب را تنظیم کنیم؟",
-        answer:
-            "به بخش تنظیمات حساب رفته و اطلاعات کاربری خود را کامل نمایید.",
-    },
-    {
-        question: "چه فرآیندی برای بازپرداخت است ؟",
-        answer:
-            "در صورت عدم رضایت، با پشتیبانی تماس گرفته و فرم بازپرداخت را پر نمایید.",
-    },
-    {
-        question: "چه فرآیندی برای بازپرداخت است ؟",
-        answer:
-            "در صورت عدم رضایت، با پشتیبانی تماس گرفته و فرم بازپرداخت را پر نمایید.",
-    },
-];
-
-const FAQ = () => {
+const FAQ = ({ id  }) => {
     const [openIndex, setOpenIndex] = useState(null);
+    const { data, isLoading, isError, error } = useFAQData(id);
+    const theme = useTheme();
 
     const toggleFAQ = (index) => {
         setOpenIndex(openIndex === index ? null : index);
     };
 
+    if (isLoading) {
+        return (
+            <Box display="flex" justifyContent="center" alignItems="center" py={10}>
+                <CircularProgress />
+            </Box>
+        );
+    }
+
+    if (isError) {
+        return (
+            <Box textAlign="center" py={10} color="red">
+                خطا در دریافت اطلاعات: {error.message}
+            </Box>
+        );
+    }
+
     return (
         <Box
             dir="rtl"
             sx={{
-                background: 'linear-gradient(to bottom, #FFEDD5, #ffffff)',
+                // background: 'linear-gradient(to bottom, #FFEDD5, #ffffff)',
+                backgroundColor: theme.palette.background.paper,
                 py: 10,
                 width: '100%',
                 overflowX: 'hidden',
@@ -63,9 +59,9 @@ const FAQ = () => {
                     sx={{ textAlign: 'center' }}
                 >
                     <Box component="span" color={theme.palette.primary.main}>
-                        سوالات متداول -
-                    </Box>{' '}
-                    سوالات متداول پرسیده شده
+                        {data?.title}
+                    </Box>{" "}
+                    {data?.subtitle}
                 </Typography>
 
                 <Typography
@@ -74,8 +70,7 @@ const FAQ = () => {
                     sx={{ maxWidth: '100%', mx: 'auto', textAlign: 'center' }}
                     fontSize={{ xs: '0.875rem', sm: '1rem', md: '1.125rem' }}
                 >
-                    لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، چیدمان و متون بلکه روزنامه با استفاده از
-                    طراحان گرافیک است.
+                    {data?.description}
                 </Typography>
 
                 <Box
@@ -85,12 +80,12 @@ const FAQ = () => {
                         gap: 3,
                     }}
                 >
-                    {faqs.map((faq, index) => (
+                    {data?.questions?.map((faq, index) => (
                         <Box
-                            key={index}
+                            key={faq.id}
                             sx={{
                                 borderRadius: 2,
-                                backgroundColor: '#ede7f6', // مشابه violet-100 (میتونی تغییر بدی)
+                                backgroundColor: theme.palette.primary.light,
                                 boxShadow: 1,
                                 overflow: 'hidden',
                                 width: '100%',
@@ -113,7 +108,7 @@ const FAQ = () => {
                                 <Typography
                                     variant="subtitle1"
                                     sx={{
-                                        color: openIndex === index ? theme.palette.primary.main : theme.palette.text.primary,
+                                        color: openIndex === index ? theme.palette.primary.main : theme.palette.grey[800],
                                         textAlign: 'right',
                                         fontSize: { xs: '1rem', sm: '1.125rem', md: '1.25rem' },
                                     }}
@@ -133,7 +128,7 @@ const FAQ = () => {
                                     sx={{
                                         px: 4,
                                         pb: 4,
-                                        color: theme.palette.grey[600],
+                                        color: theme.palette.grey[800],
                                         fontSize: { xs: '0.875rem', sm: '1rem', md: '1.125rem' },
                                         lineHeight: 1.75,
                                         textAlign: 'right',

@@ -6,28 +6,29 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {useTheme} from '@mui/material/styles';
-import {Tab} from "@mui/material";
-import CustomButton from "./CustomButton.jsx";
-import CustomTab from "./CustomTab.jsx";
+import {Tab,Link, Typography} from "@mui/material";
+import CustomButton from "../components/common/CustomButton.jsx";
+import CustomTab from "../components/common/CustomTab.jsx";
 import {useHeaderData} from "../api/header.js";
-import theme from "../theme.js";
 
-const Header = () => {
+const Header = ({id}) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const theme = useTheme();
 
-    const {data, isLoading, error} = useHeaderData(2);
+    const {data, isLoading, error} = useHeaderData(id);
     const theme1 = useTheme();
     const isDesktop = useMediaQuery(theme1.breakpoints.up('md'));
 
     if (isLoading) return <div>در حال بارگذاری...</div>;
     if (error) return <div>خطا در دریافت داده‌ها</div>;
 
-    const navLinks = data?.tabs || [];
+    const navLinks = data?.header_tabs || [];
     const ctaButtons = data?.buttons || [];
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
     };
+    console.log(data.icon_image);
 
     return (
         <AppBar
@@ -45,13 +46,21 @@ const Header = () => {
                     width: '100%',
                     maxWidth: '1280px',
                     margin: '0 auto',
-                    paddingX: { xs: 2, md: 4 },
+                    paddingX: {xs: 2, md: 4},
                     display: 'flex',
                     justifyContent: 'space-between',
                 }}
             >
-                <Box sx={{flexShrink: 0}}>
-                    <img src={data?.icon_image.url} alt="Logo" style={{height: 40}}/>
+                <Box sx={{flexShrink: 0, display: 'flex', flexDirection: 'row', alignItems: 'center', gap:1}}>
+                    <img src={data?.icon_image} alt="Logo" style={{height: 60}}/>
+                    <Typography
+                        variant="h6"
+                        fontWeight="bold"
+                        color={theme.palette.primary.main}
+                    >
+                        {data?.subtitle}
+                    </Typography>
+
                 </Box>
 
                 {isDesktop && (
@@ -64,6 +73,25 @@ const Header = () => {
                                     value={link.link}
                                     component="a"
                                     href={link.link || '#'}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        if(link.link === "banner") {
+                                            const el = document.getElementById("bannerSection");
+                                            el?.scrollIntoView({ behavior: "smooth" });
+                                        }
+                                        if(link.link === "aboutUs") {
+                                            const el = document.getElementById("aboutUsSection");
+                                            el?.scrollIntoView({ behavior: "smooth" });
+                                        }
+                                        if(link.link === "contactUs") {
+                                            const el = document.getElementById("contactUsSection");
+                                            el?.scrollIntoView({ behavior: "smooth" });
+                                        }
+                                        if(link.link === "features") {
+                                            const el = document.getElementById("featuresSection");
+                                            el?.scrollIntoView({ behavior: "smooth" });
+                                        }
+                                    }}
                                 />
                             )}
                         </CustomTab>
@@ -82,6 +110,7 @@ const Header = () => {
                                 key={btn.id}
                                 onClick={() => window.open(btn.link, '_blank')}
                                 bgColor={'primary.main'}
+                                iconUrl={btn.icon}
                             >
                                 {btn.label}
                             </CustomButton>
@@ -115,24 +144,55 @@ const Header = () => {
                 dir="rtl"
             >
                 {navLinks.map((link) => (
-                    <a
+                    <Link
                         key={link.id}
                         href={link.link || '#'}
-                        className="block px-4 py-2 "
-                        style={{color: `${theme.palette.text.primary} hover:${theme.palette.primary.main}`}}
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            color: theme.palette.primary.main,
+                            '&:hover': {
+                                color: theme.palette.primary.main,
+                            },
+                            textDecoration: 'none',
+                            mt: 2,
+                        }}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            if(link.link === "banner") {
+                                const el = document.getElementById("bannerSection");
+                                setIsMobileMenuOpen(!isMobileMenuOpen);
+                                el?.scrollIntoView({ behavior: "smooth" });
+                            }
+                            if(link.link === "aboutUs") {
+                                const el = document.getElementById("aboutUsSection");
+                                setIsMobileMenuOpen(!isMobileMenuOpen);
+                                el?.scrollIntoView({ behavior: "smooth" });
+                            }
+                            if(link.link === "contactUs") {
+                                const el = document.getElementById("contactUsSection");
+                                setIsMobileMenuOpen(!isMobileMenuOpen);
+                                el?.scrollIntoView({ behavior: "smooth" });
+                            }
+                            if(link.link === "features") {
+                                const el = document.getElementById("featuresSection");
+                                setIsMobileMenuOpen(!isMobileMenuOpen);
+                                el?.scrollIntoView({ behavior: "smooth" });
+                            }
+                        }}
                     >
                         {link.label}
-                    </a>
+                    </Link>
                 ))}
-                <Box className="mt-2 grid gap-2">
+                <div className={"border-t-gray-200 border-t-1 mt-5"}></div>
+                <Box className="mt-5 flex flex-row gap-2 ">
                     {ctaButtons.map((btn) => (
                         <CustomButton
                             key={btn.id}
                             onClick={() => window.open(btn.link, '_blank')}
                             textColor="white"
-                            py={1}
-                            px={3}
                             borderRadius={4}
+                            iconUrl={btn.icon}
                         >
                             {btn.label}
                         </CustomButton>
